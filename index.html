@@ -665,6 +665,7 @@ body {
     <button class="tab active" onclick="showSection('test')">Testové otázky</button>
     <button class="tab" onclick="showSection('theory')">Teorie</button>
     <button class="tab" onclick="showSection('translate')">Překlady</button>
+    <button class="tab" onclick="showSection('exam')">🎓 Zkouška</button>
   </div>
 
   <!-- TEST -->
@@ -757,6 +758,38 @@ body {
       <button class="btn btn-ghost" onclick="tRestart()">↺ Restart</button>
     </div>
   </div>
+
+  <!-- EXAM -->
+  <div class="section" id="examSection">
+    <div id="examLobby">
+      <div class="q-card" style="text-align:center;padding:32px 24px">
+        <div style="font-size:40px;margin-bottom:12px">🎓</div>
+        <h2 style="font-size:22px;margin:0 0 8px">Ostré zkoušení</h2>
+        <p style="color:var(--text2);margin:0 0 20px;font-size:14px;line-height:1.6">
+          80 náhodných otázek · 3 okruhy (20 + 40 + 20)<br>
+          Časový limit <strong>60 minut</strong><br>
+          Správné odpovědi se nezobrazují<br>
+          Výsledek uvidíš až na konci · Nutných <strong>90 %</strong> v každém okruhu
+        </p>
+        <button class="btn btn-primary" style="font-size:16px;padding:14px 32px" onclick="examStart()">▶ Spustit zkoušku</button>
+      </div>
+    </div>
+    <div id="examRunning" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:13px;color:var(--text2)" id="examProgress">Otázka 1 / 80</div>
+        <div id="examTimer" style="font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)">60:00</div>
+      </div>
+      <div style="height:4px;background:var(--border);border-radius:2px;margin-bottom:18px">
+        <div id="examProgBar" style="height:4px;background:var(--accent);border-radius:2px;width:0%;transition:width 0.3s"></div>
+      </div>
+      <div id="examQContainer"></div>
+      <div class="nav" style="margin-top:16px">
+        <button class="btn btn-ghost" onclick="examSkip()">Přeskočit →</button>
+      </div>
+    </div>
+    <div id="examResults" style="display:none"></div>
+  </div>
+
 
 </div>
 <script>
@@ -1064,18 +1097,15 @@ function showResults(){
 
 function showSection(s){
   document.querySelectorAll('.tab').forEach(function(t,i){
-    t.classList.toggle('active', (i===0&&s==='test')||(i===1&&s==='theory')||(i===2&&s==='translate'));
+    t.classList.toggle('active', (i===0&&s==='test')||(i===1&&s==='theory')||(i===2&&s==='translate')||(i===3&&s==='exam'));
   });
-  ['testSection','resultsSection','theorySection','translateSection'].forEach(function(id){
-    document.getElementById(id).classList.remove('active');
+  ['testSection','resultsSection','theorySection','translateSection','examSection'].forEach(function(id){
+    var el = document.getElementById(id); if(el) el.classList.remove('active');
   });
-  if(s === 'test'){
-    document.getElementById('testSection').classList.add('active');
-  } else if(s === 'translate'){
-    document.getElementById('translateSection').classList.add('active');
-  } else {
-    document.getElementById('theorySection').classList.add('active');
-  }
+  if(s === 'test') document.getElementById('testSection').classList.add('active');
+  else if(s === 'translate') document.getElementById('translateSection').classList.add('active');
+  else if(s === 'exam') document.getElementById('examSection').classList.add('active');
+  else document.getElementById('theorySection').classList.add('active');
 }
 
 function buildTheory(){
@@ -1421,6 +1451,144 @@ function tPrev(){
   tState.cur--;
   tRender();
 }
+
+// ── EXAM MODE ─────────────────────────────────────────────────────────────
+var exam = {
+  questions: [], // [{q, ans, cat, userAns}]
+  cur: 0,
+  timerInterval: null,
+  secondsLeft: 3600
+};
+
+function examStart(){
+  // Pick 20 predpisy + 40 provoz + 20 elektro randomly
+  function pick(cat, n){
+    var pool = questions.filter(function(q){ return q.cat === cat; }).sort(function(){ return Math.random()-0.5; });
+    return pool.slice(0, n);
+  }
+  var picked = pick('predpisy',20).concat(pick('provoz',40)).concat(pick('elektro',20));
+  // shuffle within sections to mix order
+  exam.questions = picked.map(function(q){ return {q:q.q, opts:q.opts, ans:q.ans, cat:q.cat, userAns:-1}; });
+  exam.cur = 0;
+  exam.secondsLeft = 3600;
+
+  document.getElementById('examLobby').style.display = 'none';
+  document.getElementById('examResults').style.display = 'none';
+  document.getElementById('examRunning').style.display = 'block';
+
+  exam.timerInterval = setInterval(function(){
+    exam.secondsLeft--;
+    var m = Math.floor(exam.secondsLeft/60);
+    var s = exam.secondsLeft % 60;
+    var timerEl = document.getElementById('examTimer');
+    if(timerEl) timerEl.textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    if(timerEl) timerEl.style.color = exam.secondsLeft < 300 ? 'var(--red)' : 'var(--accent)';
+    if(exam.secondsLeft <= 0){ clearInterval(exam.timerInterval); examFinish(); }
+  }, 1000);
+
+  examRenderQ();
+}
+
+function examRenderQ(){
+  var total = exam.questions.length;
+  document.getElementById('examProgress').textContent = 'Otázka ' + (exam.cur+1) + ' / ' + total;
+  document.getElementById('examProgBar').style.width = (exam.cur/total*100)+'%';
+
+  var q = exam.questions[exam.cur];
+  var cats = {predpisy:'Předpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
+  var keys = ['A','B','C'];
+  var optsHtml = q.opts.map(function(opt,i){
+    var sel = q.userAns === i ? 'border-color:var(--accent);background:var(--accent-light);' : '';
+    return '<button class="opt" style="'+sel+'" onclick="examAnswer('+i+')">'+
+      '<span class="opt-key">'+keys[i]+'</span><span>'+opt+'</span></button>';
+  }).join('');
+
+  document.getElementById('examQContainer').innerHTML =
+    '<div class="q-card" style="animation:fadeUp 0.15s ease">'+
+      '<div class="q-meta">'+
+        '<span class="q-tag">'+cats[q.cat]+'</span>'+
+        '<span class="q-num">'+(exam.cur+1)+' / '+total+'</span>'+
+      '</div>'+
+      '<div class="q-text">'+q.q+'</div>'+
+      '<div class="opts">'+optsHtml+'</div>'+
+    '</div>';
+}
+
+function examAnswer(i){
+  exam.questions[exam.cur].userAns = i;
+  examRenderQ(); // re-render to show selection
+  // short delay then auto-advance
+  setTimeout(function(){
+    exam.cur++;
+    if(exam.cur >= exam.questions.length) examFinish();
+    else examRenderQ();
+  }, 400);
+}
+
+function examSkip(){
+  exam.cur++;
+  if(exam.cur >= exam.questions.length) examFinish();
+  else examRenderQ();
+}
+
+function examFinish(){
+  clearInterval(exam.timerInterval);
+  document.getElementById('examRunning').style.display = 'none';
+
+  // Tally results per section
+  var sections = [
+    {label:'a) Předpisy', cat:'predpisy', required:20, pass:18},
+    {label:'b) Provoz',   cat:'provoz',   required:40, pass:36},
+    {label:'c) Elektrotechnika', cat:'elektro', required:20, pass:18}
+  ];
+
+  var html = '<div class="q-card" style="padding:24px">';
+  var overallPass = true;
+
+  sections.forEach(function(sec){
+    var qs = exam.questions.filter(function(q){ return q.cat === sec.cat; });
+    var correct = qs.filter(function(q){ return q.userAns === q.ans; }).length;
+    var total = qs.length;
+    var pct = Math.round(correct/total*100);
+    var passed = correct >= sec.pass;
+    if(!passed) overallPass = false;
+    var color = passed ? 'var(--green)' : 'var(--red)';
+    var bg = passed ? 'var(--green-light)' : 'var(--red-light)';
+    var border = passed ? 'var(--green-border)' : 'var(--red-border)';
+    var icon = passed ? '✅' : '❌';
+    html += '<div style="margin-bottom:14px;padding:14px 16px;background:'+bg+';border:1.5px solid '+border+';border-radius:10px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center">'+
+        '<strong style="font-size:15px">'+icon+' '+sec.label+'</strong>'+
+        '<span style="font-size:22px;font-weight:700;color:'+color+'">'+pct+' %</span>'+
+      '</div>'+
+      '<div style="font-size:13px;color:var(--text2);margin-top:4px">'+correct+' / '+total+' správně · potřeba min. '+sec.pass+' (90 %)</div>'+
+    '</div>';
+  });
+
+  var timeTaken = 3600 - exam.secondsLeft;
+  var tm = Math.floor(timeTaken/60), ts = timeTaken%60;
+  var timeStr = (tm<10?'0':'')+tm+':'+(ts<10?'0':'')+ts;
+
+  html += '<div style="text-align:center;padding:20px 0 8px">'+
+    '<div style="font-size:48px;margin-bottom:8px">'+(overallPass?'🎉':'💪')+'</div>'+
+    '<div style="font-size:22px;font-weight:700;color:'+(overallPass?'var(--green)':'var(--red)');+'">'+(overallPass?'USPĚL JSI!':'NEUSPĚL JSI')+'</div>'+
+    '<div style="color:var(--text2);font-size:13px;margin-top:6px">Čas: '+timeStr+' z 60:00</div>'+
+  '</div>';
+
+  html += '<div style="margin-top:16px;text-align:center">'+
+    '<button class="btn btn-primary" onclick="examReset()">↺ Zkusit znovu</button>'+
+  '</div>';
+  html += '</div>';
+
+  document.getElementById('examResults').innerHTML = html;
+  document.getElementById('examResults').style.display = 'block';
+}
+
+function examReset(){
+  document.getElementById('examResults').style.display = 'none';
+  document.getElementById('examLobby').style.display = 'block';
+}
+// ── END EXAM ───────────────────────────────────────────────────────────────
 
 init();
 tInit();
