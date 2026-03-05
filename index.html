@@ -606,6 +606,20 @@ body {
   border-color: var(--green);
 }
 
+.opt.exam-opt { touch-action: manipulation; }
+.opt.exam-opt:hover:not(:disabled) {
+  border-color: var(--border);
+  background: var(--surface);
+}
+.opt.exam-opt.exam-selected {
+  border-color: var(--accent) !important;
+  background: var(--accent-light) !important;
+}
+.opt.exam-opt.exam-selected .opt-key {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
 @media (max-width: 480px) {
   .app { padding: 20px 14px 48px; }
   .q-text { font-size: 16px; }
@@ -1498,8 +1512,8 @@ function examRenderQ(){
   var cats = {predpisy:'Předpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
   var keys = ['A','B','C'];
   var optsHtml = q.opts.map(function(opt,i){
-    var sel = q.userAns === i ? 'border-color:var(--accent);background:var(--accent-light);' : '';
-    return '<button class="opt" style="'+sel+'" onclick="examAnswer('+i+')">'+
+    var cls = 'opt exam-opt' + (q.userAns === i ? ' exam-selected' : '');
+    return '<button class="'+cls+'" onclick="examAnswer('+i+')">'+
       '<span class="opt-key">'+keys[i]+'</span><span>'+opt+'</span></button>';
   }).join('');
 
