@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRC Průkaz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --surface2: #f0efe9;
+  --border: #e2e0d8;
+  --text: #1a1916;
+  --text2: #6b6860;
+  --text3: #9b9890;
+  --accent: #1d4ed8;
+  --accent-light: #eff4ff;
+  --accent-border: #bfcfff;
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --green-border: #bbf7d0;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --red-border: #fecaca;
+  --gold: #d97706;
+  --gold-light: #fffbeb;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+/* Header */
+.header {
+  margin-bottom: 32px;
+}
+
+.header-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.header h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--border);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  margin-bottom: 24px;
+}
+
+.tab {
+  flex: 1;
+  padding: 9px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+/* Category pills */
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.cat-btn {
+  padding: 5px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 99px;
+  background: var(--surface);
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cat-btn:hover { border-color: var(--accent-border); color: var(--accent); }
+.cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* Stats row */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.stat-val {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-lbl {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+}
+
+.stat.s-correct .stat-val { color: var(--green); }
+.stat.s-wrong .stat-val { color: var(--red); }
+.stat.s-left .stat-val { color: var(--text2); }
+
+/* Progress */
+.progress {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.prog-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.prog-track {
+  flex: 1;
+  height: 5px;
+  background: var(--surface2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.35s ease;
+}
+
+.prog-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+/* Question card */
+.q-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 12px;
+  animation: fadeUp 0.2s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.q-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.q-tag {
+  background: var(--accent-light);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.q-num {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+}
+
+.q-text {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+/* Options */
+.opts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 16px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.12s, background 0.12s;
+  line-height: 1.5;
+}
+
+.opt:hover:not(:disabled) {
+  border-color: var(--accent-border);
+  background: var(--accent-light);
+}
+
+.opt:disabled { cursor: default; }
+
+.opt.correct {
+  background: var(--green-light);
+  border-color: var(--green-border);
+}
+
+.opt.wrong {
+  background: var(--red-light);
+  border-color: var(--red-border);
+}
+
+.opt-key {
+  min-width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text2);
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.12s;
+}
+
+.opt.correct .opt-key {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.opt.wrong .opt-key {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+/* Explanation */
+.explanation {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--gold-light);
+  border: 1.5px solid #fde68a;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text);
+  display: none;
+}
+
+.explanation.show { display: block; animation: fadeUp 0.2s ease; }
+.explanation strong { color: var(--gold); }
+
+/* Buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn {
+  padding: 11px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-primary {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover { background: #1e40af; }
+
+.btn-ghost {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text2);
+}
+
+.btn-ghost:hover { border-color: var(--text2); color: var(--text); }
+
+/* Section visibility */
+.section { display: none; }
+.section.active { display: block; }
+
+/* Results */
+.result-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.result-pct {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 8px 0;
+}
+
+.result-pct.pass { color: var(--green); }
+.result-pct.fail { color: var(--red); }
+.result-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.result-sub { color: var(--text2); font-size: 14px; }
+.result-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+}
+
+/* Theory */
+.theory-item {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.theory-head {
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.12s;
+}
+
+.theory-head:hover { background: var(--surface2); }
+
+.theory-head h3 {
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theory-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.theory-chev {
+  color: var(--text3);
+  font-size: 14px;
+  transition: transform 0.22s;
+}
+
+.theory-item.open .theory-chev { transform: rotate(180deg); }
+
+.theory-body {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.32s ease, padding 0.32s ease;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text2);
+}
+
+.theory-item.open .theory-body {
+  max-height: 3000px;
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.theory-body p { margin-bottom: 10px; }
+.theory-body p:last-child { margin-bottom: 0; }
+.theory-body strong { color: var(--text); font-weight: 500; }
+.theory-body ul { list-style: none; }
+.theory-body ul li {
+  padding: 3px 0 3px 16px;
+  position: relative;
+}
+.theory-body ul li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--text3);
+}
+.theory-body ul li strong { color: var(--text); }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.info-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.info-item .key {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text3);
+  margin-bottom: 3px;
+}
+
+.info-item .val {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.highlight-box {
+  background: var(--gold-light);
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin: 10px 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.highlight-box strong { color: var(--gold); }
+
+/* Study mode toggle */
+.mode-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mode-toggle input { display: none; }
+
+.toggle-track {
+  width: 36px;
+  height: 20px;
+  background: var(--border);
+  border-radius: 99px;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 99px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.mode-toggle input:checked + .toggle-track {
+  background: var(--green);
+}
+
+.mode-toggle input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(16px);
+}
+
+.mode-toggle-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+}
+
+.mode-toggle input:checked ~ .mode-toggle-label {
+  color: var(--green);
+}
+
+/* Study mode: correct answer pre-highlighted */
+.opt.study-correct {
+  background: var(--green-light);
+  border-color: var(--green-border);
+}
+
+.opt.study-correct .opt-key {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.opt.study-correct:hover:not(:disabled) {
+  background: var(--green-light);
+  border-color: var(--green);
+}
+
+@media (max-width: 480px) {
+  .app { padding: 20px 14px 48px; }
+  .q-text { font-size: 16px; }
+  .result-pct { font-size: 52px; }
+  .info-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-eyebrow">ČTÚ · Oficiální otázky 2023</div>
+    <h1>SRC <em>Průkaz</em><br>Učební Aplikace</h1>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('test')">Testové otázky</button>
+    <button class="tab" onclick="showSection('theory')">Teorie</button>
+  </div>
+
+  <!-- TEST -->
+  <div class="section active" id="testSection">
+    <div class="cats">
+      <button class="cat-btn active" onclick="setCategory('vse',this)">Vše</button>
+      <button class="cat-btn" onclick="setCategory('predpisy',this)">a) Předpisy</button>
+      <button class="cat-btn" onclick="setCategory('provoz',this)">b) Provoz</button>
+      <button class="cat-btn" onclick="setCategory('elektro',this)">c) Elektrotechnika</button>
+    </div>
+
+    <div class="mode-row">
+      <label class="mode-toggle">
+        <input type="checkbox" id="studyModeToggle" onchange="toggleStudyMode(this.checked)">
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        <span class="mode-toggle-label">Učební mód – zobraz správnou odpověď</span>
+      </label>
+    </div>
+
+    <div class="stats">
+      <div class="stat s-correct">
+        <div class="stat-val" id="sCorrect">0</div>
+        <div class="stat-lbl">Správně</div>
+      </div>
+      <div class="stat s-wrong">
+        <div class="stat-val" id="sWrong">0</div>
+        <div class="stat-lbl">Špatně</div>
+      </div>
+      <div class="stat s-left">
+        <div class="stat-val" id="sLeft">0</div>
+        <div class="stat-lbl">Zbývá</div>
+      </div>
+    </div>
+
+    <div class="progress">
+      <span class="prog-label">Pokrok</span>
+      <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      <span class="prog-count" id="progCount">0 / 0</span>
+    </div>
+
+    <div id="qContainer"></div>
+
+    <div class="actions">
+      <button class="btn btn-ghost" id="prevBtn" onclick="prevQ()" disabled>← Předchozí</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQ()">Přeskočit →</button>
+      <button class="btn btn-ghost" onclick="restartTest()">↺ Restart</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="section" id="resultsSection">
+    <div class="result-card">
+      <div class="result-title" id="rTitle"></div>
+      <div class="result-pct" id="rPct"></div>
+      <div class="result-sub" id="rSub"></div>
+      <div class="result-note">Hranice úspěšnosti ČTÚ: 90 % v každém okruhu</div>
+    </div>
+    <div class="stats">
+      <div class="stat s-correct"><div class="stat-val" id="rCorrect">0</div><div class="stat-lbl">Správně</div></div>
+      <div class="stat s-wrong"><div class="stat-val" id="rWrong">0</div><div class="stat-lbl">Špatně</div></div>
+      <div class="stat s-left"><div class="stat-val" id="rSkipped">0</div><div class="stat-lbl">Přeskočeno</div></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="restartTest()">↺ Zkusit znovu</button>
+      <button class="btn btn-ghost" onclick="showSection('theory')">Zopakovat teorii</button>
+    </div>
+  </div>
+
+  <!-- THEORY -->
+  <div class="section" id="theorySection">
+    <div id="theoryContent"></div>
+  </div>
+
+</div>
+<script>
+var questions = [
+  {cat:'predpisy',q:'Zaji\u0161t\u011bn\u00ed \u00fa\u010deln\u00e9ho vyu\u017e\u00edv\u00e1n\u00ed r\u00e1diov\u00fdch kmito\u010dt\u016f a spr\u00e1vu r\u00e1diov\u00e9ho spektra vykon\u00e1v\u00e1\u2026',opts:['Ministerstvo pr\u016fmyslu a obchodu','\u010cesk\u00fd telekomunika\u010dn\u00ed \u00fa\u0159ad','Ministerstvo dopravy'],ans:1,exp:'\u010cT\u00da vykon\u00e1v\u00e1 spr\u00e1vu r\u00e1diov\u00e9ho spektra v \u010cR.'},
+  {cat:'predpisy',q:'Radiokomunika\u010dn\u00ed slu\u017ebou je komunika\u010dn\u00ed \u010dinnost, kter\u00e1 spo\u010d\u00edv\u00e1 v p\u0159enosu, vys\u00edl\u00e1n\u00ed nebo p\u0159\u00edjmu sign\u00e1l\u016f prost\u0159ednictv\u00edm\u2026',opts:['metalick\u00fdch kabel\u016f','optick\u00fdch vl\u00e1ken','r\u00e1diov\u00fdch vln'],ans:2,exp:'Radiokomunika\u010dn\u00ed slu\u017eba vyu\u017e\u00edv\u00e1 <strong>r\u00e1diov\u00e9 vlny</strong>.'},
+  {cat:'predpisy',q:'Pl\u00e1n p\u0159id\u011blen\u00ed kmito\u010dtov\u00fdch p\u00e1sem (n\u00e1rodn\u00ed kmito\u010dtovou tabulku) stanov\u00ed\u2026',opts:['\u010cT\u00da rozhodnut\u00edm','Ministerstvo pr\u016fmyslu a obchodu vyhl\u00e1\u0161kou','ITU na\u0159\u00edzen\u00edm'],ans:1,exp:'N\u00e1rodn\u00ed kmito\u010dtovou tabulku stanovuje <strong>MPO vyhl\u00e1\u0161kou</strong>.'},
+  {cat:'predpisy',q:'Individu\u00e1ln\u00ed opr\u00e1vn\u011bn\u00ed k vyu\u017e\u00edv\u00e1n\u00ed r\u00e1diov\u00fdch kmito\u010dt\u016f ud\u011bluje\u2026',opts:['Ministerstvo dopravy','ITU','\u010cesk\u00fd telekomunika\u010dn\u00ed \u00fa\u0159ad'],ans:2,exp:'Individu\u00e1ln\u00ed opr\u00e1vn\u011bn\u00ed vyd\u00e1v\u00e1 <strong>\u010cT\u00da</strong>.'},
+  {cat:'predpisy',q:'R\u00e1diov\u00fdm spektrem se rozum\u00ed elektromagnetick\u00e9 vlny o kmito\u010dtu (frekvenci)\u2026',opts:['vy\u0161\u0161\u00edm ne\u017e 3 000 GHz','ni\u017e\u0161\u00edm ne\u017e 3 000 GHz','v p\u00e1smu 30 MHz \u2013 300 GHz'],ans:1,exp:'R\u00e1diov\u00e9 spektrum zahrnuje vlny o frekvenci <strong>ni\u017e\u0161\u00ed ne\u017e 3 000 GHz</strong>.'},
+  {cat:'predpisy',q:'St\u00e1tn\u00ed kontrolu elektronick\u00fdch komunikac\u00ed vykon\u00e1v\u00e1\u2026',opts:['ITU','Ministerstvo pr\u016fmyslu','\u010cesk\u00fd telekomunika\u010dn\u00ed \u00fa\u0159ad'],ans:2,exp:'St\u00e1tn\u00ed kontrolu vykon\u00e1v\u00e1 <strong>\u010cT\u00da</strong>.'},
+  {cat:'predpisy',q:'Fyzick\u00e1 osoba vykon\u00e1vaj\u00edc\u00ed obsluhu vys\u00edlac\u00edho r\u00e1diov\u00e9ho za\u0159\u00edzen\u00ed bez platn\u00e9ho pr\u016fkazu odborn\u00e9 zp\u016fsobilosti se dopustila\u2026',opts:['trestn\u00e9ho \u010dinu','p\u0159estupku','spr\u00e1vn\u00edho deliktu'],ans:1,exp:'Obsluha bez pr\u016fkazu je <strong>p\u0159estupek</strong>.'},
+  {cat:'predpisy',q:'Za obsluhu vys\u00edlac\u00edho r\u00e1diov\u00e9ho za\u0159\u00edzen\u00ed bez pr\u016fkazu m\u016f\u017ee \u010cT\u00da ulo\u017eit pokutu a\u017e do v\u00fd\u0161e\u2026',opts:['10 000 K\u010d','50 000 K\u010d','100 000 K\u010d'],ans:2,exp:'Pokuta m\u016f\u017ee b\u00fdt a\u017e <strong>100 000 K\u010d</strong>.'},
+  {cat:'predpisy',q:'V mezin\u00e1rodn\u00ed volac\u00ed zna\u010dce \u010cR tvo\u0159\u00ed prvn\u00ed dv\u011b p\u00edsmena (prefix) v\u017edy dvojice\u2026',opts:['CZ nebo CR','OA nebo OB','OK nebo OL'],ans:2,exp:'\u010cesk\u00fd prefix je <strong>OK nebo OL</strong>.'},
+  {cat:'predpisy',q:'Co znamen\u00e1 zkratka GMDSS?',opts:['GPS Maritime Digital Safety System','Global Maritime Distress and Safety System \u2013 celosv\u011btov\u00fd n\u00e1mo\u0159n\u00ed t\u00edsnov\u00fd a bezpe\u010dnostn\u00ed syst\u00e9m','General Maritime DSC Standard Specifications'],ans:1,exp:'<strong>GMDSS</strong> = Global Maritime Distress and Safety System.'},
+  {cat:'predpisy',q:'Je podle mezin\u00e1rodn\u00edho pr\u00e1va plavidlo povinn\u00e9 poskytnout pomoc jin\u00e9mu plavidlu v t\u00edsni?',opts:['Ano, v\u017edy bez v\u00fdjimky','Ano, pokud t\u00edm nadm\u011brn\u011b neo\u0159e sv\u00e9 vlastn\u00ed plavidlo nebo pos\u00e1dku','Ne, pomoc je dobrovoln\u00e1'],ans:1,exp:'Mezin\u00e1rodn\u00ed pr\u00e1vo ukl\u00e1d\u00e1 povinnost pomoci, <strong>pokud t\u00edm plavidlo nadm\u011brn\u011b neo\u0159e sebe nebo svou pos\u00e1dku</strong>.'},
+  {cat:'predpisy',q:'Fale\u0161n\u00e9 volac\u00ed zna\u010dky a fale\u0161n\u00e9 sign\u00e1ly\u2026',opts:['sm\u00ed pou\u017e\u00edt jen pob\u0159e\u017en\u00ed str\u00e1\u017e','se nesm\u00ed pou\u017e\u00edvat','sm\u00ed pou\u017e\u00edt v n\u00e1cvi\u010dku z\u00e1chrann\u00fdch operac\u00ed'],ans:1,exp:'Fale\u0161n\u00e9 sign\u00e1ly jsou <strong>p\u0159\u00edsn\u011b zak\u00e1z\u00e1ny</strong> mezin\u00e1rodn\u00edmi i n\u00e1rodn\u00edmi p\u0159edpisy.'},
+  {cat:'predpisy',q:'Po\u0159ad\u00ed zpr\u00e1v podle d\u016fle\u017eitosti je\u2026',opts:['bezpe\u010dnostn\u00ed, pilnostn\u00ed, t\u00edsn\u00f3v\u00e1','t\u00edsn\u00f3v\u00e1, bezpe\u010dnostn\u00ed, pilnostn\u00ed','t\u00edsn\u00f3v\u00e1 (DISTRESS), pilnostn\u00ed (URGENCY), bezpe\u010dnostn\u00ed (SAFETY)'],ans:2,exp:'Priority: <strong>1. DISTRESS (MAYDAY) \u00b7 2. URGENCY (PAN PAN) \u00b7 3. SAFETY (S\u00c9CURIT\u00c9)</strong>.'},
+  {cat:'predpisy',q:'Mezin\u00e1rodn\u00ed VHF t\u00edsn\u00f3v\u00fd, bezpe\u010dnostn\u00ed a volac\u00ed kmito\u010det v radiotelefonii v n\u00e1mo\u0159n\u00ed pohybliv\u00e9 slu\u017eb\u011b je\u2026',opts:['156,525 MHz (kan\u00e1l 70)','156,3 MHz (kan\u00e1l 6)','156,8 MHz (kan\u00e1l 16)'],ans:2,exp:'T\u00edsn\u00f3v\u00fd a volac\u00ed kan\u00e1l je <strong>kan\u00e1l 16 = 156,8 MHz</strong>.'},
+  {cat:'predpisy',q:'Kan\u00e1l 16 v p\u00e1smu VHF je v n\u00e1mo\u0159n\u00ed pohybliv\u00e9 slu\u017eb\u011b ur\u010den k\u2026',opts:['v\u00fdhradn\u011b t\u00edsn\u00f3v\u00fdm vol\u00e1n\u00edm','t\u00edsn\u00f3v\u00e9mu a pilnostn\u00edmu vol\u00e1n\u00ed, upozorn\u011bn\u00ed na bezpe\u010dnostn\u00ed vol\u00e1n\u00ed a k nav\u00e1z\u00e1n\u00ed spojen\u00ed s p\u0159el\u00e1den\u00edm na pracovn\u00ed kan\u00e1l','rutinn\u00ed komunikaci mezi lo\u010dmi'],ans:1,exp:'Kan\u00e1l 16 slou\u017e\u00ed pro <strong>t\u00edsn\u00f3v\u00e1 a pilnostn\u00ed vol\u00e1n\u00ed, bezpe\u010dnostn\u00ed upozorn\u011bn\u00ed a nav\u00e1z\u00e1n\u00ed spojen\u00ed</strong>.'},
+  {cat:'predpisy',q:'P\u00e1trac\u00ed a z\u00e1chrann\u00e9 operaci na mo\u0159i m\u016f\u017ee ukon\u010dit\u2026',opts:['kapit\u00e1n zachra\u0148uj\u00edc\u00ed lodi','pob\u0159e\u017en\u00ed str\u00e1\u017e nejbli\u017e\u0161\u00edho st\u00e1tu','velitel (\u0159\u00edd\u00edc\u00ed stanice) p\u00e1trac\u00ed a z\u00e1chrann\u00e9 operace'],ans:2,exp:'SAR operaci ukon\u010duje <strong>velitel (\u0159\u00edd\u00edc\u00ed stanice) SAR operace</strong>.'},
+  {cat:'predpisy',q:'Pohybliv\u00fdm stanic\u00edm na mo\u0159i nebo nad mo\u0159em je zak\u00e1z\u00e1no provozovat\u2026',opts:['komunikaci lo\u010f-lo\u010f','t\u00edsn\u00f3v\u00e1 vol\u00e1n\u00ed','rozhlasovou slu\u017ebu'],ans:2,exp:'Pohybliv\u00e9 stanice nesm\u00ed provozovat <strong>rozhlasovou slu\u017ebu</strong>.'},
+  {cat:'predpisy',q:'Doba platnosti pr\u016fkaz\u016f LRC a SRC je p\u0159i prvn\u00edm vyd\u00e1n\u00ed stanovena na\u2026',opts:['5 let','7 let','10 let'],ans:2,exp:'P\u0159i prvn\u00edm vyd\u00e1n\u00ed je pr\u016fkaz SRC/LRC platn\u00fd <strong>10 let</strong>.'},
+  {cat:'predpisy',q:'O prodlou\u017een\u00ed doby platnosti pr\u016fkazu odborn\u00e9 zp\u016fsobilosti se \u017e\u00e1d\u00e1\u2026',opts:['kdykoli','e-mailem nebo online','p\u00edsemn\u011b, minim\u00e1ln\u011b jeden m\u011bs\u00edc p\u0159ed koncem platnosti'],ans:2,exp:'\u017d\u00e1dost se pod\u00e1v\u00e1 <strong>p\u00edsemn\u011b, nejm\u00e9n\u011b 1 m\u011bs\u00edc p\u0159ed vypr\u0161en\u00edm</strong>.'},
+  {cat:'predpisy',q:'Doba platnosti pr\u016fkaz\u016f SRC/LRC se na z\u00e1klad\u011b \u017e\u00e1dosti prodlu\u017euje o\u2026',opts:['2 roky','3 roky','5 let'],ans:2,exp:'Platnost se prodlu\u017euje o <strong>5 let</strong>.'},
+  {cat:'predpisy',q:'Mezin\u00e1rodn\u00ed telekomunika\u010dn\u00ed unie (ITU) je\u2026',opts:['organizace leteck\u00e9ho pr\u016fmyslu','specializovanou organizac\u00ed OSN pro oblast telekomunikac\u00ed','Evropsk\u00e1 regula\u010dn\u00ed agentura'],ans:1,exp:'ITU je <strong>specializovanou organizac\u00ed OSN pro telekomunikace</strong>.'},
+  {cat:'predpisy',q:'T\u00edsn\u00f3v\u00e9 vol\u00e1n\u00ed a t\u00edsn\u00f3v\u00e1 zpr\u00e1va se vys\u00edlaj\u00ed jen na rozkaz\u2026',opts:['pob\u0159e\u017en\u00ed str\u00e1\u017ee','velitele nebo osoby odpov\u011bdn\u00e9 za lo\u010f nebo letadlo','r\u00e1diov\u00e9ho oper\u00e1tora'],ans:1,exp:'T\u00edsn\u00f3v\u00e9 vol\u00e1n\u00ed sm\u00ed b\u00fdt vys\u00edl\u00e1no jen <strong>na rozkaz velitele nebo osoby odpov\u011bdn\u00e9 za lo\u010f</strong>.'},
+  {cat:'predpisy',q:'Pr\u016fkaz SRC oprav\u0148uje k obsluze za\u0159\u00edzen\u00ed pro kmito\u010dty\u2026',opts:['MF a HF','v\u0161echna p\u00e1sma GMDSS','pouze VHF'],ans:2,exp:'SRC oprav\u0148uje pouze k obsluze <strong>VHF za\u0159\u00edzen\u00ed</strong>.'},
+  {cat:'predpisy',q:'Stej\u00e1 volac\u00ed zna\u010dka\u2026',opts:['m\u016f\u017ee b\u00fdt p\u0159id\u011blena v\u00edce provozovatel\u016fm v r\u016fzn\u00fdch zem\u00edch','m\u016f\u017ee b\u00fdt sd\u00edlena dv\u011bma provozovateli t\u00e9\u017ee skupiny','nem\u016f\u017ee b\u00fdt p\u0159id\u011blena dv\u011bma nebo v\u00edce provozovatel\u016fm stanic'],ans:2,exp:'Ka\u017ed\u00e1 volac\u00ed zna\u010dka je <strong>unik\u00e1tn\u00ed</strong>.'},
+  {cat:'predpisy',q:'Mezi \u010dleny Region\u00e1ln\u00ed \u00famluvy RAINWAT pat\u0159\u00ed\u2026',opts:['pouze st\u00e1ty EU','pouze st\u00e1ty s mo\u0159sk\u00fdm pob\u0159e\u017e\u00edm','tak\u00e9 \u010cesk\u00e1 republika'],ans:2,exp:'<strong>\u010cesk\u00e1 republika je \u010dlenem RAINWAT</strong>.'},
+  {cat:'predpisy',q:'Telekomunika\u010dn\u00ed tajemstv\u00ed se t\u00fdka\u2026',opts:['pouze vojensk\u00fdch zpr\u00e1v','jen obsahu t\u00edsn\u00f3v\u00fdch vol\u00e1n\u00ed','v\u0161ech osob, kter\u00e9 znaj\u00ed obsah r\u00e1diov\u00fdch zpr\u00e1v nebo se dov\u011bd\u011bly o jejich existenci'],ans:2,exp:'Telekomunika\u010dn\u00ed tajemstv\u00ed se t\u00fdka <strong>v\u0161ech osob</strong>, kter\u00e9 se sezn\u00e1mily s obsahem zpr\u00e1v.'},
+
+  // b) PROVOZ,
+  {cat:'provoz',q:'Oblast pokryt\u00e1 sign\u00e1lem alespo\u0148 jedn\u00e9 pob\u0159e\u017en\u00ed VHF stanice s nep\u0159etr\u017eitou pohotovost\u00ed DSC v GMDSS se ozna\u010duje jako\u2026',opts:['n\u00e1mo\u0159n\u00ed oblast A2','n\u00e1mo\u0159n\u00ed oblast A3','n\u00e1mo\u0159n\u00ed oblast A1'],ans:2,exp:'<strong>Oblast A1</strong> je pokryta VHF pob\u0159e\u017en\u00edmi stanicemi s nep\u0159etr\u017eitou DSC pohotovost\u00ed.'},
+  {cat:'provoz',q:'RCC (Rescue Coordination Centre) je\u2026',opts:['typ z\u00e1chrann\u00e9ho \u010dlunu','org\u00e1n zodpov\u011bdn\u00fd za \u00fa\u010dinnou organizaci a koordinaci SAR z\u00e1sah\u016f','radiotelefonn\u00ed p\u0159ij\u00edma\u010d na pob\u0159e\u017e\u00ed'],ans:1,exp:'RCC = <strong>Rescue Coordination Centre</strong> \u2013 koordinuje z\u00e1chrann\u00e9 akce.'},
+  {cat:'provoz',q:'Zkratka DSC znamen\u00e1\u2026',opts:['Direct Ship Communication','Digital Safety Code','Digital Selective Calling \u2013 digit\u00e1ln\u00ed selektivn\u00ed vol\u00e1n\u00ed'],ans:2,exp:'DSC = <strong>Digital Selective Calling</strong> = digit\u00e1ln\u00ed selektivn\u00ed vol\u00e1n\u00ed.'},
+  {cat:'provoz',q:'Jsou pro DSC ur\u010deny speci\u00e1ln\u00ed kmito\u010dty?',opts:['Ne, DSC sd\u00edl\u00ed kan\u00e1l 16','Ano, kan\u00e1l 70 VHF (fonick\u00fd provoz je zablokovan\u00fd)','Ano, kan\u00e1l 6 VHF'],ans:1,exp:'Pro DSC je vyhrazen <strong>kan\u00e1l 70 VHF</strong>. Hlasov\u00e1 komunikace na tomto kan\u00e1lu je zak\u00e1z\u00e1na.'},
+  {cat:'provoz',q:'K ozna\u010den\u00ed identity lodn\u00ed stanice v r\u00e1mci DSC provozu se pou\u017e\u00edv\u00e1\u2026',opts:['volac\u00ed zna\u010dka (3 p\u00edsmena)','n\u00e1zev lodi','dev\u00edtim\u00edstn\u00fd \u010d\u00edseln\u00fd k\u00f3d MMSI'],ans:2,exp:'V DSC se pou\u017e\u00edv\u00e1 <strong>MMSI \u2013 dev\u00edtim\u00edstn\u00fd \u010d\u00edseln\u00fd k\u00f3d</strong>.'},
+  {cat:'provoz',q:'MID \u010cesk\u00e9 republiky je\u2026',opts:['230','250','270'],ans:2,exp:'MID \u010cR je <strong>270</strong>.'},
+  {cat:'provoz',q:'Funk\u010dnost VHF za\u0159\u00edzen\u00ed DSC se ov\u011b\u0159uje\u2026',opts:['\u017eiv\u00fdm testem s jinou lod\u00ed na kan\u00e1lu 70','pouze pomoc\u00ed nab\u00eddky SELF TEST jednou za den; \u017eiv\u00e9 testov\u00e1n\u00ed na kan\u00e1lu 70 je zak\u00e1z\u00e1no','vol\u00e1n\u00edm pob\u0159e\u017en\u00ed str\u00e1\u017ee'],ans:1,exp:'DSC lze testovat pouze funkc\u00ed <strong>SELF TEST</strong>. \u017div\u00e9 testov\u00e1n\u00ed na kan\u00e1lu 70 je zak\u00e1z\u00e1no.'},
+  {cat:'provoz',q:'Aktivace tla\u010d\u00edtka DISTRESS (DSC t\u00edsn\u00f3v\u00fd alert) prob\u00edh\u00e1\u2026',opts:['jedn\u00f3r\u00e1zov\u00fdm stiskem','stla\u010den\u00edm tla\u010d\u00edtka nep\u0159etr\u017eit\u011b po dobu n\u011bkolika sekund dokud nedojde k odesl\u00e1n\u00ed DSC zpr\u00e1vy','dvojit\u00fdm rychl\u00fdm stiskem'],ans:1,exp:'Tla\u010d\u00edtko DISTRESS se dr\u017e\u00ed <strong>stisknut\u00e9 po dobu n\u011bkolika sekund</strong> a\u017e do odesl\u00e1n\u00ed zpr\u00e1vy.'},
+  {cat:'provoz',q:'Obsah t\u00edsn\u00f3v\u00e9ho vol\u00e1n\u00ed DSC je\u2026',opts:['pouze MMSI a \u010das','n\u00e1zev lodi a poloha','identifika\u010dn\u00ed \u00fadaj (MMSI), pozicn\u00ed informace, \u010das UTC a p\u0159\u00edpadn\u011b povaha t\u00edsn\u011b'],ans:2,exp:'DSC t\u00edsn\u00f3v\u00fd alert obsahuje: <strong>MMSI, polohu, \u010das UTC a povahu t\u00edsn\u011b</strong>.'},
+  {cat:'provoz',q:'Radiostanice opakuje t\u00edsn\u00f3v\u00e9 vol\u00e1n\u00ed DSC\u2026',opts:['ka\u017edou minutu po dobu 1 hodiny','automaticky v\u017edy po 4 minut\u00e1ch, dokud pob\u0159e\u017en\u00ed stanice nezru\u0161\u00ed jeho dal\u0161\u00ed vys\u00edl\u00e1n\u00ed potvrzen\u00edm','ka\u017ed\u00fdch 10 minut po dobu 4 hodin'],ans:1,exp:'DSC t\u00edsn\u00f3v\u00fd alert se automaticky opakuje <strong>ka\u017ed\u00e9 4 minuty</strong>.'},
+  {cat:'provoz',q:'Pro\u010d m\u00e1 p\u0159\u00edjem t\u00edsn\u00f3v\u00e9ho vol\u00e1n\u00ed DSC p\u0159ednostn\u011b potvrdit pob\u0159e\u017en\u00ed stanice?',opts:['Proto\u017ee je to stanoveno z\u00e1konem \u010cR','Proto\u017ee disponuje optim\u00e1ln\u00edmi technick\u00fdmi a organiza\u010dn\u00edmi p\u0159edpoklady pro \u0159\u00edzen\u00ed z\u00e1chrann\u00e9 operace','Proto\u017ee lodn\u00ed stanice nemohou DSC potvrdit'],ans:1,exp:'Pob\u0159e\u017en\u00ed stanice m\u00e1 <strong>optim\u00e1ln\u00ed technick\u00e9 i organiza\u010dn\u00ed p\u0159edpoklady</strong> pro koordinaci z\u00e1chrann\u00e9 operace.'},
+  {cat:'provoz',q:'Pro jak\u00e9 n\u00e1mo\u0159n\u00ed oblasti GMDSS je ur\u010den EPIRB s pracovn\u00edm kmito\u010dtem 406 MHz?',opts:['oblasti A1 a A2','oblasti A1 a\u017e A3','v\u0161echny oblasti (A1\u2013A4)'],ans:2,exp:'EPIRB 406 MHz je ur\u010den pro <strong>v\u0161echny oblasti A1\u2013A4</strong>.'},
+  {cat:'provoz',q:'Jak se aktivuje EPIRB?',opts:['pouze ru\u010dn\u011b','pouze automaticky','manu\u00e1ln\u011b nebo automaticky pomoc\u00ed hydrostatick\u00e9 pojistky po vynoren\u00ed z hloubky 4 m'],ans:2,exp:'EPIRB lze aktivovat <strong>ru\u010dn\u011b nebo automaticky</strong> \u2013 hydrostatick\u00e1 pojistka se aktivuje p\u0159i ponoru do 4 m.'},
+  {cat:'provoz',q:'Co jsou NON-SOLAS lod\u011b?',opts:['Lod\u011b bez z\u00e1chrann\u00fdch vest','Lod\u011b bez GPS','Lod\u011b, na kter\u00e9 se nevztahuje SOLAS \u2013 tedy lod\u011b nep\u0159epravuj\u00edc\u00ed v\u00edce ne\u017e 12 cestuj\u00edc\u00edch a n\u00e1kladn\u00ed lod\u011b pod 300 tun (vr. rekrea\u010dn\u00edch plavidel)'],ans:2,exp:'NON-SOLAS = <strong>rekrea\u010dn\u00ed plavidla, mal\u00e9 n\u00e1kladn\u00ed lod\u011b pod 300 tun</strong>.'},
+  {cat:'provoz',q:'Co znamen\u00e1 v\u00fdraz ROGER?',opts:['Vyhovuji va\u0161emu po\u017eadavku','Konec komunikace','Rozum\u00edm (p\u0159ijato) \u2013 potvrzen\u00ed p\u0159\u00edjmu zpr\u00e1vy'],ans:2,exp:'ROGER = <strong>p\u0159ijato, rozum\u011bl jsem va\u0161\u00ed zpr\u00e1v\u011b</strong>. Neznamenn\u00e1 souhlas.'},
+  {cat:'provoz',q:'Co znamen\u00e1 standardn\u00ed v\u00fdraz SAY AGAIN?',opts:['Po\u010dkejte, vrac\u00edm se','Opakujte (zpr\u00e1vu nebo \u010d\u00e1st, kter\u00e9 jsem nerozum\u011bl)','Konec komunikace'],ans:1,exp:'SAY AGAIN = <strong>opakujte</strong>.'},
+  {cat:'provoz',q:'Jak\u00fd standardn\u00ed v\u00fdraz pou\u017eijete p\u0159i \u017e\u00e1dosti o kontrolu sign\u00e1lu?',opts:['SIGNAL CHECK','TRANSMISSION TEST','RADIO CHECK'],ans:2,exp:'Pro \u017e\u00e1dost o kontrolu sign\u00e1lu se pou\u017e\u00edv\u00e1 <strong>RADIO CHECK</strong>.'},
+  {cat:'provoz',q:'Co znamen\u00e1 v\u00fdraz I REPEAT?',opts:['P\u0159eji si opakovat celou zpr\u00e1vu','Zd\u016frazan\u00ed \u2013 opakuji \u010d\u00e1st zpr\u00e1vy, kter\u00e1 je d\u016fle\u017eit\u00e1','Odes\u00edl\u00e1m tut\u00e9\u017e zpr\u00e1vu jin\u00e9mu adres\u00e1tovi'],ans:1,exp:'I REPEAT se pou\u017e\u00edv\u00e1 pro <strong>zd\u016frazan\u00ed d\u016fle\u017eit\u00e9 \u010d\u00e1sti zpr\u00e1vy</strong>.'},
+  {cat:'provoz',q:'Co znamen\u00e1 standardn\u00ed v\u00fdraz I SPELL?',opts:['Konec zpr\u00e1vy','P\u0159ech\u00e1z\u00edm na jin\u00fd kan\u00e1l','Budu hl\u00e1skovat pomoc\u00ed mezin\u00e1rodn\u00ed hl\u00e1skovac\u00ed abecedy'],ans:2,exp:'I SPELL = <strong>budu hl\u00e1skovat pomoc\u00ed mezin\u00e1rodn\u00ed fonetick\u00e9 abecedy</strong>.'},
+  {cat:'provoz',q:'Jak\u00fd standardn\u00ed v\u00fdraz pou\u017eijete, pokud ve vys\u00edlan\u00e9 zpr\u00e1v\u011b ud\u011bl\u00e1te chybu a pot\u0159ebujete ji opravit?',opts:['MISTAKE','WRONG','CORRECTION'],ans:2,exp:'Pro opravu chyby se pou\u017eije <strong>CORRECTION</strong>.'},
+  {cat:'provoz',q:'V\u00fdraz SEELONCE MAYDAY pou\u017e\u00edv\u00e1 stanice kontroluj\u00edc\u00ed t\u00edsn\u00f3v\u00fd provoz pro\u2026',opts:['zah\u00e1jen\u00ed t\u00edsn\u00f3v\u00e9ho vol\u00e1n\u00ed','vyhl\u00e1\u0161en\u00ed r\u00e1diov\u00e9ho klidu (z\u00e1kaz vys\u00edl\u00e1n\u00ed)','ukon\u010den\u00ed t\u00edsn\u00f3v\u00e9 akce'],ans:1,exp:'SEELONCE MAYDAY = <strong>vyhl\u00e1\u0161en\u00ed r\u00e1diov\u00e9ho klidu</strong>.'},
+  {cat:'provoz',q:'Co znamen\u00e1 standardn\u00ed v\u00fdraz SEELONCE FINI?',opts:['Zah\u00e1jen\u00ed t\u00edsn\u00f3v\u00e9ho provozu','R\u00e1diov\u00fd klid prodlou\u017een','Ukon\u010den\u00ed r\u00e1diov\u00e9ho klidu'],ans:2,exp:'SEELONCE FINI = <strong>ukon\u010den\u00ed r\u00e1diov\u00e9ho klidu</strong>.'},
+  {cat:'provoz',q:'Spr\u00e1vn\u00e1 zkratka pro Mezin\u00e1rodn\u00ed n\u00e1mo\u0159n\u00ed organizaci je\u2026',opts:['INO','IMU','IMO'],ans:2,exp:'Mezin\u00e1rodn\u00ed n\u00e1mo\u0159n\u00ed organizace = <strong>IMO</strong>.'},
+  {cat:'provoz',q:'Spr\u00e1vn\u00e1 zkratka pro Mezin\u00e1rodn\u00ed \u00famluvu o bezpe\u010dnosti lidsk\u00e9ho \u017eivota na mo\u0159i je\u2026',opts:['COLREG','UNCLOS','SOLAS'],ans:2,exp:'<strong>SOLAS</strong> = Safety of Life at Sea.'},
+  {cat:'provoz',q:'Spr\u00e1vn\u00e1 zkratka pro odp\u00eddna\u010d pro \u00fa\u010dely p\u00e1tr\u00e1n\u00ed a z\u00e1chrany je\u2026',opts:['EPIRB','PLB','SART'],ans:2,exp:'<strong>SART</strong> = Search and Rescue Transponder.'},
+  {cat:'provoz',q:'Spr\u00e1vn\u00e1 zkratka pro koordinovan\u00fd sv\u011btov\u00fd \u010das je\u2026',opts:['GMT','CET','UTC'],ans:2,exp:'<strong>UTC</strong> = Coordinated Universal Time.'},
+  {cat:'provoz',q:'Spr\u00e1vn\u00e1 zkratka pro identifika\u010dn\u00ed \u010d\u00edslo n\u00e1mo\u0159n\u00ed pohybliv\u00e9 slu\u017eby je\u2026',opts:['MSID','MMSI','NMSI'],ans:1,exp:'<strong>MMSI</strong> = Maritime Mobile Service Identity.'},
+  {cat:'provoz',q:'Zpr\u00e1vy NAVTEX na kmito\u010dtu 518 kHz jsou vys\u00edl\u00e1ny v jazyce\u2026',opts:['francouzsk\u00e9m','\u0161pan\u011blsk\u00e9m','anglick\u00e9m'],ans:2,exp:'NAVTEX na 518 kHz je vys\u00edl\u00e1n v <strong>anglick\u00e9m jazyce</strong>.'},
+  {cat:'provoz',q:'Dosah stanice syst\u00e9mu NAVTEX na kmito\u010dtu 518 kHz \u010din\u00ed\u2026',opts:['50\u2013100 NM','100\u2013200 NM','200\u2013400 NM'],ans:2,exp:'Dosah NAVTEX na 518 kHz je p\u0159ibli\u017en\u011b <strong>200\u2013400 NM</strong>.'},
+  {cat:'provoz',q:'SART 9 GHz slou\u017e\u00ed k\u2026',opts:['navigaci v mlze','komunikaci s pob\u0159e\u017en\u00ed str\u00e1\u017e\u00ed','lokalizaci (fin\u00e1ln\u00edmu vyhled\u00e1n\u00ed) trose\u010dn\u00edk\u016f na m\u00edst\u011b katastrofy'],ans:2,exp:'SART slou\u017e\u00ed k <strong>lokalizaci trose\u010dn\u00edk\u016f</strong> radarem z\u00e1chrann\u00e9 jednotky.'},
+  {cat:'provoz',q:'Jak m\u016f\u017ee b\u00fdt zv\u011bt\u0161en dosah transponderu SART?',opts:['Ponoren\u00edm do vody','Zv\u00fd\u0161en\u00edm v\u00fdkonu baterie','SART by m\u011bl b\u00fdt um\u00edst\u011bn co nejv\u00fd\u0161e a ve vertik\u00e1ln\u00ed poloze'],ans:2,exp:'Dosah SART se zv\u00fdrazuje <strong>co nejvy\u0161\u0161\u00edm um\u00edst\u011bn\u00edm ve vertik\u00e1ln\u00ed poloze</strong>.'},
+  {cat:'provoz',q:'T\u00edsn\u00f3v\u00e9 vol\u00e1n\u00ed DSC vyslané omylem zru\u0161\u00edme\u2026',opts:['p\u0159ebit\u00edm nov\u00e9ho t\u00edsn\u00f3v\u00e9ho vol\u00e1n\u00ed','odpojen\u00edm ant\u00e9ny','na kan\u00e1lu 16 formul\u00e1c\u00ed \"Please, cancel my distress alert of (\u010das UTC)\"'],ans:2,exp:'Fale\u0161n\u00fd alert se zru\u0161\u00ed <strong>na kan\u00e1lu 16 formul\u00e1c\u00ed \"Please, cancel my distress alert of [UTC \u010das]\"</strong>.'},
+  {cat:'provoz',q:'Simplexn\u00ed provoz je zp\u016fsob provozu r\u00e1diov\u00e9 stanice, kter\u00fd\u2026',opts:['umo\u017e\u0148uje simultann\u00ed p\u0159\u00edjem a vys\u00edl\u00e1n\u00ed na jednom kan\u00e1lu','umo\u017e\u0148uje p\u0159enos zpr\u00e1v na jednom kan\u00e1lu st\u0159\u00edd\u00e1v\u011b v obou sm\u011brech (p\u0159i vys\u00edl\u00e1n\u00ed nen\u00ed mo\u017en\u00fd p\u0159\u00edjem)','vyu\u017e\u00edv\u00e1 dva odli\u0161n\u00e9 kmito\u010dty pro p\u0159\u00edjem a vys\u00edl\u00e1n\u00ed'],ans:1,exp:'Simplexn\u00ed provoz = komunikace na <strong>jednom kan\u00e1lu st\u0159\u00edd\u00e1v\u011b</strong>.'},
+  {cat:'provoz',q:'Duplexn\u00ed provoz je zp\u016fsob provozu r\u00e1diov\u00e9 stanice, kter\u00fd\u2026',opts:['umo\u017e\u0148uje p\u0159enos na jednom kan\u00e1lu ob\u011bma sm\u011bry','umo\u017e\u0148uje sou\u010dasn\u00fd p\u0159enos zpr\u00e1v ob\u011bma sm\u011bry a vy\u017eaduje vyu\u017e\u00edv\u00e1n\u00ed dvou kmito\u010dt\u016f','je toto\u017en\u00fd se simplexem'],ans:1,exp:'Duplexn\u00ed provoz = <strong>simultann\u00ed komunikace ob\u011bma sm\u011bry na dvou kmito\u010dtech</strong>.'},
+  {cat:'provoz',q:'Jste na jacht\u011b Sirius, pot\u0159ebujete zavolat do mariny Rijeka. Jak spr\u00e1vn\u011b nav\u00e1\u017eete spojen\u00ed?',opts:['"Rijeka marina, this is Sirius, over"','"Rijeka marina, Rijeka marina, Rijeka marina, this is yacht Sirius, Sirius, Sirius, over"','"All stations, this is Sirius, Rijeka marina come in"'],ans:1,exp:'Spr\u00e1vn\u00fd postup: <strong>n\u00e1zev volan\u00e9 stanice 3\u00d7, DE, vlastn\u00ed n\u00e1zev 3\u00d7, OVER</strong>.'},
+  {cat:'provoz',q:'Sly\u0161\u00edte vol\u00e1n\u00ed adresovan\u00e9 v\u00e1m (ADRIA), ale nerozum\u00edte volaj\u00edc\u00ed stanici. Jak spr\u00e1vn\u011b odpov\u00edte?',opts:['"Adria here, say again"','"Station calling Adria, this is Adria, over"','"Unknown station, this is Adria, MAYDAY"'],ans:1,exp:'Spr\u00e1vn\u00e1 odpov\u011b\u010f: <strong>"Station calling [vlastn\u00ed n\u00e1zev], this is [vlastn\u00ed n\u00e1zev], over"</strong>.'},
+  {cat:'provoz',q:'PTT je ozna\u010den\u00ed tla\u010d\u00edtka, jeho\u017e stiskem u zapnut\u00e9 radiostanice dojde\u2026',opts:['k p\u0159epnut\u00ed na kan\u00e1l 16','k odesl\u00e1n\u00ed DSC alertu','k umo\u017en\u011bn\u00ed vys\u00edl\u00e1n\u00ed \u0159e\u010di'],ans:2,exp:'PTT = Press To Talk = <strong>tla\u010d\u00edtko pro vys\u00edl\u00e1n\u00ed</strong>.'},
+  {cat:'provoz',q:'P\u0159esnost ur\u010den\u00ed m\u00edsta katastrofy z vys\u00edl\u00e1n\u00ed EPIRBu 406 MHz (bez integrov\u00e1n\u00e9ho GPS) \u010din\u00ed zhruba\u2026',opts:['100 m','1 km','5 km'],ans:2,exp:'Bez GPS je p\u0159esnost EPIRBu p\u0159ibli\u017en\u011b <strong>5 km</strong>.'},
+
+  // c) ELEKTROTECHNIKA,
+  {cat:'elektro',q:'Paraleln\u011b \u0159azen\u00e9 akumul\u00e1tory\u2026',opts:['zv\u00fd\u0161uj\u00ed nap\u011bt\u00ed','umo\u017e\u0148uj\u00ed dod\u00e1vat v\u011bt\u0161\u00ed proud','sni\u017euj\u00ed celkov\u00fd v\u00fdkon'],ans:1,exp:'Paraleln\u00ed zapojen\u00ed akumul\u00e1tor\u016f <strong>zv\u00fdrazuje dostupn\u00fd proud</strong>.'},
+  {cat:'elektro',q:'S\u00e9riov\u011b \u0159azen\u00e9 akumul\u00e1tory se zapojuj\u00ed\u2026',opts:['pro zv\u00fd\u0161en\u00ed proudu','pro zv\u00fd\u0161en\u00ed kapacity','pro zv\u00fd\u0161en\u00ed dod\u00e1van\u00e9ho nap\u011bt\u00ed'],ans:2,exp:'S\u00e9riov\u00e9 zapojen\u00ed akumul\u00e1tor\u016f <strong>zv\u00fdrazuje nap\u011bt\u00ed</strong>.'},
+  {cat:'elektro',q:'Jmenovit\u00e9 nap\u011bt\u00ed \u010dl\u00e1nku oloven\u00e9ho akumul\u00e1toru je\u2026',opts:['1,2 V','1,5 V','2 V'],ans:2,exp:'Jmenovit\u00e9 nap\u011bt\u00ed oloven\u00e9ho akumul\u00e1toru = <strong>2 V/\u010dl\u00e1nek</strong>.'},
+  {cat:'elektro',q:'Jmenovit\u00e9 nap\u011bt\u00ed \u010dl\u00e1nku alkalick\u00e9ho akumul\u00e1toru je\u2026',opts:['1,0 V','1,2 V','1,5 V'],ans:1,exp:'Alkalick\u00fd akumul\u00e1tor (NiMH, NiCd) m\u00e1 \u010dl\u00e1nkov\u00e9 nap\u011bt\u00ed <strong>1,2 V</strong>.'},
+  {cat:'elektro',q:'Jmenovit\u00e9 nap\u011bt\u00ed such\u00e9ho galvanick\u00e9ho \u010dl\u00e1nku je\u2026',opts:['1,2 V','1,5 V','2 V'],ans:1,exp:'Such\u00fd galvanick\u00fd \u010dl\u00e1nek m\u00e1 nap\u011bt\u00ed <strong>1,5 V</strong>.'},
+  {cat:'elektro',q:'Such\u00e9 galvanick\u00e9 \u010dl\u00e1nky\u2026',opts:['lze dob\u00edjet opakovan\u011b','lze dob\u00edjet jednou','nelze dob\u00edjet'],ans:2,exp:'Such\u00e9 galvanick\u00e9 \u010dl\u00e1nky jsou prim\u00e1rn\u00ed zdroje \u2013 <strong>nelze je dob\u00edjet</strong>.'},
+  {cat:'elektro',q:'Ant\u00e9ny d\u011bl\u00edme podle sm\u011bru vys\u00edl\u00e1n\u00ed nebo p\u0159\u00edjmu na\u2026',opts:['aktivn\u00ed a pasivn\u00ed','vertik\u00e1ln\u00ed a horizont\u00e1ln\u00ed','sm\u011brov\u00e9 a v\u0161esm\u011brov\u00e9'],ans:2,exp:'Z\u00e1kladn\u00ed d\u011blen\u00ed ant\u00e9n: <strong>sm\u011brov\u00e9 a v\u0161esm\u011brov\u00e9</strong>.'},
+  {cat:'elektro',q:'V\u0161esm\u011brov\u00e1 ant\u00e9na mus\u00ed p\u0159ij\u00edmat nebo vys\u00edlat stejn\u011b v\u0161emi sm\u011bry\u2026',opts:['ve vertik\u00e1ln\u00ed rovin\u011b','v libovoln\u00e9 rovin\u011b','v horizont\u00e1ln\u00ed rovin\u011b'],ans:2,exp:'V\u0161esm\u011brov\u00e1 ant\u00e9na m\u00e1 stejnou charakteristiku ve v\u0161ech sm\u011brech <strong>v horizont\u00e1ln\u00ed rovin\u011b</strong>.'},
+  {cat:'elektro',q:'P\u016flvlnn\u00fd dipol um\u00edst\u011bn\u00fd rovnob\u011b\u017en\u011b se zemsk\u00fdm povrchem m\u00e1 v horizont\u00e1ln\u00ed rovin\u011b\u2026',opts:['kruhovou vyzar\u00f3vac\u00ed charakteristiku','troj\u00faheln\u00edkovou vyzar\u00f3vac\u00ed charakteristiku','osm\u00ed\u010dkovou vyzar\u00f3vac\u00ed charakteristiku'],ans:2,exp:'Dipol rovnob\u011b\u017en\u00fd se zem\u00ed m\u00e1 v horizont\u00e1ln\u00ed rovin\u011b <strong>osm\u00ed\u010dkovou charakteristiku</strong>.'},
+  {cat:'elektro',q:'Vztah mezi d\u00e9lkou vlny (\u03bb) a kmito\u010dtem (f), kdy\u017e c je rychlost sv\u011btla, je\u2026',opts:['f = \u03bb / c','\u03bb = c / f','f = c \u00b7 \u03bb'],ans:1,exp:'Z\u00e1kladn\u00ed vztah: <strong>\u03bb = c / f</strong>.'},
+  {cat:'elektro',q:'Ampr\u00e9rmetr a voltmetr se p\u0159i m\u011b\u0159en\u00ed za\u0159azuj\u00ed\u2026',opts:['oba paraleln\u011b','oba do s\u00e9rie','ampr\u00e9rmetr do s\u00e9rie se spot\u0159ebi\u010dem, voltmetr paraleln\u011b ke spot\u0159ebi\u010di'],ans:2,exp:'Ampr\u00e9rmetr \u2013 <strong>do s\u00e9rie</strong>; voltmetr \u2013 <strong>paraleln\u011b</strong>.'},
+  {cat:'elektro',q:'Funkce SQUELCH VHF radiostanice je ur\u010dena\u2026',opts:['ke zv\u00fd\u0161en\u00ed v\u00fdkonu vys\u00edla\u010de','k automatick\u00e9mu p\u0159epnut\u00ed na kan\u00e1l 16','k potla\u010den\u00ed slab\u0161\u00edch ru\u0161iv\u00fdch sign\u00e1l\u016f v\u010detn\u011b vlastn\u00edho \u0161umu p\u0159ij\u00edma\u010de'],ans:2,exp:'SQUELCH = \u0161umov\u00e1 br\u00e1na \u2013 <strong>potla\u010duje slab\u00e9 ru\u0161iv\u00e9 sign\u00e1ly a vlastn\u00ed \u0161um p\u0159ij\u00edma\u010de</strong>.'},
+  {cat:'elektro',q:'\u00dadaj elektrick\u00e9 nap\u011bt\u00ed 2 V lze tak\u00e9 zapsat\u2026',opts:['0,002 kV','200 mV','2000 mV'],ans:2,exp:'2 V = <strong>2 000 mV</strong>.'},
+  {cat:'elektro',q:'Kmito\u010det 406 MHz lze tak\u00e9 zapsat\u2026',opts:['40,6 GHz','4,06 GHz','0,406 GHz'],ans:2,exp:'406 MHz = <strong>0,406 GHz</strong>.'},
+  {cat:'elektro',q:'D\u00e9lka r\u00e1diov\u00e9 vlny v p\u00e1smu 160 MHz (VHF) je\u2026',opts:['cca. 20 m','cca. 2 m','cca. 20 cm'],ans:1,exp:'\u03bb = c/f = 3\u00d710\u2078 / 1,6\u00d710\u2078 \u2248 <strong>1,875 m \u2248 cca. 2 m</strong>.'},
+  {cat:'elektro',q:'Vztah mezi nap\u011bt\u00edm (U), proudem (I) a odporem (R) je\u2026',opts:['U = R + I','U = R \u00b7 I','U = R / I'],ans:1,exp:'Ohm\u016fv z\u00e1kon: <strong>U = R \u00b7 I</strong>.'},
+  {cat:'elektro',q:'Vztah mezi v\u00fdkonem (P), nap\u011bt\u00edm (U) a proudem (I) je\u2026',opts:['P = U + I','P = U / I','P = U \u00b7 I'],ans:2,exp:'V\u00fdpo\u010det v\u00fdkonu: <strong>P = U \u00b7 I</strong>.'},
+  {cat:'elektro',q:'Radiostanice odb\u00edraj\u00edc\u00ed z baterie 12 V proud 500 mA m\u00e1 p\u0159\u00edkon\u2026',opts:['0,6 W','6 W','60 W'],ans:1,exp:'P = U \u00b7 I = 12 \u00d7 0,5 = <strong>6 W</strong>.'},
+  {cat:'elektro',q:'Ke zdroji 10 V jsou p\u0159ipojeny dva odpory 10 \u03a9 zapojen\u00e9 do s\u00e9rie. Odeb\u00edran\u00fd p\u0159\u00edkon \u010din\u00ed\u2026',opts:['10 W','1 W','5 W'],ans:2,exp:'Celkov\u00fd odpor = 20 \u03a9. I = 10/20 = 0,5 A. P = 10 \u00d7 0,5 = <strong>5 W</strong>.'},
+  {cat:'elektro',q:'Jak\u00fd je p\u0159ibli\u017en\u011b dosah mezi dv\u011bma place tnicemi, kdy\u017e ob\u011b maj\u00ed ant\u00e9nu na ste\u017en\u00ed ve v\u00fd\u0161ce 16 m nad hladinou?',opts:['asi 5\u20138 NM','asi 10\u201314 NM','asi 16\u201324 NM'],ans:2,exp:'P\u0159i v\u00fd\u0161ce ant\u00e9n 16 m je dosah p\u0159ibli\u017en\u011b <strong>16\u201324 NM</strong>.'},
+  {cat:'elektro',q:'Co umo\u017e\u0148uje na radiostanici funkce DUAL WATCH?',opts:['Simultan\u00ed vys\u00edl\u00e1n\u00ed na dvou kan\u00e1lech','Soub\u011b\u017en\u011b monitorovat kan\u00e1l 16 plus jeden dal\u0161\u00ed vybran\u00fd kan\u00e1l','Automatick\u00e9 p\u0159ep\u00edn\u00e1n\u00ed kan\u00e1l\u016f'],ans:1,exp:'DUAL WATCH = <strong>sledov\u00e1n\u00ed kan\u00e1lu 16 a z\u00e1rove\u0148 jednoho dal\u0161\u00edho kan\u00e1lu</strong>.'},
+  {cat:'elektro',q:'Je mo\u017en\u00e9 vys\u00edlat bez ant\u00e9ny?',opts:['Ano, na kr\u00e1tk\u00e9 vzd\u00e1lenosti','Ano, ale jen na n\u00edzk\u00fd v\u00fdkon','Ne, hroz\u00ed po\u0161kozen\u00ed radiostanice'],ans:2,exp:'Vys\u00edl\u00e1n\u00ed bez ant\u00e9ny je <strong>zak\u00e1z\u00e1no</strong> \u2013 hroz\u00ed p\u0159eh\u0159\u00e1t\u00ed a po\u0161kozen\u00ed vys\u00edla\u010de.'},
+  {cat:'elektro',q:'Kterou vlastnost ant\u00e9ny ovlivn\u00ed n\u00e1klon lod\u011b?',opts:['Impedanci','Frekvenci','Dosah'],ans:2,exp:'N\u00e1klon lod\u011b ovlivn\u00ed orient\u00e1c\u00ed ant\u00e9ny, \u010d\u00edm\u017e se m\u011bn\u00ed <strong>dosah</strong> v r\u016fzn\u00fdch sm\u011brech.'},
+  {cat:'elektro',q:'Co NEN\u00cd mo\u017en\u00e9 d\u011blat, kdy\u017e m\u00e1me stisknut\u00e9 tla\u010d\u00edtko pro vys\u00edl\u00e1n\u00ed (PTT)?',opts:['Mluvit do mikrofonu','Sledovat ukaz\u00e1tel v\u00fdkonu','P\u0159ij\u00edmat jin\u00e9 vys\u00edl\u00e1n\u00ed'],ans:2,exp:'P\u0159i stisknut\u00e9m PTT <strong>p\u0159\u00edjem nen\u00ed mo\u017en\u00fd</strong>.'},
+  {cat:'elektro',q:'V jak\u00fdch typech DSC vol\u00e1n\u00ed je zahrnuta pozice a \u010das?',opts:['V rutinost n\u00edch i t\u00edsn\u00f3v\u00fdch','V pilnostn\u00edch a bezpe\u010dnostn\u00edch','Pouze v t\u00edsn\u00f3v\u00e9m DSC alarmu (DISTRESS)'],ans:2,exp:'Pozice a \u010das jsou sou\u010d\u00e1st\u00ed pouze <strong>t\u00edsn\u00f3v\u00e9ho DSC alarmu</strong>.'},
+  {cat:'elektro',q:'Jak\u00e1 je minim\u00e1ln\u00ed \u017eivotn ost baterie v radiob\u00f3ji EPIRB p\u0159i vys\u00edl\u00e1n\u00ed?',opts:['12 hodin','24 hodin','48 hodin'],ans:2,exp:'Minim\u00e1ln\u00ed provozn\u00ed \u017eivotn ost baterie EPIRB = <strong>48 hodin</strong>.'},
+  {cat:'elektro',q:'Co z uveden\u00e9ho NEN\u00cd sou\u010d\u00e1st\u00ed radiob\u00f3je EPIRB?',opts:['Ant\u00e9na','Baterie','Mikrofon'],ans:2,exp:'EPIRB je automatick\u00fd maje\u00e1k \u2013 <strong>mikrofon nen\u00ed sou\u010d\u00e1st\u00ed</strong> za\u0159\u00edzen\u00ed.'},
+  {cat:'elektro',q:'K \u010demu je v p\u00e1smu VHF ur\u010den\u00fd kan\u00e1l 70?',opts:['Komunikaci lo\u010f\u2013lo\u010f','Meteorologick\u00fdm zpr\u00e1v\u00e1m','V\u00fdhradn\u011b pro DSC \u2013 hlasov\u00e9 vol\u00e1n\u00ed je zak\u00e1z\u00e1no'],ans:2,exp:'Kan\u00e1l 70 je vyhrazen <strong>v\u00fdhradn\u011b pro DSC</strong>. Hlasov\u00e9 vys\u00edl\u00e1n\u00ed je zak\u00e1z\u00e1no.'},
+  {cat:'elektro',q:'V jak\u00e9m kmito\u010dtov\u00e9m p\u00e1smu pracuje lodn\u00ed VHF radiostanice?',opts:['88\u2013108 MHz','130\u2013175 MHz','156\u2013162 MHz'],ans:2,exp:'Lodn\u00ed VHF radiostanice pracuj\u00ed v p\u00e1smu <strong>156\u2013162 MHz</strong>.'},
+  {cat:'elektro',q:'Jak\u00fdm zp\u016fsobem se \u0161\u00ed\u0159\u00ed r\u00e1diov\u00e9 vlny v p\u00e1smu VHF?',opts:['\u00eda\u0159\u00ed se pod\u00e9l zemsk\u00e9ho povrchu','Odr\u00e1\u017e\u00ed se od ionosf\u00e9ry','\u0160\u00ed\u0159\u00ed se p\u0159\u00edmo\u010d\u0159e, neoh\u00fdvaj\u00ed se pod\u00e9l povrchu ani p\u0159es p\u0159ek\u00e1\u017eky'],ans:2,exp:'VHF vlny se \u0161\u00ed\u0159\u00ed <strong>p\u0159\u00edmo\u010d\u0159e</strong> \u2013 dosah je omezen horizontem.'},
+  {cat:'elektro',q:'Jak zv\u00fd\u0161\u00edme dosah ant\u00e9ny v p\u00e1smu VHF?',opts:['Zv\u00fd\u0161en\u00edm v\u00fdkonu vys\u00edla\u010de','Pou\u017eit\u00edm del\u0161\u00ed ant\u00e9ny','Um\u00edst\u011bn\u00edm ant\u00e9ny co nejv\u00fd\u0161e'],ans:2,exp:'Dosah VHF ant\u00e9ny se nejef ektivn\u011bji zv\u00fdrazuje <strong>jej\u00edm um\u00edst\u011bn\u00edm co nejv\u00fd\u0161e</strong>.'},
+  {cat:'elektro',q:'Maxim\u00e1ln\u00ed povolen\u00fd v\u00fdkon lodn\u00ed radiostanice vys\u00edlaj\u00edc\u00ed v p\u00e1smu VHF je\u2026',opts:['10 W','16 W','25 W'],ans:2,exp:'Maxim\u00e1ln\u00ed povolen\u00fd v\u00fdkon lodn\u00ed VHF stanice je <strong>25 W</strong>.'},
+  {cat:'predpisy',q:'Držitel individuálního oprávnění k využívání rádiových kmitočtů je povinen platit za využívání rádiových kmitočtů…',opts:['nic, spektrum je volné','poplatek dle nařízení vlády o poplatcích','roční licenční poplatek ČTÚ'],ans:1,exp:'Držitel je povinen platit <strong>poplatek dle nařízení vlády</strong> za využívání RM.'},
+  {cat:'predpisy',q:'Volací značka OL5234 v radiotelefonním provozu je…',opts:['volací značka letadla','volací značka lodní stanice','volací značka pobřežní stanice'],ans:1,exp:'Značka začínající OL náleží <strong>lodní stanici</strong> (ČR).'},
+  {cat:'predpisy',q:'Pohyblivá služba mezi pobřežními stanicemi a lodními stanicemi nebo mezi lodními stanicemi se nazývá…',opts:['pobřežní pohyblivá služba','námořní pohyblivá služba','interní loďní služba'],ans:1,exp:'Tato služba se nazývá <strong>námořní pohyblivá služba</strong>.'},
+  {cat:'predpisy',q:'Nejvyšší prioritu a absolutní přednost má zpráva…',opts:['bezpečnostní (signál SÉCURITÉ)','pilnostní (signál PAN PAN)','tísnóvá (signál MAYDAY)'],ans:2,exp:'Nejvyšší prioritu má <strong>tísnóvá zpráva (MAYDAY)</strong>.'},
+  {cat:'predpisy',q:'Rádiové kmitočty z pásma 160 MHz spadají do pásma označovaného jako…',opts:['KV (HF)','VKV (VHF)','UKV (UHF)'],ans:1,exp:'160 MHz patří do pásma <strong>VKV (VHF)</strong> = Very High Frequency (30–300 MHz).'},
+  {cat:'predpisy',q:'Služba u letadlové nebo lodní stanice podléhá nejvyšší pravomoci…',opts:['rádiového operátora','ČTÚ','velitele nebo osoby odpovědné za letadlo nebo plavidlo'],ans:2,exp:'Služba u lodní stanice podléhá <strong>veliteli nebo osobě odpovědné za plavidlo</strong>.'},
+  {cat:'predpisy',q:'První znak nebo první dva znaky mezinárodní volací značky označují…',opts:['typ stanice (lodní, pobřežní…)','státní příslušnost stanice','oblast pokrytí stanice'],ans:1,exp:'První 1–2 znaky označují <strong>státní příslušnost</strong> (prefix země).'},
+  {cat:'predpisy',q:'Volací značkou je…',opts:['název lodi zapsaný v rejstříku','každé poznávací označení stanice přidělené dle Radiokomunikačního řádu umožňující zjištění její totožnosti','registrační číslo udělené ČTÚ'],ans:1,exp:'Volací značka je <strong>poznávací označení stanice přidělené dle Radiokomunikačního řádu</strong>.'},
+  {cat:'predpisy',q:'Vnitrozemský automatický identifikační systém (Inland AIS)…',opts:['je určen pouze pro námořní lodě','je součástí říčních informačních služeb a může být používán na vyhrazených rádiových kmitočtech','nahrazuje VHF rádio na vnitrozemských vodních cestách'],ans:1,exp:'Inland AIS je <strong>součástí říčních informačních služeb (RIS)</strong>.'},
+  {cat:'predpisy',q:'AIS transpondér je rádiová stanice umožňující…',opts:['pouze příjem signálů z jiných lodí','příjem, vysílání a zpracování rádiového signálu AIS','pouze vysílání polohy lodi'],ans:1,exp:'AIS transpondér umožňuje <strong>příjem, vysílání i zpracování signálů AIS</strong> oboustranně.'},
+  {cat:'predpisy',q:'Předmětem telekomunikačního tajemství je zejména…',opts:['pouze šifrováná komunikace','obsah zpráv přepravovaných telekomunikačními zařízeními s výjimkou zpráv určených veřejnosti','identita volající osoby'],ans:1,exp:'Předmětem telekomunikačního tajemství je <strong>obsah zpráv</strong> (kromě těch určených veřejnosti).'},
+  {cat:'provoz',q:'Podle čeho je možné identifikovat MMSI náležející pobřežní stanici?',opts:['Z prvních dvou číslic','Pobřežní stanice používají MMSI, kde před MID jsou dvě nuly','Z posledních tří číslic'],ans:1,exp:'MMSI pobřežní stanice: <strong>00 + MID + další číslice</strong>.'},
+  {cat:'provoz',q:'Je možné se pomocí DSC spojit se skupinou lodních stanic?',opts:['Ne, DSC umožňuje pouze spojení 1:1','Ano, pomocí skupinového MMSI','Ano, ale pouze přes pobřežní stanici'],ans:1,exp:'DSC <strong>umožňuje skupinové volání</strong> pomocí skupinového MMSI.'},
+  {cat:'provoz',q:'Pro volání skupiny lodních stanic se u MMSI před MID předřazuje…',opts:['dvě nuly','jedna nula','písmeno G'],ans:1,exp:'Skupinové MMSI má před MID <strong>jednu nulu</strong>.'},
+  {cat:'provoz',q:'Jak probíhá potvrzení běžného (rutinního) DSC volání?',opts:['Pouze hlasově na kanálu 16','Je nutné potvrdit nabídku spojení včetně pracovního kanálu; komunikace se automaticky přepne','Rutinní DSC volání se nepotvrzuje'],ans:1,exp:'<strong>Potvrdit nabídku včetně pracovního kanálu</strong>, pak se komunikace automaticky přepne.'},
+  {cat:'provoz',q:'Přednastaveny obsah tísnóvého volání DSC se vysílá…',opts:['vždy jako první krok','v situaci, kdy není čas na ruční vkládání dalších údajů','pouze pokud je GPS odpojeno'],ans:1,exp:'Přednastaveny obsah DSC se používá <strong>při nedostatku času</strong> pro ruční vložení dat.'},
+  {cat:'provoz',q:'Jaký je postup pro nastavení obsahu tísnóvého volání DSC?',opts:['Stačí stisknout tlačítko DISTRESS','V MENU zvolit DISTRESS, zkontrolovat/vložit polohu a čas UTC, příp. povahu tísně; po odeslání se stanice přepne na kanál 16','Postup určuje pobřežní stanice'],ans:1,exp:'<strong>MENU → DISTRESS → poloha/čas → odeslat</strong>. Stanice se automaticky přepne na kanál 16.'},
+  {cat:'provoz',q:'Účel DSC zprávy DISTRESS ALERT RELAY od pobřežní stanice je…',opts:['Potvrdit příjem alertu','Alarmovat lodě v oblasti a ověřit možnost jejich záchranné součinnosti','Zrušit falešný alert'],ans:1,exp:'DISTRESS ALERT RELAY slouží k <strong>alarmování lodí v oblasti</strong> a ověření záchranné součinnosti.'},
+  {cat:'provoz',q:'Jakou adresu použije pobřežní stanice u DSC zprávy DISTRESS ALERT RELAY pro ALL SHIPS?',opts:['MMSI 999999999','MMSI 000000000','Žádnou, adresa není potřeba'],ans:2,exp:'Pro volání všem lodím (ALL SHIPS) <strong>adresa není potřeba</strong>.'},
+  {cat:'provoz',q:'Jakou adresu použije pobřežní stanice u DSC zprávy určené pro konkrétní plavidlo?',opts:['Název lodi','Volací značku lodi','MMSI této stanice'],ans:2,exp:'Pro volání konkrétní lodi se používá její <strong>MMSI</strong>.'},
+  {cat:'provoz',q:'DSC volání DISTRESS ALERT RELAY vyslané všem lodím potvrzují lodní stanice…',opts:['DSC potvrzením na kanálu 70','radiotelefonním provozem na kanálu 16','E-mailem nebo sat. telefonem'],ans:1,exp:'DISTRESS ALERT RELAY potvrzují lodní stanice <strong>radiotelefonicky na kanálu 16</strong>.'},
+  {cat:'provoz',q:'Jak se vysílají pilnostní zprávy v systému DSC?',opts:['Přímo hlasem na kanálu 16','Pilnostní volání DSC na kanálu 70 s uvedením pracovního kanálu pro následné radiotelefonní vysílání','Stejně jako tísnóvé zprávy'],ans:1,exp:'Pilnostní zprávy: <strong>DSC alert na kanálu 70</strong> s uvedenim pracovního kanálu, pak radiotelefonicky.'},
+  {cat:'provoz',q:'Jak se potvrzuje příjem pilnostních volání DSC?',opts:['DSC potvrzením na kanálu 70','Příjem pilnostních volání DSC se nepotvrzuje – stanice přepne na ohlášený kanál','Hlasem na kanálu 16'],ans:1,exp:'Pilnostní volání DSC se <strong>nepotvrzuje</strong> – jen přepnout na pracovní kanál a vyslechnout.'},
+  {cat:'provoz',q:'Jak se vysílají bezpečnostní zprávy v systému DSC?',opts:['Přímo hlasem na kanálu 16','Bezpečnostní volání DSC na kanálu 70 s uvedením pracovního kanálu, pak radiotelefonicky','Jako rutinní volání'],ans:1,exp:'Bezpečnostní zprávy: <strong>DSC alert na kanálu 70</strong> s uvedením pracovního kanálu, pak radiotelefonicky.'},
+  {cat:'provoz',q:'Jak se potvrzuje příjem bezpečnostních volání DSC?',opts:['DSC potvrzením na kanálu 70','Hlasem na kanálu 16','Příjem bezpečnostních volání DSC na kanálu 70 se nepotvrzuje; plavidlo přepne na ohlášený kanál'],ans:2,exp:'Bezpečnostní volání DSC se <strong>nepotvrzuje</strong> – jen přepnout a vyslechnout.'},
+  {cat:'provoz',q:'Jaký EPIRB je oficiální součástí systému GMDSS?',opts:['EPIRB s frekvencí 121,5 MHz','EPIRB 406 MHz pro COSPAS-SARSAT (nově i s GPS a signálem 121,5 MHz)','Jakýkoliv certifikovaný EPIRB'],ans:1,exp:'Oficiální GMDSS EPIRB: <strong>406 MHz / COSPAS-SARSAT</strong>, nově i s GPS.'},
+  {cat:'provoz',q:'Výraz "RIJEKA RADIO" znamená…',opts:['název lodi','volací značka pobřežní stanice RIJEKA','název přístavu'],ans:1,exp:'"RIJEKA RADIO" je <strong>volací značka pobřežní stanice</strong>.'},
+  {cat:'provoz',q:'Výraz CALLSIGN znamená…',opts:['tísnóvý signál','volací značka','identifikační číslo'],ans:1,exp:'CALLSIGN = <strong>volací značka</strong>.'},
+  {cat:'provoz',q:'Výraz LATITUDE znamená…',opts:['zeměpisná délka','zeměpisná šířka','nadmořská výška'],ans:1,exp:'LATITUDE = <strong>zeměpisná šířka</strong>.'},
+  {cat:'provoz',q:'Výraz LONGITUDE znamená…',opts:['zeměpisná šířka','zeměpisná délka','hloubka'],ans:1,exp:'LONGITUDE = <strong>zeměpisná délka</strong>.'},
+  {cat:'provoz',q:'Výraz DEGREE znamená…',opts:['účel','stupeň','rádiové pásmo'],ans:1,exp:'DEGREE = <strong>stupeň</strong> (úhlová jednotka pro souřadnice).'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno A v mezinárodní fonetické abecedě?',opts:['Arrow','Alpha','Angel'],ans:1,exp:'A = <strong>Alpha</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno B v mezinárodní fonetické abecedě?',opts:['Beta','Ball','Bravo'],ans:2,exp:'B = <strong>Bravo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno C v mezinárodní fonetické abecedě?',opts:['Charlie','Crown','Cuba'],ans:0,exp:'C = <strong>Charlie</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno D v mezinárodní fonetické abecedě?',opts:['Denmark','David','Delta'],ans:2,exp:'D = <strong>Delta</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno E v mezinárodní fonetické abecedě?',opts:['England','Echo','Eagle'],ans:1,exp:'E = <strong>Echo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno F v mezinárodní fonetické abecedě?',opts:['Fox','Foxtrot','Flag'],ans:1,exp:'F = <strong>Foxtrot</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno G v mezinárodní fonetické abecedě?',opts:['Golf','George','Green'],ans:0,exp:'G = <strong>Golf</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno H v mezinárodní fonetické abecedě?',opts:['Harry','Hotel','Harbour'],ans:1,exp:'H = <strong>Hotel</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno I v mezinárodní fonetické abecedě?',opts:['Italy','India','Island'],ans:1,exp:'I = <strong>India</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno J v mezinárodní fonetické abecedě?',opts:['Juliett','Java','Junior'],ans:0,exp:'J = <strong>Juliett</strong> (s dvěma t).'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno K v mezinárodní fonetické abecedě?',opts:['King','Kilo','Karl'],ans:1,exp:'K = <strong>Kilo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno L v mezinárodní fonetické abecedě?',opts:['London','Lima','Lion'],ans:1,exp:'L = <strong>Lima</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno M v mezinárodní fonetické abecedě?',opts:['Mike','Metro','Motor'],ans:0,exp:'M = <strong>Mike</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno N v mezinárodní fonetické abecedě?',opts:['Norway','Nora','November'],ans:2,exp:'N = <strong>November</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno O v mezinárodní fonetické abecedě?',opts:['Oxford','Oliver','Oscar'],ans:2,exp:'O = <strong>Oscar</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno P v mezinárodní fonetické abecedě?',opts:['Papa','Peter','Port'],ans:0,exp:'P = <strong>Papa</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno Q v mezinárodní fonetické abecedě?',opts:['Queen','Quebec','Quick'],ans:1,exp:'Q = <strong>Quebec</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno R v mezinárodní fonetické abecedě?',opts:['Radio','Romeo','Roger'],ans:1,exp:'R = <strong>Romeo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno S v mezinárodní fonetické abecedě?',opts:['Sierra','Sugar','Safety'],ans:0,exp:'S = <strong>Sierra</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno T v mezinárodní fonetické abecedě?',opts:['Tiger','Tango','Tara'],ans:1,exp:'T = <strong>Tango</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno U v mezinárodní fonetické abecedě?',opts:['Uniform','Ultima','Union'],ans:0,exp:'U = <strong>Uniform</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno V v mezinárodní fonetické abecedě?',opts:['Vega','Victor','Viking'],ans:1,exp:'V = <strong>Victor</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno W v mezinárodní fonetické abecedě?',opts:['Wind','Whiskey','White'],ans:1,exp:'W = <strong>Whiskey</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno X v mezinárodní fonetické abecedě?',opts:['X-ray','Xeno','Xavier'],ans:0,exp:'X = <strong>X-ray</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno Y v mezinárodní fonetické abecedě?',opts:['Yankee','Yellow','York'],ans:0,exp:'Y = <strong>Yankee</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno Z v mezinárodní fonetické abecedě?',opts:['Zebra','Zulu','Zero'],ans:1,exp:'Z = <strong>Zulu</strong>'},
+  {cat:'provoz',q:'Při použití mezinárodní fonetické abecedy se znak @ (tzv. zavínač) vyjadřuje výrazem…',opts:['ALPHA TANGO','AT','CIRCLE A'],ans:1,exp:'Znak @ se vyjadřuje jako <strong>AT</strong>.'},
+  {cat:'elektro',q:'Všesměrová anténa má vyzářovací charakteristiku…',opts:['osmičkovou','trojuhelníkovou','kruhovou'],ans:2,exp:'Všesměrová anténa má <strong>kruhovou vyzářovací charakteristiku</strong> v horizontální rovině.'},
+  {cat:'elektro',q:'Půlvlnný dipol…',opts:['je vždy všesměrová anténa','může být směrová i všesměrová, záleží na orientaci k zemskému povrchu','je vždy směrová anténa'],ans:1,exp:'Půlvlnný dipol může být <strong>směrový i všesměrový</strong> podle orientace.'},
+  {cat:'elektro',q:'Za bezpečná napětí při dotyku živých částí v suchém bezprašném prostředí považujeme…',opts:['DC do 120 V a AC do 50 V','DC do 60 V a AC do 25 V','DC do 48 V a AC do 12 V'],ans:1,exp:'Bezpečná napětí: <strong>DC do 60 V a AC do 25 V</strong>.'},
+  {cat:'elektro',q:'Při úrazu elektrickým proudem…',opts:['okamžitě začněme resuscitaci','vyprostiíme postiženého z dosahu el. proudu, zavoláme záchranáře a při selhání životních funkcí zahájíme resuscitaci','počkáme na záchranáře'],ans:1,exp:'Při Úrazu el. proudem: <strong>vyprostit → zavolat záchranáře → resuscitace při selhání funkcí</strong>.'},
+  {cat:'elektro',q:'Tři dobré vodiče elektřiny jsou…',opts:['hliník, železo, olovo','měď, zlato, stříbro','grafit, voda, plast'],ans:1,exp:'Nejlepší vodiče: <strong>měď, zlato, stříbro</strong>.'},
+  {cat:'elektro',q:'Čtyři dobré izolanty jsou…',opts:['sklo, vzduch, plast, porcelán','voda, guma, dřevo, hliník','křemen, beton, celón, olovo'],ans:0,exp:'Dobré izolanty: <strong>sklo, vzduch, plast, porcelán</strong>.'},
+  {cat:'elektro',q:'Radiotechnická součástka je kondenzátor, pokud se její hodnota měří v…',opts:['Ω (ohm)','H (henry)','pF (picofarad)'],ans:2,exp:'Kondenzátor se měří v <strong>pF (picofaradech)</strong>.'},
+  {cat:'elektro',q:'Výstupním výkonem stanice se rozumí…',opts:['příkon odebíraný ze sítě','výkon nařízený ČTÚ','výkon koncového stupně vysílače dodávaný do napaječe anténního systému'],ans:2,exp:'Výstupní výkon = <strong>výkon koncového stupně dodávaný do anténního systému</strong>.'},
+  {cat:'elektro',q:'Na čem závisí délka antény v pásmu VHF?',opts:['Na výkonu vysílače','Na vzdálenosti od pobřežní stanice','Na vlnové délce'],ans:2,exp:'Délka antény závisí na <strong>vlnové délce</strong> signálu.'},
+];
+
+var theoryData = [
+  {tag:'P\u0159edpisy',title:'1. Radiokomunika\u010dn\u00ed p\u0159edpisy a pr\u016fkazy',content:'<p>Spr\u00e1vu r\u00e1diov\u00e9ho spektra v \u010cR zaji\u0161\u0165uje <strong>\u010cesk\u00fd telekomunika\u010dn\u00ed \u00fa\u0159ad (\u010cT\u00da)</strong>. N\u00e1rodn\u00ed kmito\u010dtovou tabulku stanovuje MPO vyhl\u00e1\u0161kou.</p><ul><li><strong>SRC</strong> (Short Range Certificate) \u2013 oprav\u0148uje k obsluze VHF radiostanice, platnost 10 let, prodlou\u017een\u00ed o 5 let</li><li><strong>LRC</strong> (Long Range Certificate) \u2013 pro MF/HF a satelitn\u00ed za\u0159\u00edzen\u00ed</li><li>Obsluha bez pr\u016fkazu = <strong>p\u0159estupek</strong>, pokuta a\u017e 100 000 K\u010d</li><li>Pr\u016fkaz vyd\u00e1v\u00e1 \u010cT\u00da, \u017e\u00e1dost o prodlou\u017een\u00ed min. 1 m\u011bs\u00edc p\u0159ed expirac\u00ed</li></ul><div class="info-grid"><div class="info-item"><div class="key">Prvn\u00ed vyd\u00e1n\u00ed</div><div class="val">10 let</div></div><div class="info-item"><div class="key">Prodlou\u017een\u00ed</div><div class="val">5 let</div></div><div class="info-item"><div class="key">MID \u010cR</div><div class="val">270</div></div><div class="info-item"><div class="key">Prefix \u010cR</div><div class="val">OK / OL</div></div></div>'},
+  {tag:'T\u00edsn\u011b',title:'2. T\u00edsn\u00f3v\u00e9 sign\u00e1ly \u2013 MAYDAY, PAN PAN, S\u00c9CURIT\u00c9',content:'<div class="info-grid"><div class="info-item"><div class="key">Priorita 1</div><div class="val" style="color:var(--coral)">MAYDAY</div></div><div class="info-item"><div class="key">Priorita 2</div><div class="val" style="color:var(--gold)">PAN PAN</div></div><div class="info-item"><div class="key">Priorita 3</div><div class="val" style="color:var(--foam)">S\u00c9CURIT\u00c9</div></div><div class="info-item"><div class="key">Kan\u00e1l</div><div class="val">16 (hlas) / 70 (DSC)</div></div></div><p><strong>MAYDAY</strong> \u2013 bezprost\u0159edn\u00ed ohro\u017een\u00ed lodi nebo osob. Vys\u00edl\u00e1 se 3\u00d7. Jen na p\u0159\u00edkaz velitele lodi.</p><p><strong>PAN PAN</strong> \u2013 urgenn\u00ed, z\u00e1va\u017en\u00e1 situace bez bezprost\u0159edn\u00edho ohro\u017een\u00ed.</p><p><strong>S\u00c9CURIT\u00c9</strong> \u2013 bezpe\u010dnostn\u00ed ozn\u00e1men\u00ed: naviga\u010dn\u00ed varov\u00e1n\u00ed, meteorologick\u00e1 v\u00fdstraha.</p><div class="highlight-box"><strong>Struktura MAYDAY vol\u00e1n\u00ed:</strong><br>MAYDAY MAYDAY MAYDAY<br>This is [n\u00e1zev lodi] [n\u00e1zev lodi] [n\u00e1zev lodi]<br>MAYDAY [n\u00e1zev lodi]<br>My position is [sou\u0159adnice]<br>[Povaha t\u00edsn\u011b] \u00b7 [Po\u010det osob na palu b\u011b]<br>OVER</div><p>T\u00edsn\u00f3v\u00fd provoz hl\u00edd\u00e1 <strong>stanice SEELONCE MAYDAY</strong>. R\u00e1diov\u00fd klid ukon\u010duje <strong>SEELONCE FINI</strong>.</p>'},
+  {tag:'GMDSS',title:'3. GMDSS, DSC, EPIRB, SART',content:'<ul><li><strong>DSC (Digital Selective Calling)</strong> \u2013 kan\u00e1l 70 VHF, automatick\u00fd t\u00edsn\u00f3v\u00fd alert s polohou. MMSI = 9m\u00edstn\u00fd k\u00f3d lodi</li><li><strong>EPIRB</strong> \u2013 satelitn\u00ed t\u00edsn\u00f3v\u00fd maje\u00e1k 406 MHz, aktivace ru\u010dn\u00ed nebo hydrostatick\u00e1 (4 m hloubka), v\u00fddr\u017e baterie min. 48 h, p\u0159esnost bez GPS \u2248 5 km</li><li><strong>SART</strong> \u2013 z\u00e1chrann\u00fd transpond\u00e9r 9 GHz, lokalizace radarem z\u00e1chrann\u00e9 jednotky</li><li><strong>NAVTEX</strong> \u2013 518 kHz, anglicky, dosah 200\u2013400 NM</li></ul><div class="info-grid"><div class="info-item"><div class="key">Oblast A1</div><div class="val">VHF (do ~50 NM)</div></div><div class="info-item"><div class="key">Oblast A2</div><div class="val">MF (~400 NM)</div></div><div class="info-item"><div class="key">Oblast A3</div><div class="val">Satelit INMARSAT</div></div><div class="info-item"><div class="key">Oblast A4</div><div class="val">Pol\u00e1rn\u00ed oblasti</div></div></div><p>DSC t\u00edsn\u00f3v\u00fd alert se opakuje automaticky ka\u017ed\u00e9 <strong>4 minuty</strong>. DSC test = pouze <strong>SELF TEST</strong> (1\u00d7 denn\u011b).</p>'},
+  {tag:'Provoz',title:'4. Radiotelefonn\u00ed postupy a frazeologie',content:'<ul><li><strong>OVER</strong> \u2013 p\u0159ed\u00e1v\u00e1m, \u010dek\u00e1m na odpov\u011b\u010f</li><li><strong>OUT</strong> \u2013 konec komunikace (nikdy OVER and OUT!)</li><li><strong>ROGER</strong> \u2013 p\u0159ijato, rozum\u011bl jsem (neznamenn\u00e1 souhlas)</li><li><strong>WILCO</strong> \u2013 rozum\u011bl jsem a vyhovuji</li><li><strong>SAY AGAIN</strong> \u2013 opakujte</li><li><strong>I REPEAT</strong> \u2013 zd\u016frazan\u00ed d\u016fle\u017eit\u00e9 \u010d\u00e1sti</li><li><strong>I SPELL</strong> \u2013 budu hl\u00e1skovat foneticky</li><li><strong>CORRECTION</strong> \u2013 oprava chyby</li><li><strong>RADIO CHECK</strong> \u2013 \u017e\u00e1dost o kontrolu sign\u00e1lu</li><li><strong>PTT</strong> \u2013 tla\u010d\u00edtko pro vys\u00edl\u00e1n\u00ed (p\u0159i stisku nelze p\u0159ij\u00edmat)</li></ul><div class="highlight-box"><strong>Postup vol\u00e1n\u00ed:</strong><br>1) Poslechnout kan\u00e1l 16 \u2013 je voln\u00fd?<br>2) "[Stanice] \u00d73, this is [Vy] \u00d73, over"<br>3) Domluvit pracovn\u00ed kan\u00e1l a p\u0159ela\u010dit<br>4) Komunikovat na pracovn\u00edm kan\u00e1lu</div><p>Maxim\u00e1ln\u00ed v\u00fdkon VHF = <strong>25 W</strong>. Dual watch = kan\u00e1l 16 + pracovn\u00ed kan\u00e1l. Squelch = potla\u010den\u00ed \u0161umu.</p>'},
+  {tag:'Hl\u00e1skov\u00e1n\u00ed',title:'5. Mezin\u00e1rodn\u00ed fonetick\u00e1 abeceda ICAO',content:'<div class="info-grid"><div class="info-item"><div class="key">A</div><div class="val">Alpha</div></div><div class="info-item"><div class="key">B</div><div class="val">Bravo</div></div><div class="info-item"><div class="key">C</div><div class="val">Charlie</div></div><div class="info-item"><div class="key">D</div><div class="val">Delta</div></div><div class="info-item"><div class="key">E</div><div class="val">Echo</div></div><div class="info-item"><div class="key">F</div><div class="val">Foxtrot</div></div><div class="info-item"><div class="key">G</div><div class="val">Golf</div></div><div class="info-item"><div class="key">H</div><div class="val">Hotel</div></div><div class="info-item"><div class="key">I</div><div class="val">India</div></div><div class="info-item"><div class="key">J</div><div class="val">Juliett</div></div><div class="info-item"><div class="key">K</div><div class="val">Kilo</div></div><div class="info-item"><div class="key">L</div><div class="val">Lima</div></div><div class="info-item"><div class="key">M</div><div class="val">Mike</div></div><div class="info-item"><div class="key">N</div><div class="val">November</div></div><div class="info-item"><div class="key">O</div><div class="val">Oscar</div></div><div class="info-item"><div class="key">P</div><div class="val">Papa</div></div><div class="info-item"><div class="key">Q</div><div class="val">Quebec</div></div><div class="info-item"><div class="key">R</div><div class="val">Romeo</div></div><div class="info-item"><div class="key">S</div><div class="val">Sierra</div></div><div class="info-item"><div class="key">T</div><div class="val">Tango</div></div><div class="info-item"><div class="key">U</div><div class="val">Uniform</div></div><div class="info-item"><div class="key">V</div><div class="val">Victor</div></div><div class="info-item"><div class="key">W</div><div class="val">Whiskey</div></div><div class="info-item"><div class="key">X</div><div class="val">X-ray</div></div><div class="info-item"><div class="key">Y</div><div class="val">Yankee</div></div><div class="info-item"><div class="key">Z</div><div class="val">Zulu</div></div></div><p>&#268;&#237;sla: 0=Zero, 1=Wun, 2=Too, 3=Tree, 4=Fower, 5=Fife, 6=Six, 7=Seven, 8=Ait, 9=Niner. Znak @ = AT.</p>'},
+  {tag:'Elektro',title:'6. Elektrotechnika a radiotechnika',content:'<ul><li><strong>Ohm\u016fv z\u00e1kon:</strong> U = R \u00b7 I</li><li><strong>V\u00fdkon:</strong> P = U \u00b7 I</li><li><strong>Vlnov\u00e1 d\u00e9lka:</strong> \u03bb = c / f (c = 3\u00d710\u2078 m/s)</li><li>VHF p\u00e1smo \u2248 156\u2013162 MHz, vlnov\u00e1 d\u00e9lka \u2248 <strong>2 m</strong></li><li>VHF vlny se \u0161\u00ed\u0159\u00ed <strong>p\u0159\u00edmo\u010d\u0159e</strong> \u2013 dosah z\u00e1vis\u00ed na v\u00fd\u0161ce ant\u00e9ny</li><li>Dosah dvou ste\u017en\u016f v 16 m: cca <strong>16\u201324 NM</strong></li></ul><div class="info-grid"><div class="info-item"><div class="key">Oloven\u00fd akumul\u00e1tor</div><div class="val">2 V/\u010dl\u00e1nek</div></div><div class="info-item"><div class="key">Alkalick\u00fd akumul\u00e1tor</div><div class="val">1,2 V/\u010dl\u00e1nek</div></div><div class="info-item"><div class="key">Galvanick\u00fd \u010dl\u00e1nek</div><div class="val">1,5 V</div></div><div class="info-item"><div class="key">Max v\u00fdkon VHF</div><div class="val">25 W</div></div></div><ul><li>Paraleln\u00ed akumul\u00e1tory = v\u011bt\u0161\u00ed <strong>proud</strong></li><li>S\u00e9riov\u00e9 akumul\u00e1tory = vy\u0161\u0161\u00ed <strong>nap\u011bt\u00ed</strong></li><li>Such\u00e9 \u010dl\u00e1nky <strong>nelze dob\u00edjet</strong></li><li>Ampr\u00e9rmetr \u2013 do s\u00e9rie; voltmetr \u2013 paraleln\u011b</li><li>SQUELCH \u2013 \u0161umov\u00e1 br\u00e1na</li><li>DUAL WATCH \u2013 kan\u00e1l 16 + pracovn\u00ed kan\u00e1l</li><li>Bez ant\u00e9ny se <strong>nesm\u00ed vys\u00edlat</strong></li></ul>'}
+];
+
+var state = {cat:'vse', queue:[], cur:0, answered:false, correct:0, wrong:0, skipped:0, studyMode:false};
+
+function toggleStudyMode(on){
+  state.studyMode = on;
+  document.getElementById('testSection').classList.toggle('study-mode-active', on);
+  // Re-render current question with new mode
+  if(state.queue.length) renderQ();
+}
+
+function init(){
+  buildTheory();
+  setCategory('vse', document.querySelector('.cat-btn.active'));
+}
+
+function setCategory(cat, btn){
+  state.cat = cat;
+  document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  restartTest();
+}
+
+function restartTest(){
+  var pool = state.cat === 'vse' ? questions.slice() : questions.filter(function(q){ return q.cat === state.cat; });
+  state.queue = pool.sort(function(){ return Math.random() - 0.5; });
+  state.cur = 0; state.correct = 0; state.wrong = 0; state.skipped = 0; state.answered = false;
+  document.getElementById('resultsSection').classList.remove('active');
+  document.getElementById('testSection').classList.add('active');
+  updateStats(); renderQ();
+}
+
+function renderQ(){
+  if(state.cur >= state.queue.length){ showResults(); return; }
+  var q = state.queue[state.cur];
+  state.answered = false;
+  var cats = {predpisy:'Předpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
+  var keys = ['A','B','C'];
+  var optsHtml = q.opts.map(function(opt, i){
+    var isCorrect = i === q.ans;
+    var studyCls = (state.studyMode && isCorrect) ? ' study-correct' : '';
+    var container = document.getElementById('testSection');
+    return '<button class="opt'+studyCls+'" data-correct="'+(isCorrect?'true':'false')+'" onclick="answer('+i+')" id="opt'+i+'">'+
+      '<span class="opt-key">'+keys[i]+'</span><span>'+opt+'</span></button>';
+  }).join('');
+
+  // In study mode, add class to opts container
+  var optsClass = state.studyMode ? ' class="opts study-mode"' : ' class="opts"';
+
+  document.getElementById('qContainer').innerHTML =
+    '<div class="q-card">'+
+      '<div class="q-meta">'+
+        '<span class="q-tag">'+(cats[q.cat]||q.cat)+'</span>'+
+        '<span class="q-num">'+(state.cur+1)+' / '+state.queue.length+'</span>'+
+      '</div>'+
+      '<div class="q-text">'+q.q+'</div>'+
+      '<div'+optsClass+'>'+optsHtml+'</div>'+
+      '<div class="explanation" id="exp"><strong>Vysvětlení:</strong> '+q.exp+'</div>'+
+    '</div>';
+
+  // In study mode, auto-show explanation and highlight correct
+  if(state.studyMode){
+    state.answered = true;
+    document.getElementById('exp').classList.add('show');
+    document.getElementById('nextBtn').textContent = 'Další otázka →';
+  } else {
+    document.getElementById('nextBtn').textContent = 'Přeskočit →';
+  }
+  updateProgress();
+  document.getElementById('prevBtn').disabled = state.cur === 0;
+}
+
+function answer(idx){
+  if(state.answered) return;
+  state.answered = true;
+  var q = state.queue[state.cur];
+  var opts = document.querySelectorAll('.opt');
+  opts.forEach(function(b){ b.disabled = true; });
+  opts[q.ans].classList.add('correct');
+  if(idx === q.ans){ state.correct++; } else { opts[idx].classList.add('wrong'); state.wrong++; }
+  document.getElementById('exp').classList.add('show');
+  document.getElementById('nextBtn').textContent = 'Další otázka →';
+  updateStats();
+}
+
+function prevQ(){
+  if(state.cur <= 0) return;
+  state.cur--;
+  state.answered = false;
+  renderQ();
+}
+
+function nextQ(){
+  if(!state.answered && !state.studyMode) state.skipped++;
+  state.cur++;
+  renderQ();
+}
+
+function updateStats(){
+  document.getElementById('sCorrect').textContent = state.correct;
+  document.getElementById('sWrong').textContent = state.wrong;
+  document.getElementById('sLeft').textContent = state.queue.length - state.cur;
+}
+
+function updateProgress(){
+  var pct = state.queue.length ? (state.cur / state.queue.length * 100) : 0;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progCount').textContent = state.cur + ' / ' + state.queue.length;
+}
+
+function showResults(){
+  document.getElementById('testSection').classList.remove('active');
+  document.getElementById('resultsSection').classList.add('active');
+  var total = state.correct + state.wrong;
+  var pct = total ? Math.round(state.correct / total * 100) : 0;
+  var pass = pct >= 90;
+  document.getElementById('rPct').textContent = pct + '%';
+  document.getElementById('rPct').className = 'result-pct ' + (pass ? 'pass' : 'fail');
+  document.getElementById('rTitle').textContent = pass ? 'Výborně, prošel/a jsi!' : 'Ještě trénuj – cíl je 90 %';
+  document.getElementById('rSub').textContent = state.correct + ' správně z ' + total + ' otázek';
+  document.getElementById('rCorrect').textContent = state.correct;
+  document.getElementById('rWrong').textContent = state.wrong;
+  document.getElementById('rSkipped').textContent = state.skipped;
+}
+
+function showSection(s){
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    t.classList.toggle('active', (i===0&&s==='test')||(i===1&&s==='theory'));
+  });
+  ['testSection','resultsSection','theorySection'].forEach(function(id){
+    document.getElementById(id).classList.remove('active');
+  });
+  if(s === 'test'){
+    document.getElementById('testSection').classList.add('active');
+  } else {
+    document.getElementById('theorySection').classList.add('active');
+  }
+}
+
+function buildTheory(){
+  document.getElementById('theoryContent').innerHTML = theoryData.map(function(t,i){
+    return '<div class="theory-item" id="ti'+i+'">'+
+      '<div class="theory-head" onclick="toggleT('+i+')">'+
+        '<h3><span class="theory-pill">'+t.tag+'</span>'+t.title+'</h3>'+
+        '<span class="theory-chev">▾</span>'+
+      '</div>'+
+      '<div class="theory-body">'+t.content+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function toggleT(i){ document.getElementById('ti'+i).classList.toggle('open'); }
+
+init();
+</script>
+</body>
+</html>
