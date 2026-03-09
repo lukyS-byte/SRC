@@ -5,10 +5,9 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a1a2e">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SRC PrÅ¯kaz</title>
+<title>SRC Průkaz</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -488,7 +487,7 @@ body {
   position: relative;
 }
 .theory-body ul li::before {
-  content: 'â';
+  content: '–';
   position: absolute;
   left: 0;
   color: var(--text3);
@@ -676,22 +675,22 @@ body {
 <div class="app">
 
   <div class="header">
-    <div class="header-eyebrow">ÄTÃ Â· OficiÃ¡lnÃ­ otÃ¡zky 2023</div>
-    <h1>SRC <em>PrÅ¯kaz</em><br>UÄebnÃ­ Aplikace</h1>
+    <div class="header-eyebrow">ČTÚ · Oficiální otázky 2023</div>
+    <h1>SRC <em>Průkaz</em><br>Učební Aplikace</h1>
   </div>
 
   <div class="tabs">
-    <button class="tab active" onclick="showSection('test')">TestovÃ© otÃ¡zky</button>
+    <button class="tab active" onclick="showSection('test')">Testové otázky</button>
     <button class="tab" onclick="showSection('theory')">Teorie</button>
-    <button class="tab" onclick="showSection('translate')">PÅeklady</button>
-    <button class="tab" onclick="showSection('exam')">ð ZkouÅ¡ka</button>
+    <button class="tab" onclick="showSection('translate')">Překlady</button>
+    <button class="tab" onclick="showSection('exam')">🎓 Zkouška</button>
   </div>
 
   <!-- TEST -->
   <div class="section active" id="testSection">
     <div class="cats">
-      <button class="cat-btn active" onclick="setCategory('vse',this)">VÅ¡e</button>
-      <button class="cat-btn" onclick="setCategory('predpisy',this)">a) PÅedpisy</button>
+      <button class="cat-btn active" onclick="setCategory('vse',this)">Vše</button>
+      <button class="cat-btn" onclick="setCategory('predpisy',this)">a) Předpisy</button>
       <button class="cat-btn" onclick="setCategory('provoz',this)">b) Provoz</button>
       <button class="cat-btn" onclick="setCategory('elektro',this)">c) Elektrotechnika</button>
     </div>
@@ -700,22 +699,22 @@ body {
       <label class="mode-toggle">
         <input type="checkbox" id="studyModeToggle" onchange="toggleStudyMode(this.checked)">
         <span class="toggle-track"><span class="toggle-thumb"></span></span>
-        <span class="mode-toggle-label">UÄebnÃ­ mÃ³d â zobraz sprÃ¡vnou odpovÄÄ</span>
+        <span class="mode-toggle-label">Učební mód – zobraz správnou odpověď</span>
       </label>
     </div>
 
     <div class="stats">
       <div class="stat s-correct">
         <div class="stat-val" id="sCorrect">0</div>
-        <div class="stat-lbl">SprÃ¡vnÄ</div>
+        <div class="stat-lbl">Správně</div>
       </div>
       <div class="stat s-wrong">
         <div class="stat-val" id="sWrong">0</div>
-        <div class="stat-lbl">Å patnÄ</div>
+        <div class="stat-lbl">Špatně</div>
       </div>
       <div class="stat s-left">
         <div class="stat-val" id="sLeft">0</div>
-        <div class="stat-lbl">ZbÃ½vÃ¡</div>
+        <div class="stat-lbl">Zbývá</div>
       </div>
     </div>
 
@@ -728,9 +727,9 @@ body {
     <div id="qContainer"></div>
 
     <div class="actions">
-      <button class="btn btn-ghost" id="prevBtn" onclick="prevQ()" disabled>â PÅedchozÃ­</button>
-      <button class="btn btn-primary" id="nextBtn" onclick="nextQ()">PÅeskoÄit â</button>
-      <button class="btn btn-ghost" onclick="restartTest()">âº Restart</button>
+      <button class="btn btn-ghost" id="prevBtn" onclick="prevQ()" disabled>← Předchozí</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQ()">Přeskočit →</button>
+      <button class="btn btn-ghost" onclick="restartTest()">↺ Restart</button>
     </div>
   </div>
 
@@ -740,15 +739,15 @@ body {
       <div class="result-title" id="rTitle"></div>
       <div class="result-pct" id="rPct"></div>
       <div class="result-sub" id="rSub"></div>
-      <div class="result-note">Hranice ÃºspÄÅ¡nosti ÄTÃ: 90 % v kaÅ¾dÃ©m okruhu</div>
+      <div class="result-note">Hranice úspěšnosti ČTÚ: 90 % v každém okruhu</div>
     </div>
     <div class="stats">
-      <div class="stat s-correct"><div class="stat-val" id="rCorrect">0</div><div class="stat-lbl">SprÃ¡vnÄ</div></div>
-      <div class="stat s-wrong"><div class="stat-val" id="rWrong">0</div><div class="stat-lbl">Å patnÄ</div></div>
-      <div class="stat s-left"><div class="stat-val" id="rSkipped">0</div><div class="stat-lbl">PÅeskoÄeno</div></div>
+      <div class="stat s-correct"><div class="stat-val" id="rCorrect">0</div><div class="stat-lbl">Správně</div></div>
+      <div class="stat s-wrong"><div class="stat-val" id="rWrong">0</div><div class="stat-lbl">Špatně</div></div>
+      <div class="stat s-left"><div class="stat-val" id="rSkipped">0</div><div class="stat-lbl">Přeskočeno</div></div>
     </div>
     <div class="actions">
-      <button class="btn btn-primary" onclick="restartTest()">âº Zkusit znovu</button>
+      <button class="btn btn-primary" onclick="restartTest()">↺ Zkusit znovu</button>
       <button class="btn btn-ghost" onclick="showSection('theory')">Zopakovat teorii</button>
     </div>
   </div>
@@ -761,9 +760,9 @@ body {
   <!-- TRANSLATE -->
   <div class="section" id="translateSection">
     <div class="stats">
-      <div class="stat s-correct"><div class="stat-val" id="tCorrect">0</div><div class="stat-lbl">SprÃ¡vnÄ</div></div>
-      <div class="stat s-wrong"><div class="stat-val" id="tWrong">0</div><div class="stat-lbl">Å patnÄ</div></div>
-      <div class="stat s-left"><div class="stat-val" id="tLeft">0</div><div class="stat-lbl">ZbÃ½vÃ¡</div></div>
+      <div class="stat s-correct"><div class="stat-val" id="tCorrect">0</div><div class="stat-lbl">Správně</div></div>
+      <div class="stat s-wrong"><div class="stat-val" id="tWrong">0</div><div class="stat-lbl">Špatně</div></div>
+      <div class="stat s-left"><div class="stat-val" id="tLeft">0</div><div class="stat-lbl">Zbývá</div></div>
     </div>
     <div class="progress">
       <span class="prog-label">Pokrok</span>
@@ -772,9 +771,9 @@ body {
     </div>
     <div id="tContainer"></div>
     <div class="actions">
-      <button class="btn btn-ghost" id="tPrevBtn" onclick="tPrev()" disabled>â PÅedchozÃ­</button>
-      <button class="btn btn-primary" id="tNextBtn" onclick="tNext()">DalÅ¡Ã­ â</button>
-      <button class="btn btn-ghost" onclick="tRestart()">âº Restart</button>
+      <button class="btn btn-ghost" id="tPrevBtn" onclick="tPrev()" disabled>← Předchozí</button>
+      <button class="btn btn-primary" id="tNextBtn" onclick="tNext()">Další →</button>
+      <button class="btn btn-ghost" onclick="tRestart()">↺ Restart</button>
     </div>
   </div>
 
@@ -782,20 +781,20 @@ body {
   <div class="section" id="examSection">
     <div id="examLobby">
       <div class="q-card" style="text-align:center;padding:32px 24px">
-        <div style="font-size:40px;margin-bottom:12px">ð</div>
-        <h2 style="font-size:22px;margin:0 0 8px">OstrÃ© zkouÅ¡enÃ­</h2>
+        <div style="font-size:40px;margin-bottom:12px">🎓</div>
+        <h2 style="font-size:22px;margin:0 0 8px">Ostré zkoušení</h2>
         <p style="color:var(--text2);margin:0 0 20px;font-size:14px;line-height:1.6">
-          80 nÃ¡hodnÃ½ch otÃ¡zek Â· 3 okruhy (20 + 40 + 20)<br>
-          ÄasovÃ½ limit <strong>60 minut</strong><br>
-          SprÃ¡vnÃ© odpovÄdi se nezobrazujÃ­<br>
-          VÃ½sledek uvidÃ­Å¡ aÅ¾ na konci Â· NutnÃ½ch <strong>90 %</strong> v kaÅ¾dÃ©m okruhu
+          80 náhodných otázek · 3 okruhy (20 + 40 + 20)<br>
+          Časový limit <strong>60 minut</strong><br>
+          Správné odpovědi se nezobrazují<br>
+          Výsledek uvidíš až na konci · Nutných <strong>90 %</strong> v každém okruhu
         </p>
-        <button class="btn btn-primary" style="font-size:16px;padding:14px 32px" onclick="examStart()">â¶ Spustit zkouÅ¡ku</button>
+        <button class="btn btn-primary" style="font-size:16px;padding:14px 32px" onclick="examStart()">▶ Spustit zkoušku</button>
       </div>
     </div>
     <div id="examRunning" style="display:none">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div style="font-size:13px;color:var(--text2)" id="examProgress">OtÃ¡zka 1 / 80</div>
+        <div style="font-size:13px;color:var(--text2)" id="examProgress">Otázka 1 / 80</div>
         <div id="examTimer" style="font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)">60:00</div>
       </div>
       <div style="height:4px;background:var(--border);border-radius:2px;margin-bottom:18px">
@@ -803,7 +802,7 @@ body {
       </div>
       <div id="examQContainer"></div>
       <div class="nav" style="margin-top:16px">
-        <button class="btn btn-ghost" onclick="examSkip()">PÅeskoÄit â</button>
+        <button class="btn btn-ghost" onclick="examSkip()">Přeskočit →</button>
       </div>
     </div>
     <div id="examResults" style="display:none"></div>
@@ -872,7 +871,7 @@ var questions = [
   {cat:'provoz',q:'Dosah stanice syst\u00e9mu NAVTEX na kmito\u010dtu 518 kHz \u010din\u00ed\u2026',opts:['50\u2013100 NM','100\u2013200 NM','200\u2013400 NM'],ans:2,exp:'Dosah NAVTEX na 518 kHz je p\u0159ibli\u017en\u011b <strong>200\u2013400 NM</strong>.'},
   {cat:'provoz',q:'SART 9 GHz slou\u017e\u00ed k\u2026',opts:['navigaci v mlze','komunikaci s pob\u0159e\u017en\u00ed str\u00e1\u017e\u00ed','lokalizaci (fin\u00e1ln\u00edmu vyhled\u00e1n\u00ed) trose\u010dn\u00edk\u016f na m\u00edst\u011b katastrofy'],ans:2,exp:'SART slou\u017e\u00ed k <strong>lokalizaci trose\u010dn\u00edk\u016f</strong> radarem z\u00e1chrann\u00e9 jednotky.'},
   {cat:'provoz',q:'Jak m\u016f\u017ee b\u00fdt zv\u011bt\u0161en dosah transponderu SART?',opts:['Ponoren\u00edm do vody','Zv\u00fd\u0161en\u00edm v\u00fdkonu baterie','SART by m\u011bl b\u00fdt um\u00edst\u011bn co nejv\u00fd\u0161e a ve vertik\u00e1ln\u00ed poloze'],ans:2,exp:'Dosah SART se zv\u00fdrazuje <strong>co nejvy\u0161\u0161\u00edm um\u00edst\u011bn\u00edm ve vertik\u00e1ln\u00ed poloze</strong>.'},
-  {cat:'provoz',q:'T\u00edsn\u00f3v\u00e9 vol\u00e1n\u00ed DSC vyslanÃ© omylem zru\u0161\u00edme\u2026',opts:['p\u0159ebit\u00edm nov\u00e9ho t\u00edsn\u00f3v\u00e9ho vol\u00e1n\u00ed','odpojen\u00edm ant\u00e9ny','na kan\u00e1lu 16 formul\u00e1c\u00ed \"Please, cancel my distress alert of (\u010das UTC)\"'],ans:2,exp:'Fale\u0161n\u00fd alert se zru\u0161\u00ed <strong>na kan\u00e1lu 16 formul\u00e1c\u00ed \"Please, cancel my distress alert of [UTC \u010das]\"</strong>.'},
+  {cat:'provoz',q:'T\u00edsn\u00f3v\u00e9 vol\u00e1n\u00ed DSC vyslané omylem zru\u0161\u00edme\u2026',opts:['p\u0159ebit\u00edm nov\u00e9ho t\u00edsn\u00f3v\u00e9ho vol\u00e1n\u00ed','odpojen\u00edm ant\u00e9ny','na kan\u00e1lu 16 formul\u00e1c\u00ed \"Please, cancel my distress alert of (\u010das UTC)\"'],ans:2,exp:'Fale\u0161n\u00fd alert se zru\u0161\u00ed <strong>na kan\u00e1lu 16 formul\u00e1c\u00ed \"Please, cancel my distress alert of [UTC \u010das]\"</strong>.'},
   {cat:'provoz',q:'Simplexn\u00ed provoz je zp\u016fsob provozu r\u00e1diov\u00e9 stanice, kter\u00fd\u2026',opts:['umo\u017e\u0148uje simultann\u00ed p\u0159\u00edjem a vys\u00edl\u00e1n\u00ed na jednom kan\u00e1lu','umo\u017e\u0148uje p\u0159enos zpr\u00e1v na jednom kan\u00e1lu st\u0159\u00edd\u00e1v\u011b v obou sm\u011brech (p\u0159i vys\u00edl\u00e1n\u00ed nen\u00ed mo\u017en\u00fd p\u0159\u00edjem)','vyu\u017e\u00edv\u00e1 dva odli\u0161n\u00e9 kmito\u010dty pro p\u0159\u00edjem a vys\u00edl\u00e1n\u00ed'],ans:1,exp:'Simplexn\u00ed provoz = komunikace na <strong>jednom kan\u00e1lu st\u0159\u00edd\u00e1v\u011b</strong>.'},
   {cat:'provoz',q:'Duplexn\u00ed provoz je zp\u016fsob provozu r\u00e1diov\u00e9 stanice, kter\u00fd\u2026',opts:['umo\u017e\u0148uje p\u0159enos na jednom kan\u00e1lu ob\u011bma sm\u011bry','umo\u017e\u0148uje sou\u010dasn\u00fd p\u0159enos zpr\u00e1v ob\u011bma sm\u011bry a vy\u017eaduje vyu\u017e\u00edv\u00e1n\u00ed dvou kmito\u010dt\u016f','je toto\u017en\u00fd se simplexem'],ans:1,exp:'Duplexn\u00ed provoz = <strong>simultann\u00ed komunikace ob\u011bma sm\u011bry na dvou kmito\u010dtech</strong>.'},
   {cat:'provoz',q:'Jste na jacht\u011b Sirius, pot\u0159ebujete zavolat do mariny Rijeka. Jak spr\u00e1vn\u011b nav\u00e1\u017eete spojen\u00ed?',opts:['"Rijeka marina, this is Sirius, over"','"Rijeka marina, Rijeka marina, Rijeka marina, this is yacht Sirius, Sirius, Sirius, over"','"All stations, this is Sirius, Rijeka marina come in"'],ans:1,exp:'Spr\u00e1vn\u00fd postup: <strong>n\u00e1zev volan\u00e9 stanice 3\u00d7, DE, vlastn\u00ed n\u00e1zev 3\u00d7, OVER</strong>.'},
@@ -913,73 +912,73 @@ var questions = [
   {cat:'elektro',q:'Jak\u00fdm zp\u016fsobem se \u0161\u00ed\u0159\u00ed r\u00e1diov\u00e9 vlny v p\u00e1smu VHF?',opts:['\u00eda\u0159\u00ed se pod\u00e9l zemsk\u00e9ho povrchu','Odr\u00e1\u017e\u00ed se od ionosf\u00e9ry','\u0160\u00ed\u0159\u00ed se p\u0159\u00edmo\u010d\u0159e, neoh\u00fdvaj\u00ed se pod\u00e9l povrchu ani p\u0159es p\u0159ek\u00e1\u017eky'],ans:2,exp:'VHF vlny se \u0161\u00ed\u0159\u00ed <strong>p\u0159\u00edmo\u010d\u0159e</strong> \u2013 dosah je omezen horizontem.'},
   {cat:'elektro',q:'Jak zv\u00fd\u0161\u00edme dosah ant\u00e9ny v p\u00e1smu VHF?',opts:['Zv\u00fd\u0161en\u00edm v\u00fdkonu vys\u00edla\u010de','Pou\u017eit\u00edm del\u0161\u00ed ant\u00e9ny','Um\u00edst\u011bn\u00edm ant\u00e9ny co nejv\u00fd\u0161e'],ans:2,exp:'Dosah VHF ant\u00e9ny se nejef ektivn\u011bji zv\u00fdrazuje <strong>jej\u00edm um\u00edst\u011bn\u00edm co nejv\u00fd\u0161e</strong>.'},
   {cat:'elektro',q:'Maxim\u00e1ln\u00ed povolen\u00fd v\u00fdkon lodn\u00ed radiostanice vys\u00edlaj\u00edc\u00ed v p\u00e1smu VHF je\u2026',opts:['10 W','16 W','25 W'],ans:2,exp:'Maxim\u00e1ln\u00ed povolen\u00fd v\u00fdkon lodn\u00ed VHF stanice je <strong>25 W</strong>.'},
-  {cat:'predpisy',q:'DrÅ¾itel individuÃ¡lnÃ­ho oprÃ¡vnÄnÃ­ k vyuÅ¾Ã­vÃ¡nÃ­ rÃ¡diovÃ½ch kmitoÄtÅ¯ je povinen platit za vyuÅ¾Ã­vÃ¡nÃ­ rÃ¡diovÃ½ch kmitoÄtÅ¯â¦',opts:['nic, spektrum je volnÃ©','poplatek dle naÅÃ­zenÃ­ vlÃ¡dy o poplatcÃ­ch','roÄnÃ­ licenÄnÃ­ poplatek ÄTÃ'],ans:1,exp:'DrÅ¾itel je povinen platit <strong>poplatek dle naÅÃ­zenÃ­ vlÃ¡dy</strong> za vyuÅ¾Ã­vÃ¡nÃ­ RM.'},
-  {cat:'predpisy',q:'VolacÃ­ znaÄka OL5234 v radiotelefonnÃ­m provozu jeâ¦',opts:['volacÃ­ znaÄka letadla','volacÃ­ znaÄka lodnÃ­ stanice','volacÃ­ znaÄka pobÅeÅ¾nÃ­ stanice'],ans:1,exp:'ZnaÄka zaÄÃ­najÃ­cÃ­ OL nÃ¡leÅ¾Ã­ <strong>lodnÃ­ stanici</strong> (ÄR).'},
-  {cat:'predpisy',q:'PohyblivÃ¡ sluÅ¾ba mezi pobÅeÅ¾nÃ­mi stanicemi a lodnÃ­mi stanicemi nebo mezi lodnÃ­mi stanicemi se nazÃ½vÃ¡â¦',opts:['pobÅeÅ¾nÃ­ pohyblivÃ¡ sluÅ¾ba','nÃ¡moÅnÃ­ pohyblivÃ¡ sluÅ¾ba','internÃ­ loÄnÃ­ sluÅ¾ba'],ans:1,exp:'Tato sluÅ¾ba se nazÃ½vÃ¡ <strong>nÃ¡moÅnÃ­ pohyblivÃ¡ sluÅ¾ba</strong>.'},
-  {cat:'predpisy',q:'NejvyÅ¡Å¡Ã­ prioritu a absolutnÃ­ pÅednost mÃ¡ zprÃ¡vaâ¦',opts:['bezpeÄnostnÃ­ (signÃ¡l SÃCURITÃ)','pilnostnÃ­ (signÃ¡l PAN PAN)','tÃ­snÃ³vÃ¡ (signÃ¡l MAYDAY)'],ans:2,exp:'NejvyÅ¡Å¡Ã­ prioritu mÃ¡ <strong>tÃ­snÃ³vÃ¡ zprÃ¡va (MAYDAY)</strong>.'},
-  {cat:'predpisy',q:'RÃ¡diovÃ© kmitoÄty z pÃ¡sma 160 MHz spadajÃ­ do pÃ¡sma oznaÄovanÃ©ho jakoâ¦',opts:['KV (HF)','VKV (VHF)','UKV (UHF)'],ans:1,exp:'160 MHz patÅÃ­ do pÃ¡sma <strong>VKV (VHF)</strong> = Very High Frequency (30â300 MHz).'},
-  {cat:'predpisy',q:'SluÅ¾ba u letadlovÃ© nebo lodnÃ­ stanice podlÃ©hÃ¡ nejvyÅ¡Å¡Ã­ pravomociâ¦',opts:['rÃ¡diovÃ©ho operÃ¡tora','ÄTÃ','velitele nebo osoby odpovÄdnÃ© za letadlo nebo plavidlo'],ans:2,exp:'SluÅ¾ba u lodnÃ­ stanice podlÃ©hÃ¡ <strong>veliteli nebo osobÄ odpovÄdnÃ© za plavidlo</strong>.'},
-  {cat:'predpisy',q:'PrvnÃ­ znak nebo prvnÃ­ dva znaky mezinÃ¡rodnÃ­ volacÃ­ znaÄky oznaÄujÃ­â¦',opts:['typ stanice (lodnÃ­, pobÅeÅ¾nÃ­â¦)','stÃ¡tnÃ­ pÅÃ­sluÅ¡nost stanice','oblast pokrytÃ­ stanice'],ans:1,exp:'PrvnÃ­ 1â2 znaky oznaÄujÃ­ <strong>stÃ¡tnÃ­ pÅÃ­sluÅ¡nost</strong> (prefix zemÄ).'},
-  {cat:'predpisy',q:'VolacÃ­ znaÄkou jeâ¦',opts:['nÃ¡zev lodi zapsanÃ½ v rejstÅÃ­ku','kaÅ¾dÃ© poznÃ¡vacÃ­ oznaÄenÃ­ stanice pÅidÄlenÃ© dle RadiokomunikaÄnÃ­ho ÅÃ¡du umoÅ¾ÅujÃ­cÃ­ zjiÅ¡tÄnÃ­ jejÃ­ totoÅ¾nosti','registraÄnÃ­ ÄÃ­slo udÄlenÃ© ÄTÃ'],ans:1,exp:'VolacÃ­ znaÄka je <strong>poznÃ¡vacÃ­ oznaÄenÃ­ stanice pÅidÄlenÃ© dle RadiokomunikaÄnÃ­ho ÅÃ¡du</strong>.'},
-  {cat:'predpisy',q:'VnitrozemskÃ½ automatickÃ½ identifikaÄnÃ­ systÃ©m (Inland AIS)â¦',opts:['je urÄen pouze pro nÃ¡moÅnÃ­ lodÄ','je souÄÃ¡stÃ­ ÅÃ­ÄnÃ­ch informaÄnÃ­ch sluÅ¾eb a mÅ¯Å¾e bÃ½t pouÅ¾Ã­vÃ¡n na vyhrazenÃ½ch rÃ¡diovÃ½ch kmitoÄtech','nahrazuje VHF rÃ¡dio na vnitrozemskÃ½ch vodnÃ­ch cestÃ¡ch'],ans:1,exp:'Inland AIS je <strong>souÄÃ¡stÃ­ ÅÃ­ÄnÃ­ch informaÄnÃ­ch sluÅ¾eb (RIS)</strong>.'},
-  {cat:'predpisy',q:'AIS transpondÃ©r je rÃ¡diovÃ¡ stanice umoÅ¾ÅujÃ­cÃ­â¦',opts:['pouze pÅÃ­jem signÃ¡lÅ¯ z jinÃ½ch lodÃ­','pÅÃ­jem, vysÃ­lÃ¡nÃ­ a zpracovÃ¡nÃ­ rÃ¡diovÃ©ho signÃ¡lu AIS','pouze vysÃ­lÃ¡nÃ­ polohy lodi'],ans:1,exp:'AIS transpondÃ©r umoÅ¾Åuje <strong>pÅÃ­jem, vysÃ­lÃ¡nÃ­ i zpracovÃ¡nÃ­ signÃ¡lÅ¯ AIS</strong> oboustrannÄ.'},
-  {cat:'predpisy',q:'PÅedmÄtem telekomunikaÄnÃ­ho tajemstvÃ­ je zejmÃ©naâ¦',opts:['pouze Å¡ifrovÃ¡nÃ¡ komunikace','obsah zprÃ¡v pÅepravovanÃ½ch telekomunikaÄnÃ­mi zaÅÃ­zenÃ­mi s vÃ½jimkou zprÃ¡v urÄenÃ½ch veÅejnosti','identita volajÃ­cÃ­ osoby'],ans:1,exp:'PÅedmÄtem telekomunikaÄnÃ­ho tajemstvÃ­ je <strong>obsah zprÃ¡v</strong> (kromÄ tÄch urÄenÃ½ch veÅejnosti).'},
-  {cat:'provoz',q:'Podle Äeho je moÅ¾nÃ© identifikovat MMSI nÃ¡leÅ¾ejÃ­cÃ­ pobÅeÅ¾nÃ­ stanici?',opts:['Z prvnÃ­ch dvou ÄÃ­slic','PobÅeÅ¾nÃ­ stanice pouÅ¾Ã­vajÃ­ MMSI, kde pÅed MID jsou dvÄ nuly','Z poslednÃ­ch tÅÃ­ ÄÃ­slic'],ans:1,exp:'MMSI pobÅeÅ¾nÃ­ stanice: <strong>00 + MID + dalÅ¡Ã­ ÄÃ­slice</strong>.'},
-  {cat:'provoz',q:'Je moÅ¾nÃ© se pomocÃ­ DSC spojit se skupinou lodnÃ­ch stanic?',opts:['Ne, DSC umoÅ¾Åuje pouze spojenÃ­ 1:1','Ano, pomocÃ­ skupinovÃ©ho MMSI','Ano, ale pouze pÅes pobÅeÅ¾nÃ­ stanici'],ans:1,exp:'DSC <strong>umoÅ¾Åuje skupinovÃ© volÃ¡nÃ­</strong> pomocÃ­ skupinovÃ©ho MMSI.'},
-  {cat:'provoz',q:'Pro volÃ¡nÃ­ skupiny lodnÃ­ch stanic se u MMSI pÅed MID pÅedÅazujeâ¦',opts:['dvÄ nuly','jedna nula','pÃ­smeno G'],ans:1,exp:'SkupinovÃ© MMSI mÃ¡ pÅed MID <strong>jednu nulu</strong>.'},
-  {cat:'provoz',q:'Jak probÃ­hÃ¡ potvrzenÃ­ bÄÅ¾nÃ©ho (rutinnÃ­ho) DSC volÃ¡nÃ­?',opts:['Pouze hlasovÄ na kanÃ¡lu 16','Je nutnÃ© potvrdit nabÃ­dku spojenÃ­ vÄetnÄ pracovnÃ­ho kanÃ¡lu; komunikace se automaticky pÅepne','RutinnÃ­ DSC volÃ¡nÃ­ se nepotvrzuje'],ans:1,exp:'<strong>Potvrdit nabÃ­dku vÄetnÄ pracovnÃ­ho kanÃ¡lu</strong>, pak se komunikace automaticky pÅepne.'},
-  {cat:'provoz',q:'PÅednastaveny obsah tÃ­snÃ³vÃ©ho volÃ¡nÃ­ DSC se vysÃ­lÃ¡â¦',opts:['vÅ¾dy jako prvnÃ­ krok','v situaci, kdy nenÃ­ Äas na ruÄnÃ­ vklÃ¡dÃ¡nÃ­ dalÅ¡Ã­ch ÃºdajÅ¯','pouze pokud je GPS odpojeno'],ans:1,exp:'PÅednastaveny obsah DSC se pouÅ¾Ã­vÃ¡ <strong>pÅi nedostatku Äasu</strong> pro ruÄnÃ­ vloÅ¾enÃ­ dat.'},
-  {cat:'provoz',q:'JakÃ½ je postup pro nastavenÃ­ obsahu tÃ­snÃ³vÃ©ho volÃ¡nÃ­ DSC?',opts:['StaÄÃ­ stisknout tlaÄÃ­tko DISTRESS','V MENU zvolit DISTRESS, zkontrolovat/vloÅ¾it polohu a Äas UTC, pÅÃ­p. povahu tÃ­snÄ; po odeslÃ¡nÃ­ se stanice pÅepne na kanÃ¡l 16','Postup urÄuje pobÅeÅ¾nÃ­ stanice'],ans:1,exp:'<strong>MENU â DISTRESS â poloha/Äas â odeslat</strong>. Stanice se automaticky pÅepne na kanÃ¡l 16.'},
-  {cat:'provoz',q:'ÃÄel DSC zprÃ¡vy DISTRESS ALERT RELAY od pobÅeÅ¾nÃ­ stanice jeâ¦',opts:['Potvrdit pÅÃ­jem alertu','Alarmovat lodÄ v oblasti a ovÄÅit moÅ¾nost jejich zÃ¡chrannÃ© souÄinnosti','ZruÅ¡it faleÅ¡nÃ½ alert'],ans:1,exp:'DISTRESS ALERT RELAY slouÅ¾Ã­ k <strong>alarmovÃ¡nÃ­ lodÃ­ v oblasti</strong> a ovÄÅenÃ­ zÃ¡chrannÃ© souÄinnosti.'},
-  {cat:'provoz',q:'Jakou adresu pouÅ¾ije pobÅeÅ¾nÃ­ stanice u DSC zprÃ¡vy DISTRESS ALERT RELAY pro ALL SHIPS?',opts:['MMSI 999999999','MMSI 000000000','Å½Ã¡dnou, adresa nenÃ­ potÅeba'],ans:2,exp:'Pro volÃ¡nÃ­ vÅ¡em lodÃ­m (ALL SHIPS) <strong>adresa nenÃ­ potÅeba</strong>.'},
-  {cat:'provoz',q:'Jakou adresu pouÅ¾ije pobÅeÅ¾nÃ­ stanice u DSC zprÃ¡vy urÄenÃ© pro konkrÃ©tnÃ­ plavidlo?',opts:['NÃ¡zev lodi','VolacÃ­ znaÄku lodi','MMSI tÃ©to stanice'],ans:2,exp:'Pro volÃ¡nÃ­ konkrÃ©tnÃ­ lodi se pouÅ¾Ã­vÃ¡ jejÃ­ <strong>MMSI</strong>.'},
-  {cat:'provoz',q:'DSC volÃ¡nÃ­ DISTRESS ALERT RELAY vyslanÃ© vÅ¡em lodÃ­m potvrzujÃ­ lodnÃ­ staniceâ¦',opts:['DSC potvrzenÃ­m na kanÃ¡lu 70','radiotelefonnÃ­m provozem na kanÃ¡lu 16','E-mailem nebo sat. telefonem'],ans:1,exp:'DISTRESS ALERT RELAY potvrzujÃ­ lodnÃ­ stanice <strong>radiotelefonicky na kanÃ¡lu 16</strong>.'},
-  {cat:'provoz',q:'Jak se vysÃ­lajÃ­ pilnostnÃ­ zprÃ¡vy v systÃ©mu DSC?',opts:['PÅÃ­mo hlasem na kanÃ¡lu 16','PilnostnÃ­ volÃ¡nÃ­ DSC na kanÃ¡lu 70 s uvedenÃ­m pracovnÃ­ho kanÃ¡lu pro nÃ¡slednÃ© radiotelefonnÃ­ vysÃ­lÃ¡nÃ­','StejnÄ jako tÃ­snÃ³vÃ© zprÃ¡vy'],ans:1,exp:'PilnostnÃ­ zprÃ¡vy: <strong>DSC alert na kanÃ¡lu 70</strong> s uvedenim pracovnÃ­ho kanÃ¡lu, pak radiotelefonicky.'},
-  {cat:'provoz',q:'Jak se potvrzuje pÅÃ­jem pilnostnÃ­ch volÃ¡nÃ­ DSC?',opts:['DSC potvrzenÃ­m na kanÃ¡lu 70','PÅÃ­jem pilnostnÃ­ch volÃ¡nÃ­ DSC se nepotvrzuje â stanice pÅepne na ohlÃ¡Å¡enÃ½ kanÃ¡l','Hlasem na kanÃ¡lu 16'],ans:1,exp:'PilnostnÃ­ volÃ¡nÃ­ DSC se <strong>nepotvrzuje</strong> â jen pÅepnout na pracovnÃ­ kanÃ¡l a vyslechnout.'},
-  {cat:'provoz',q:'Jak se vysÃ­lajÃ­ bezpeÄnostnÃ­ zprÃ¡vy v systÃ©mu DSC?',opts:['PÅÃ­mo hlasem na kanÃ¡lu 16','BezpeÄnostnÃ­ volÃ¡nÃ­ DSC na kanÃ¡lu 70 s uvedenÃ­m pracovnÃ­ho kanÃ¡lu, pak radiotelefonicky','Jako rutinnÃ­ volÃ¡nÃ­'],ans:1,exp:'BezpeÄnostnÃ­ zprÃ¡vy: <strong>DSC alert na kanÃ¡lu 70</strong> s uvedenÃ­m pracovnÃ­ho kanÃ¡lu, pak radiotelefonicky.'},
-  {cat:'provoz',q:'Jak se potvrzuje pÅÃ­jem bezpeÄnostnÃ­ch volÃ¡nÃ­ DSC?',opts:['DSC potvrzenÃ­m na kanÃ¡lu 70','Hlasem na kanÃ¡lu 16','PÅÃ­jem bezpeÄnostnÃ­ch volÃ¡nÃ­ DSC na kanÃ¡lu 70 se nepotvrzuje; plavidlo pÅepne na ohlÃ¡Å¡enÃ½ kanÃ¡l'],ans:2,exp:'BezpeÄnostnÃ­ volÃ¡nÃ­ DSC se <strong>nepotvrzuje</strong> â jen pÅepnout a vyslechnout.'},
-  {cat:'provoz',q:'JakÃ½ EPIRB je oficiÃ¡lnÃ­ souÄÃ¡stÃ­ systÃ©mu GMDSS?',opts:['EPIRB s frekvencÃ­ 121,5 MHz','EPIRB 406 MHz pro COSPAS-SARSAT (novÄ i s GPS a signÃ¡lem 121,5 MHz)','JakÃ½koliv certifikovanÃ½ EPIRB'],ans:1,exp:'OficiÃ¡lnÃ­ GMDSS EPIRB: <strong>406 MHz / COSPAS-SARSAT</strong>, novÄ i s GPS.'},
-  {cat:'provoz',q:'VÃ½raz "RIJEKA RADIO" znamenÃ¡â¦',opts:['nÃ¡zev lodi','volacÃ­ znaÄka pobÅeÅ¾nÃ­ stanice RIJEKA','nÃ¡zev pÅÃ­stavu'],ans:1,exp:'"RIJEKA RADIO" je <strong>volacÃ­ znaÄka pobÅeÅ¾nÃ­ stanice</strong>.'},
-  {cat:'provoz',q:'VÃ½raz CALLSIGN znamenÃ¡â¦',opts:['tÃ­snÃ³vÃ½ signÃ¡l','volacÃ­ znaÄka','identifikaÄnÃ­ ÄÃ­slo'],ans:1,exp:'CALLSIGN = <strong>volacÃ­ znaÄka</strong>.'},
-  {cat:'provoz',q:'VÃ½raz LATITUDE znamenÃ¡â¦',opts:['zemÄpisnÃ¡ dÃ©lka','zemÄpisnÃ¡ Å¡Ã­Åka','nadmoÅskÃ¡ vÃ½Å¡ka'],ans:1,exp:'LATITUDE = <strong>zemÄpisnÃ¡ Å¡Ã­Åka</strong>.'},
-  {cat:'provoz',q:'VÃ½raz LONGITUDE znamenÃ¡â¦',opts:['zemÄpisnÃ¡ Å¡Ã­Åka','zemÄpisnÃ¡ dÃ©lka','hloubka'],ans:1,exp:'LONGITUDE = <strong>zemÄpisnÃ¡ dÃ©lka</strong>.'},
-  {cat:'provoz',q:'VÃ½raz DEGREE znamenÃ¡â¦',opts:['ÃºÄel','stupeÅ','rÃ¡diovÃ© pÃ¡smo'],ans:1,exp:'DEGREE = <strong>stupeÅ</strong> (ÃºhlovÃ¡ jednotka pro souÅadnice).'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno A v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Arrow','Alpha','Angel'],ans:1,exp:'A = <strong>Alpha</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno B v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Beta','Ball','Bravo'],ans:2,exp:'B = <strong>Bravo</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno C v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Charlie','Crown','Cuba'],ans:0,exp:'C = <strong>Charlie</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno D v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Denmark','David','Delta'],ans:2,exp:'D = <strong>Delta</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno E v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['England','Echo','Eagle'],ans:1,exp:'E = <strong>Echo</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno F v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Fox','Foxtrot','Flag'],ans:1,exp:'F = <strong>Foxtrot</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno G v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Golf','George','Green'],ans:0,exp:'G = <strong>Golf</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno H v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Harry','Hotel','Harbour'],ans:1,exp:'H = <strong>Hotel</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno I v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Italy','India','Island'],ans:1,exp:'I = <strong>India</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno J v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Juliett','Java','Junior'],ans:0,exp:'J = <strong>Juliett</strong> (s dvÄma t).'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno K v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['King','Kilo','Karl'],ans:1,exp:'K = <strong>Kilo</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno L v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['London','Lima','Lion'],ans:1,exp:'L = <strong>Lima</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno M v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Mike','Metro','Motor'],ans:0,exp:'M = <strong>Mike</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno N v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Norway','Nora','November'],ans:2,exp:'N = <strong>November</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno O v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Oxford','Oliver','Oscar'],ans:2,exp:'O = <strong>Oscar</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno P v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Papa','Peter','Port'],ans:0,exp:'P = <strong>Papa</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno Q v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Queen','Quebec','Quick'],ans:1,exp:'Q = <strong>Quebec</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno R v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Radio','Romeo','Roger'],ans:1,exp:'R = <strong>Romeo</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno S v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Sierra','Sugar','Safety'],ans:0,exp:'S = <strong>Sierra</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno T v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Tiger','Tango','Tara'],ans:1,exp:'T = <strong>Tango</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno U v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Uniform','Ultima','Union'],ans:0,exp:'U = <strong>Uniform</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno V v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Vega','Victor','Viking'],ans:1,exp:'V = <strong>Victor</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno W v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Wind','Whiskey','White'],ans:1,exp:'W = <strong>Whiskey</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno X v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['X-ray','Xeno','Xavier'],ans:0,exp:'X = <strong>X-ray</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno Y v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Yankee','Yellow','York'],ans:0,exp:'Y = <strong>Yankee</strong>'},
-  {cat:'provoz',q:'JakÃ© slovo pÅedstavuje pÃ­smeno Z v mezinÃ¡rodnÃ­ fonetickÃ© abecedÄ?',opts:['Zebra','Zulu','Zero'],ans:1,exp:'Z = <strong>Zulu</strong>'},
-  {cat:'provoz',q:'PÅi pouÅ¾itÃ­ mezinÃ¡rodnÃ­ fonetickÃ© abecedy se znak @ (tzv. zavÃ­naÄ) vyjadÅuje vÃ½razemâ¦',opts:['ALPHA TANGO','AT','CIRCLE A'],ans:1,exp:'Znak @ se vyjadÅuje jako <strong>AT</strong>.'},
-  {cat:'elektro',q:'VÅ¡esmÄrovÃ¡ antÃ©na mÃ¡ vyzÃ¡ÅovacÃ­ charakteristikuâ¦',opts:['osmiÄkovou','trojuhelnÃ­kovou','kruhovou'],ans:2,exp:'VÅ¡esmÄrovÃ¡ antÃ©na mÃ¡ <strong>kruhovou vyzÃ¡ÅovacÃ­ charakteristiku</strong> v horizontÃ¡lnÃ­ rovinÄ.'},
-  {cat:'elektro',q:'PÅ¯lvlnnÃ½ dipolâ¦',opts:['je vÅ¾dy vÅ¡esmÄrovÃ¡ antÃ©na','mÅ¯Å¾e bÃ½t smÄrovÃ¡ i vÅ¡esmÄrovÃ¡, zÃ¡leÅ¾Ã­ na orientaci k zemskÃ©mu povrchu','je vÅ¾dy smÄrovÃ¡ antÃ©na'],ans:1,exp:'PÅ¯lvlnnÃ½ dipol mÅ¯Å¾e bÃ½t <strong>smÄrovÃ½ i vÅ¡esmÄrovÃ½</strong> podle orientace.'},
-  {cat:'elektro',q:'Za bezpeÄnÃ¡ napÄtÃ­ pÅi dotyku Å¾ivÃ½ch ÄÃ¡stÃ­ v suchÃ©m bezpraÅ¡nÃ©m prostÅedÃ­ povaÅ¾ujemeâ¦',opts:['DC do 120 V a AC do 50 V','DC do 60 V a AC do 25 V','DC do 48 V a AC do 12 V'],ans:1,exp:'BezpeÄnÃ¡ napÄtÃ­: <strong>DC do 60 V a AC do 25 V</strong>.'},
-  {cat:'elektro',q:'PÅi Ãºrazu elektrickÃ½m proudemâ¦',opts:['okamÅ¾itÄ zaÄnÄme resuscitaci','vyprostiÃ­me postiÅ¾enÃ©ho z dosahu el. proudu, zavolÃ¡me zÃ¡chranÃ¡Åe a pÅi selhÃ¡nÃ­ Å¾ivotnÃ­ch funkcÃ­ zahÃ¡jÃ­me resuscitaci','poÄkÃ¡me na zÃ¡chranÃ¡Åe'],ans:1,exp:'PÅi Ãrazu el. proudem: <strong>vyprostit â zavolat zÃ¡chranÃ¡Åe â resuscitace pÅi selhÃ¡nÃ­ funkcÃ­</strong>.'},
-  {cat:'elektro',q:'TÅi dobrÃ© vodiÄe elektÅiny jsouâ¦',opts:['hlinÃ­k, Å¾elezo, olovo','mÄÄ, zlato, stÅÃ­bro','grafit, voda, plast'],ans:1,exp:'NejlepÅ¡Ã­ vodiÄe: <strong>mÄÄ, zlato, stÅÃ­bro</strong>.'},
-  {cat:'elektro',q:'ÄtyÅi dobrÃ© izolanty jsouâ¦',opts:['sklo, vzduch, plast, porcelÃ¡n','voda, guma, dÅevo, hlinÃ­k','kÅemen, beton, celÃ³n, olovo'],ans:0,exp:'DobrÃ© izolanty: <strong>sklo, vzduch, plast, porcelÃ¡n</strong>.'},
-  {cat:'elektro',q:'RadiotechnickÃ¡ souÄÃ¡stka je kondenzÃ¡tor, pokud se jejÃ­ hodnota mÄÅÃ­ vâ¦',opts:['Î© (ohm)','H (henry)','pF (picofarad)'],ans:2,exp:'KondenzÃ¡tor se mÄÅÃ­ v <strong>pF (picofaradech)</strong>.'},
-  {cat:'elektro',q:'VÃ½stupnÃ­m vÃ½konem stanice se rozumÃ­â¦',opts:['pÅÃ­kon odebÃ­ranÃ½ ze sÃ­tÄ','vÃ½kon naÅÃ­zenÃ½ ÄTÃ','vÃ½kon koncovÃ©ho stupnÄ vysÃ­laÄe dodÃ¡vanÃ½ do napajeÄe antÃ©nnÃ­ho systÃ©mu'],ans:2,exp:'VÃ½stupnÃ­ vÃ½kon = <strong>vÃ½kon koncovÃ©ho stupnÄ dodÃ¡vanÃ½ do antÃ©nnÃ­ho systÃ©mu</strong>.'},
-  {cat:'elektro',q:'Na Äem zÃ¡visÃ­ dÃ©lka antÃ©ny v pÃ¡smu VHF?',opts:['Na vÃ½konu vysÃ­laÄe','Na vzdÃ¡lenosti od pobÅeÅ¾nÃ­ stanice','Na vlnovÃ© dÃ©lce'],ans:2,exp:'DÃ©lka antÃ©ny zÃ¡visÃ­ na <strong>vlnovÃ© dÃ©lce</strong> signÃ¡lu.'},
+  {cat:'predpisy',q:'Držitel individuálního oprávnění k využívání rádiových kmitočtů je povinen platit za využívání rádiových kmitočtů…',opts:['nic, spektrum je volné','poplatek dle nařízení vlády o poplatcích','roční licenční poplatek ČTÚ'],ans:1,exp:'Držitel je povinen platit <strong>poplatek dle nařízení vlády</strong> za využívání RM.'},
+  {cat:'predpisy',q:'Volací značka OL5234 v radiotelefonním provozu je…',opts:['volací značka letadla','volací značka lodní stanice','volací značka pobřežní stanice'],ans:1,exp:'Značka začínající OL náleží <strong>lodní stanici</strong> (ČR).'},
+  {cat:'predpisy',q:'Pohyblivá služba mezi pobřežními stanicemi a lodními stanicemi nebo mezi lodními stanicemi se nazývá…',opts:['pobřežní pohyblivá služba','námořní pohyblivá služba','interní loďní služba'],ans:1,exp:'Tato služba se nazývá <strong>námořní pohyblivá služba</strong>.'},
+  {cat:'predpisy',q:'Nejvyšší prioritu a absolutní přednost má zpráva…',opts:['bezpečnostní (signál SÉCURITÉ)','pilnostní (signál PAN PAN)','tísnóvá (signál MAYDAY)'],ans:2,exp:'Nejvyšší prioritu má <strong>tísnóvá zpráva (MAYDAY)</strong>.'},
+  {cat:'predpisy',q:'Rádiové kmitočty z pásma 160 MHz spadají do pásma označovaného jako…',opts:['KV (HF)','VKV (VHF)','UKV (UHF)'],ans:1,exp:'160 MHz patří do pásma <strong>VKV (VHF)</strong> = Very High Frequency (30–300 MHz).'},
+  {cat:'predpisy',q:'Služba u letadlové nebo lodní stanice podléhá nejvyšší pravomoci…',opts:['rádiového operátora','ČTÚ','velitele nebo osoby odpovědné za letadlo nebo plavidlo'],ans:2,exp:'Služba u lodní stanice podléhá <strong>veliteli nebo osobě odpovědné za plavidlo</strong>.'},
+  {cat:'predpisy',q:'První znak nebo první dva znaky mezinárodní volací značky označují…',opts:['typ stanice (lodní, pobřežní…)','státní příslušnost stanice','oblast pokrytí stanice'],ans:1,exp:'První 1–2 znaky označují <strong>státní příslušnost</strong> (prefix země).'},
+  {cat:'predpisy',q:'Volací značkou je…',opts:['název lodi zapsaný v rejstříku','každé poznávací označení stanice přidělené dle Radiokomunikačního řádu umožňující zjištění její totožnosti','registrační číslo udělené ČTÚ'],ans:1,exp:'Volací značka je <strong>poznávací označení stanice přidělené dle Radiokomunikačního řádu</strong>.'},
+  {cat:'predpisy',q:'Vnitrozemský automatický identifikační systém (Inland AIS)…',opts:['je určen pouze pro námořní lodě','je součástí říčních informačních služeb a může být používán na vyhrazených rádiových kmitočtech','nahrazuje VHF rádio na vnitrozemských vodních cestách'],ans:1,exp:'Inland AIS je <strong>součástí říčních informačních služeb (RIS)</strong>.'},
+  {cat:'predpisy',q:'AIS transpondér je rádiová stanice umožňující…',opts:['pouze příjem signálů z jiných lodí','příjem, vysílání a zpracování rádiového signálu AIS','pouze vysílání polohy lodi'],ans:1,exp:'AIS transpondér umožňuje <strong>příjem, vysílání i zpracování signálů AIS</strong> oboustranně.'},
+  {cat:'predpisy',q:'Předmětem telekomunikačního tajemství je zejména…',opts:['pouze šifrováná komunikace','obsah zpráv přepravovaných telekomunikačními zařízeními s výjimkou zpráv určených veřejnosti','identita volající osoby'],ans:1,exp:'Předmětem telekomunikačního tajemství je <strong>obsah zpráv</strong> (kromě těch určených veřejnosti).'},
+  {cat:'provoz',q:'Podle čeho je možné identifikovat MMSI náležející pobřežní stanici?',opts:['Z prvních dvou číslic','Pobřežní stanice používají MMSI, kde před MID jsou dvě nuly','Z posledních tří číslic'],ans:1,exp:'MMSI pobřežní stanice: <strong>00 + MID + další číslice</strong>.'},
+  {cat:'provoz',q:'Je možné se pomocí DSC spojit se skupinou lodních stanic?',opts:['Ne, DSC umožňuje pouze spojení 1:1','Ano, pomocí skupinového MMSI','Ano, ale pouze přes pobřežní stanici'],ans:1,exp:'DSC <strong>umožňuje skupinové volání</strong> pomocí skupinového MMSI.'},
+  {cat:'provoz',q:'Pro volání skupiny lodních stanic se u MMSI před MID předřazuje…',opts:['dvě nuly','jedna nula','písmeno G'],ans:1,exp:'Skupinové MMSI má před MID <strong>jednu nulu</strong>.'},
+  {cat:'provoz',q:'Jak probíhá potvrzení běžného (rutinního) DSC volání?',opts:['Pouze hlasově na kanálu 16','Je nutné potvrdit nabídku spojení včetně pracovního kanálu; komunikace se automaticky přepne','Rutinní DSC volání se nepotvrzuje'],ans:1,exp:'<strong>Potvrdit nabídku včetně pracovního kanálu</strong>, pak se komunikace automaticky přepne.'},
+  {cat:'provoz',q:'Přednastaveny obsah tísnóvého volání DSC se vysílá…',opts:['vždy jako první krok','v situaci, kdy není čas na ruční vkládání dalších údajů','pouze pokud je GPS odpojeno'],ans:1,exp:'Přednastaveny obsah DSC se používá <strong>při nedostatku času</strong> pro ruční vložení dat.'},
+  {cat:'provoz',q:'Jaký je postup pro nastavení obsahu tísnóvého volání DSC?',opts:['Stačí stisknout tlačítko DISTRESS','V MENU zvolit DISTRESS, zkontrolovat/vložit polohu a čas UTC, příp. povahu tísně; po odeslání se stanice přepne na kanál 16','Postup určuje pobřežní stanice'],ans:1,exp:'<strong>MENU → DISTRESS → poloha/čas → odeslat</strong>. Stanice se automaticky přepne na kanál 16.'},
+  {cat:'provoz',q:'Účel DSC zprávy DISTRESS ALERT RELAY od pobřežní stanice je…',opts:['Potvrdit příjem alertu','Alarmovat lodě v oblasti a ověřit možnost jejich záchranné součinnosti','Zrušit falešný alert'],ans:1,exp:'DISTRESS ALERT RELAY slouží k <strong>alarmování lodí v oblasti</strong> a ověření záchranné součinnosti.'},
+  {cat:'provoz',q:'Jakou adresu použije pobřežní stanice u DSC zprávy DISTRESS ALERT RELAY pro ALL SHIPS?',opts:['MMSI 999999999','MMSI 000000000','Žádnou, adresa není potřeba'],ans:2,exp:'Pro volání všem lodím (ALL SHIPS) <strong>adresa není potřeba</strong>.'},
+  {cat:'provoz',q:'Jakou adresu použije pobřežní stanice u DSC zprávy určené pro konkrétní plavidlo?',opts:['Název lodi','Volací značku lodi','MMSI této stanice'],ans:2,exp:'Pro volání konkrétní lodi se používá její <strong>MMSI</strong>.'},
+  {cat:'provoz',q:'DSC volání DISTRESS ALERT RELAY vyslané všem lodím potvrzují lodní stanice…',opts:['DSC potvrzením na kanálu 70','radiotelefonním provozem na kanálu 16','E-mailem nebo sat. telefonem'],ans:1,exp:'DISTRESS ALERT RELAY potvrzují lodní stanice <strong>radiotelefonicky na kanálu 16</strong>.'},
+  {cat:'provoz',q:'Jak se vysílají pilnostní zprávy v systému DSC?',opts:['Přímo hlasem na kanálu 16','Pilnostní volání DSC na kanálu 70 s uvedením pracovního kanálu pro následné radiotelefonní vysílání','Stejně jako tísnóvé zprávy'],ans:1,exp:'Pilnostní zprávy: <strong>DSC alert na kanálu 70</strong> s uvedenim pracovního kanálu, pak radiotelefonicky.'},
+  {cat:'provoz',q:'Jak se potvrzuje příjem pilnostních volání DSC?',opts:['DSC potvrzením na kanálu 70','Příjem pilnostních volání DSC se nepotvrzuje – stanice přepne na ohlášený kanál','Hlasem na kanálu 16'],ans:1,exp:'Pilnostní volání DSC se <strong>nepotvrzuje</strong> – jen přepnout na pracovní kanál a vyslechnout.'},
+  {cat:'provoz',q:'Jak se vysílají bezpečnostní zprávy v systému DSC?',opts:['Přímo hlasem na kanálu 16','Bezpečnostní volání DSC na kanálu 70 s uvedením pracovního kanálu, pak radiotelefonicky','Jako rutinní volání'],ans:1,exp:'Bezpečnostní zprávy: <strong>DSC alert na kanálu 70</strong> s uvedením pracovního kanálu, pak radiotelefonicky.'},
+  {cat:'provoz',q:'Jak se potvrzuje příjem bezpečnostních volání DSC?',opts:['DSC potvrzením na kanálu 70','Hlasem na kanálu 16','Příjem bezpečnostních volání DSC na kanálu 70 se nepotvrzuje; plavidlo přepne na ohlášený kanál'],ans:2,exp:'Bezpečnostní volání DSC se <strong>nepotvrzuje</strong> – jen přepnout a vyslechnout.'},
+  {cat:'provoz',q:'Jaký EPIRB je oficiální součástí systému GMDSS?',opts:['EPIRB s frekvencí 121,5 MHz','EPIRB 406 MHz pro COSPAS-SARSAT (nově i s GPS a signálem 121,5 MHz)','Jakýkoliv certifikovaný EPIRB'],ans:1,exp:'Oficiální GMDSS EPIRB: <strong>406 MHz / COSPAS-SARSAT</strong>, nově i s GPS.'},
+  {cat:'provoz',q:'Výraz "RIJEKA RADIO" znamená…',opts:['název lodi','volací značka pobřežní stanice RIJEKA','název přístavu'],ans:1,exp:'"RIJEKA RADIO" je <strong>volací značka pobřežní stanice</strong>.'},
+  {cat:'provoz',q:'Výraz CALLSIGN znamená…',opts:['tísnóvý signál','volací značka','identifikační číslo'],ans:1,exp:'CALLSIGN = <strong>volací značka</strong>.'},
+  {cat:'provoz',q:'Výraz LATITUDE znamená…',opts:['zeměpisná délka','zeměpisná šířka','nadmořská výška'],ans:1,exp:'LATITUDE = <strong>zeměpisná šířka</strong>.'},
+  {cat:'provoz',q:'Výraz LONGITUDE znamená…',opts:['zeměpisná šířka','zeměpisná délka','hloubka'],ans:1,exp:'LONGITUDE = <strong>zeměpisná délka</strong>.'},
+  {cat:'provoz',q:'Výraz DEGREE znamená…',opts:['účel','stupeň','rádiové pásmo'],ans:1,exp:'DEGREE = <strong>stupeň</strong> (úhlová jednotka pro souřadnice).'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno A v mezinárodní fonetické abecedě?',opts:['Arrow','Alpha','Angel'],ans:1,exp:'A = <strong>Alpha</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno B v mezinárodní fonetické abecedě?',opts:['Beta','Ball','Bravo'],ans:2,exp:'B = <strong>Bravo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno C v mezinárodní fonetické abecedě?',opts:['Charlie','Crown','Cuba'],ans:0,exp:'C = <strong>Charlie</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno D v mezinárodní fonetické abecedě?',opts:['Denmark','David','Delta'],ans:2,exp:'D = <strong>Delta</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno E v mezinárodní fonetické abecedě?',opts:['England','Echo','Eagle'],ans:1,exp:'E = <strong>Echo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno F v mezinárodní fonetické abecedě?',opts:['Fox','Foxtrot','Flag'],ans:1,exp:'F = <strong>Foxtrot</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno G v mezinárodní fonetické abecedě?',opts:['Golf','George','Green'],ans:0,exp:'G = <strong>Golf</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno H v mezinárodní fonetické abecedě?',opts:['Harry','Hotel','Harbour'],ans:1,exp:'H = <strong>Hotel</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno I v mezinárodní fonetické abecedě?',opts:['Italy','India','Island'],ans:1,exp:'I = <strong>India</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno J v mezinárodní fonetické abecedě?',opts:['Juliett','Java','Junior'],ans:0,exp:'J = <strong>Juliett</strong> (s dvěma t).'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno K v mezinárodní fonetické abecedě?',opts:['King','Kilo','Karl'],ans:1,exp:'K = <strong>Kilo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno L v mezinárodní fonetické abecedě?',opts:['London','Lima','Lion'],ans:1,exp:'L = <strong>Lima</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno M v mezinárodní fonetické abecedě?',opts:['Mike','Metro','Motor'],ans:0,exp:'M = <strong>Mike</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno N v mezinárodní fonetické abecedě?',opts:['Norway','Nora','November'],ans:2,exp:'N = <strong>November</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno O v mezinárodní fonetické abecedě?',opts:['Oxford','Oliver','Oscar'],ans:2,exp:'O = <strong>Oscar</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno P v mezinárodní fonetické abecedě?',opts:['Papa','Peter','Port'],ans:0,exp:'P = <strong>Papa</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno Q v mezinárodní fonetické abecedě?',opts:['Queen','Quebec','Quick'],ans:1,exp:'Q = <strong>Quebec</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno R v mezinárodní fonetické abecedě?',opts:['Radio','Romeo','Roger'],ans:1,exp:'R = <strong>Romeo</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno S v mezinárodní fonetické abecedě?',opts:['Sierra','Sugar','Safety'],ans:0,exp:'S = <strong>Sierra</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno T v mezinárodní fonetické abecedě?',opts:['Tiger','Tango','Tara'],ans:1,exp:'T = <strong>Tango</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno U v mezinárodní fonetické abecedě?',opts:['Uniform','Ultima','Union'],ans:0,exp:'U = <strong>Uniform</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno V v mezinárodní fonetické abecedě?',opts:['Vega','Victor','Viking'],ans:1,exp:'V = <strong>Victor</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno W v mezinárodní fonetické abecedě?',opts:['Wind','Whiskey','White'],ans:1,exp:'W = <strong>Whiskey</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno X v mezinárodní fonetické abecedě?',opts:['X-ray','Xeno','Xavier'],ans:0,exp:'X = <strong>X-ray</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno Y v mezinárodní fonetické abecedě?',opts:['Yankee','Yellow','York'],ans:0,exp:'Y = <strong>Yankee</strong>'},
+  {cat:'provoz',q:'Jaké slovo představuje písmeno Z v mezinárodní fonetické abecedě?',opts:['Zebra','Zulu','Zero'],ans:1,exp:'Z = <strong>Zulu</strong>'},
+  {cat:'provoz',q:'Při použití mezinárodní fonetické abecedy se znak @ (tzv. zavínač) vyjadřuje výrazem…',opts:['ALPHA TANGO','AT','CIRCLE A'],ans:1,exp:'Znak @ se vyjadřuje jako <strong>AT</strong>.'},
+  {cat:'elektro',q:'Všesměrová anténa má vyzářovací charakteristiku…',opts:['osmičkovou','trojuhelníkovou','kruhovou'],ans:2,exp:'Všesměrová anténa má <strong>kruhovou vyzářovací charakteristiku</strong> v horizontální rovině.'},
+  {cat:'elektro',q:'Půlvlnný dipol…',opts:['je vždy všesměrová anténa','může být směrová i všesměrová, záleží na orientaci k zemskému povrchu','je vždy směrová anténa'],ans:1,exp:'Půlvlnný dipol může být <strong>směrový i všesměrový</strong> podle orientace.'},
+  {cat:'elektro',q:'Za bezpečná napětí při dotyku živých částí v suchém bezprašném prostředí považujeme…',opts:['DC do 120 V a AC do 50 V','DC do 60 V a AC do 25 V','DC do 48 V a AC do 12 V'],ans:1,exp:'Bezpečná napětí: <strong>DC do 60 V a AC do 25 V</strong>.'},
+  {cat:'elektro',q:'Při úrazu elektrickým proudem…',opts:['okamžitě začněme resuscitaci','vyprostiíme postiženého z dosahu el. proudu, zavoláme záchranáře a při selhání životních funkcí zahájíme resuscitaci','počkáme na záchranáře'],ans:1,exp:'Při Úrazu el. proudem: <strong>vyprostit → zavolat záchranáře → resuscitace při selhání funkcí</strong>.'},
+  {cat:'elektro',q:'Tři dobré vodiče elektřiny jsou…',opts:['hliník, železo, olovo','měď, zlato, stříbro','grafit, voda, plast'],ans:1,exp:'Nejlepší vodiče: <strong>měď, zlato, stříbro</strong>.'},
+  {cat:'elektro',q:'Čtyři dobré izolanty jsou…',opts:['sklo, vzduch, plast, porcelán','voda, guma, dřevo, hliník','křemen, beton, celón, olovo'],ans:0,exp:'Dobré izolanty: <strong>sklo, vzduch, plast, porcelán</strong>.'},
+  {cat:'elektro',q:'Radiotechnická součástka je kondenzátor, pokud se její hodnota měří v…',opts:['Ω (ohm)','H (henry)','pF (picofarad)'],ans:2,exp:'Kondenzátor se měří v <strong>pF (picofaradech)</strong>.'},
+  {cat:'elektro',q:'Výstupním výkonem stanice se rozumí…',opts:['příkon odebíraný ze sítě','výkon nařízený ČTÚ','výkon koncového stupně vysílače dodávaný do napaječe anténního systému'],ans:2,exp:'Výstupní výkon = <strong>výkon koncového stupně dodávaný do anténního systému</strong>.'},
+  {cat:'elektro',q:'Na čem závisí délka antény v pásmu VHF?',opts:['Na výkonu vysílače','Na vzdálenosti od pobřežní stanice','Na vlnové délce'],ans:2,exp:'Délka antény závisí na <strong>vlnové délce</strong> signálu.'},
 ];
 
 var theoryData = [
@@ -1025,7 +1024,7 @@ function renderQ(){
   if(state.cur >= state.queue.length){ showResults(); return; }
   var q = state.queue[state.cur];
   state.answered = false;
-  var cats = {predpisy:'PÅedpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
+  var cats = {predpisy:'Předpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
   var keys = ['A','B','C'];
   var optsHtml = q.opts.map(function(opt, i){
     var isCorrect = i === q.ans;
@@ -1046,16 +1045,16 @@ function renderQ(){
       '</div>'+
       '<div class="q-text">'+q.q+'</div>'+
       '<div'+optsClass+'>'+optsHtml+'</div>'+
-      '<div class="explanation" id="exp"><strong>VysvÄtlenÃ­:</strong> '+q.exp+'</div>'+
+      '<div class="explanation" id="exp"><strong>Vysvětlení:</strong> '+q.exp+'</div>'+
     '</div>';
 
   // In study mode, auto-show explanation and highlight correct
   if(state.studyMode){
     state.answered = true;
     document.getElementById('exp').classList.add('show');
-    document.getElementById('nextBtn').textContent = 'DalÅ¡Ã­ otÃ¡zka â';
+    document.getElementById('nextBtn').textContent = 'Další otázka →';
   } else {
-    document.getElementById('nextBtn').textContent = 'PÅeskoÄit â';
+    document.getElementById('nextBtn').textContent = 'Přeskočit →';
   }
   updateProgress();
   document.getElementById('prevBtn').disabled = state.cur === 0;
@@ -1070,7 +1069,7 @@ function answer(idx){
   opts[q.ans].classList.add('correct');
   if(idx === q.ans){ state.correct++; } else { opts[idx].classList.add('wrong'); state.wrong++; }
   document.getElementById('exp').classList.add('show');
-  document.getElementById('nextBtn').textContent = 'DalÅ¡Ã­ otÃ¡zka â';
+  document.getElementById('nextBtn').textContent = 'Další otázka →';
   updateStats();
 }
 
@@ -1107,8 +1106,8 @@ function showResults(){
   var pass = pct >= 90;
   document.getElementById('rPct').textContent = pct + '%';
   document.getElementById('rPct').className = 'result-pct ' + (pass ? 'pass' : 'fail');
-  document.getElementById('rTitle').textContent = pass ? 'VÃ½bornÄ, proÅ¡el/a jsi!' : 'JeÅ¡tÄ trÃ©nuj â cÃ­l je 90 %';
-  document.getElementById('rSub').textContent = state.correct + ' sprÃ¡vnÄ z ' + total + ' otÃ¡zek';
+  document.getElementById('rTitle').textContent = pass ? 'Výborně, prošel/a jsi!' : 'Ještě trénuj – cíl je 90 %';
+  document.getElementById('rSub').textContent = state.correct + ' správně z ' + total + ' otázek';
   document.getElementById('rCorrect').textContent = state.correct;
   document.getElementById('rWrong').textContent = state.wrong;
   document.getElementById('rSkipped').textContent = state.skipped;
@@ -1132,7 +1131,7 @@ function buildTheory(){
     return '<div class="theory-item" id="ti'+i+'">'+
       '<div class="theory-head" onclick="toggleT('+i+')">'+
         '<h3><span class="theory-pill">'+t.tag+'</span>'+t.title+'</h3>'+
-        '<span class="theory-chev">â¾</span>'+
+        '<span class="theory-chev">▾</span>'+
       '</div>'+
       '<div class="theory-body">'+t.content+'</div>'+
     '</div>';
@@ -1141,60 +1140,60 @@ function buildTheory(){
 
 function toggleT(i){ document.getElementById('ti'+i).classList.toggle('open'); }
 
-// ââ PÅEKLADY ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── PŘEKLADY ──────────────────────────────────────────────────────────────
 var translations = [
-  {en:'Administrations shall ensure that the personnel of ship stations are adequately qualified to operate the stations efficiently mainly in cases of distress and safety communications in accordance with the relevant international agreements.',cs:'SprÃ¡vnÃ­ orgÃ¡ny zajistÃ­, aby personÃ¡l lodnÃ­ch stanic byl dostateÄnÄ kvalifikovÃ¡n k efektivnÃ­ obsluze stanic, zejmÃ©na v pÅÃ­padech tÃ­sÅovÃ© a bezpeÄnostnÃ­ komunikace v souladu s pÅÃ­sluÅ¡nÃ½mi mezinÃ¡rodnÃ­mi dohodami.'},
-  {en:'No provisions of these Regulations prevent the use by a mobile station in distress of any means at its disposal to attract attention, make known its position, and obtain help.',cs:'Å½Ã¡dnÃ© ustanovenÃ­ tÄchto pÅedpisÅ¯ nebrÃ¡nÃ­ pohyblivÃ© stanici v tÃ­sni pouÅ¾Ã­t jakÃ©koli dostupnÃ© prostÅedky k pÅilÃ¡kÃ¡nÃ­ pozornosti, oznÃ¡menÃ­ svÃ© polohy a zÃ­skÃ¡nÃ­ pomoci.'},
-  {en:'All stations which receive a distress alert transmitted by digital selective calling shall immediately cease any transmission capable of interfering with distress traffic and shall continue watch until the call has been acknowledged.',cs:'VÅ¡echny stanice, kterÃ© pÅijmou tÃ­sÅovÃ½ alert vysÃ­lanÃ½ digitÃ¡lnÃ­m selektivnÃ­m volÃ¡nÃ­m, okamÅ¾itÄ pÅeruÅ¡Ã­ jakÃ©koli vysÃ­lÃ¡nÃ­, kterÃ© by mohlo ruÅ¡it tÃ­sÅovÃ½ provoz, a budou drÅ¾et hlÃ­dku, dokud volÃ¡nÃ­ nebude potvrzeno.'},
-  {en:'In vicinity of buoy Humber 5, observed capsized lifeboat, no survivors are to be seen. Ships in area are requested to keep sharp lookout and report to Solent Coast Guard.',cs:'V blÃ­zkosti bÃ³je Humber 5 pozorovÃ¡n pÅevrÃ¡cenÃ½ zÃ¡chrannÃ½ Älun, Å¾Ã¡dnÃ­ pÅeÅ¾ivÅ¡Ã­ nejsou vidÄt. LodÄ v oblasti jsou poÅ¾Ã¡dÃ¡ny, aby ostÅe sledovaly okolÃ­ a hlÃ¡sily zjiÅ¡tÄnÃ­ pobÅeÅ¾nÃ­ strÃ¡Å¾i Solent.'},
-  {en:'In position 61Â°10.6\' N 003Â°45.3 E after explosion fire in engine room, 2 persons are seriously injured, we have to abandon the vessel, require immediate assistance.',cs:'Na pozici 61Â°10,6\' N 003Â°45,3 V, po vÃ½buchu poÅ¾Ã¡r ve strojovnÄ, 2 osoby vÃ¡Å¾nÄ zranÄny, musÃ­me opustit plavidlo, poÅ¾adujeme okamÅ¾itou pomoc.'},
-  {en:'On motor vessel Freya person over board last seen at 0730 UTC in position 2 nm north of racon buoy Elbe. All ships in vicinity please keep sharp lookout and report to Bremen Rescue.',cs:'Na motorovÃ© lodi Freya pÅes palubu pÅes palubu spaen naposled v 0730 UTC na pozici 2 NM severnÄ od rakonovÃ© bÃ³je Elbe. VÅ¡echny lodÄ v okolÃ­ prosÃ­m ostÅe sledujte okolÃ­ a hlaste Bremen Rescue.'},
-  {en:'Mayday voice call reported in position west from Cabo San Vito lighthouse at zero five three two local time, no further communication heard. All ships in the area are requested to keep a sharp lookout and report any incident immediately to Palermo Coastguard.',cs:'HlasovÃ© volÃ¡nÃ­ MAYDAY hlÃ¡Å¡eno na pozici zÃ¡pad od majÃ¡ku Cabo San Vito v 0532 mÃ­stnÃ­ho Äasu, Å¾Ã¡dnÃ¡ dalÅ¡Ã­ komunikace nebyla zachycena. VÅ¡echny lodÄ v oblasti jsou poÅ¾Ã¡dÃ¡ny, aby ostÅe sledovaly okolÃ­ a okamÅ¾itÄ hlÃ¡sily jakÃ½koli incident pobÅeÅ¾nÃ­ strÃ¡Å¾i Palermo.'},
-  {en:'In position 3 nm east off Aigina island, broken rudder, drifting ashore in rough sea. Require immediate assistance.',cs:'Na pozici 3 NM vÃ½chodnÄ od ostrova Aegina, poÅ¡kozenÃ½ kormidlo, driftujeme ke bÅehu v rozbouÅenÃ©m moÅi. PoÅ¾adujeme okamÅ¾itou pomoc.'},
-  {en:'Person over board at 2110 LT in position 2 nm west of Unije, ships in vicinity please keep good lookout and assist with search and rescue and report to Rijeka Rescue.',cs:'ÄlovÄk pÅes palubu v 2110 mÃ­stnÃ­ho Äasu na pozici 2 NM zÃ¡padnÄ od Unije, lodÄ v okolÃ­ prosÃ­m ostÅe sledujte okolÃ­ a pomozte pÅi pÃ¡trÃ¡nÃ­ a zÃ¡chranÄ a hlaste Rijeka Rescue.'},
-  {en:'SÃ©curitÃ© SÃ©curitÃ© SÃ©curitÃ©, All ships, All ships, All ships, This is motor yacht Andromeda. Our position is east from Splitska Vrata, one decimal five mile. We have broken engines, the boat is not under command, slowly drifting to the west. No assistance required.',cs:'SÃ©curitÃ© SÃ©curitÃ© SÃ©curitÃ©, VÅ¡echny lodÄ, VÅ¡echny lodÄ, VÅ¡echny lodÄ, Tady motorovÃ¡ jachta Andromeda. NaÅ¡e pozice je vÃ½chodnÄ od SplitskÃ½ch vrat, jedna celÃ¡ pÄt mÃ­le. MÃ¡me porouchanÃ© motory, loÄ nenÃ­ ÅÃ­zena, pomalu driftujeme na zÃ¡pad. Pomoc nenÃ­ vyÅ¾adovÃ¡na.'},
-  {en:'Observed small unknown aircraft with two propellers in position 58Â° 55.8\' N 002Â° 24.3\' E, aircraft is still afloat, ships in vicinity please try to contact aircraft on VHF Ch 16 and report to Stavanger Rescue.',cs:'PozorovÃ¡no malÃ© neznÃ¡mÃ© letadlo se dvÄma vrtulemi na pozici 58Â° 55,8\' S 002Â° 24,3\' V, letadlo stÃ¡le pluje na hladinÄ, lodÄ v okolÃ­ se prosÃ­m pokuste kontaktovat letadlo na VHF kanÃ¡lu 16 a hlaste Stavanger Rescue.'},
-  {en:'Our position 55Â° 16.9\' N 016Â° 23.1\' E. Observed red rockets in true bearing of about 045Â°, estimated distance 8 nm. All ships in area please keep sharp look-out and report to Gothenburg Coastguard.',cs:'NaÅ¡e pozice 55Â° 16,9\' S 016Â° 23,1\' V. PozorovÃ¡no ÄervenÃ© rakety v skuteÄnÃ©m kurzu pÅibliÅ¾nÄ 045Â°, odhadovanÃ¡ vzdÃ¡lenost 8 NM. VÅ¡echny lodÄ v oblasti prosÃ­m ostÅe sledujte okolÃ­ a hlaste pobÅeÅ¾nÃ­ strÃ¡Å¾i Gothenburg.'},
-  {en:'Gale warning for Skagerrak and Kattegat, W 8 to 9, decreasing to 7, rough sea, showers, good to moderate visibility.',cs:'VarovnÃ© hlÃ¡Å¡enÃ­ o bouÅi pro Skagerrak a Kattegat, zÃ¡pad 8 aÅ¾ 9, slÃ¡bne na 7, rozbouÅenÃ© moÅe, pÅehÃ¡Åky, dobrÃ¡ aÅ¾ stÅednÃ­ viditelnost.'},
-  {en:'New gale warning issued at one four three zero. South easterly severe gale force 9 expected soon in southern Adriatic. For latest weather forecast and navigational warnings listen to channel twenty three. Dubrovnik Radio out.',cs:'NovÃ© varovnÃ© hlÃ¡Å¡enÃ­ o bouÅi vydÃ¡no v 1430. JihovÃ½chodnÃ­ silnÃ¡ bouÅe sÃ­ly 9 se brzy oÄekÃ¡vÃ¡ v jiÅ¾nÃ­m Jadranu. Pro nejnovÄjÅ¡Ã­ pÅedpovÄÄ poÄasÃ­ a navigaÄnÃ­ varovÃ¡nÃ­ poslouchejte kanÃ¡l 23. DubrovnÃ­k RÃ¡dio konec.'},
-  {en:'At 0732 UTC on VHF channel 16 following received: "Mayday, Aida, call sign LGBX, in position 4 nm north-west of Heligoland, explosions in engine room, 6 persons are injured, require helicopter and medical assistance." End of message.',cs:'V 0732 UTC na VHF kanÃ¡lu 16 pÅijato nÃ¡sledujÃ­cÃ­: âMayday, Aida, volacÃ­ znaÄka LGBX, na pozici 4 NM severozÃ¡padnÄ od Helgolandu, vÃ½buchy ve strojovnÄ, 6 osob zranÄno, poÅ¾adujeme vrtulnÃ­k a zdravotnÃ­ pomoc." Konec zprÃ¡vy.'},
-  {en:'At 1525 UTC on VHF Ch 16 following received from motor vessel Blue Sky, 5KMO: "Person over board in position 12 nm north-west of Calais, vessels in vicinity please keep sharp lookout." End of message. Ships in area are requested to assist with search and rescue and report to Falmouth Coastguard.',cs:'V 1525 UTC na VHF kanÃ¡lu 16 pÅijato od motorovÃ© lodi Blue Sky, 5KMO: âÄlovÄk pÅes palubu na pozici 12 NM severozÃ¡padnÄ od Calais, plavidla v okolÃ­ prosÃ­m ostÅe sledujte okolÃ­." Konec zprÃ¡vy. LodÄ v oblasti jsou poÅ¾Ã¡dÃ¡ny o pomoc pÅi pÃ¡trÃ¡nÃ­ a zÃ¡chranÄ a o hlÃ¡Å¡enÃ­ pobÅeÅ¾nÃ­ strÃ¡Å¾i Falmouth.'},
-  {en:'Mayday Relay, Mayday Relay, Mayday Relay, All stations, All stations, All stations, This is Moby Dick, Moby Dick, Oscar Lima zero three eight nine. Mayday received from unknown sailing yacht aground on the rocks south from Palagruza island. Require immediate assistance. There seem to be two people on board. Using red hand flares. No radio communication established. Over.',cs:'Mayday Relay, Mayday Relay, Mayday Relay, VÅ¡echny stanice, VÅ¡echny stanice, VÅ¡echny stanice, Tady Moby Dick, Moby Dick, Oscar Lima nula tÅi osm devÄt. PÅijato Mayday od neznÃ¡mÃ© plachetnice na skalÃ¡ch jiÅ¾nÄ od ostrova PalagruÅ¾a. PoÅ¾adujeme okamÅ¾itou pomoc. ZdÃ¡ se, Å¾e na palubÄ jsou dvÄ osoby. PouÅ¾Ã­vajÃ­ ÄervenÃ© ruÄnÃ­ svÄtlice. Å½Ã¡dnÃ© rÃ¡diovÃ© spojenÃ­ nebylo navÃ¡zÃ¡no. PÅijÃ­mÃ¡te?'},
-  {en:'Due to steering problems vessel is not under command in position 51Â°10.4\'N 003Â°45.6\'E, require assistance with towing.',cs:'KvÅ¯li problÃ©mÅ¯m s ÅÃ­zenÃ­m nenÃ­ plavidlo ÅÃ­zeno na pozici 51Â°10,4\' S 003Â°45,6\' V, poÅ¾adujeme pomoc s vleÄenÃ­m.'},
-  {en:'In position 12 nm south from Cape Spartivento, a crew member is fallen from the mast and seriously injured, course 275Â° speed 7 knots, require urgent medical assistance.',cs:'Na pozici 12 NM jiÅ¾nÄ od mysu Spartivento spadl Älen posÃ¡dky ze stÄÅ¾nÄ a je vÃ¡Å¾nÄ zranÄn, kurz 275Â°, rychlost 7 uzlÅ¯, poÅ¾adujeme nalÃ©havou zdravotnÃ­ pomoc.'},
-  {en:'Sailing yacht Hadrian, call sign DD2663, in collision with fishing vessel Meyenburg, in position 7 nm W from Komiza, dangerous leak, vessel sinking after flooding, require immediate assistance.',cs:'PlachetnÃ­ jachta Hadrian, volacÃ­ znaÄka DD2663, v kolizi s rybÃ¡Åskou lodÃ­ Meyenburg, na pozici 7 NM Z od KomiÅ¾e, nebezpeÄnÃ½ Ãºnik vody, plavidlo se potÃ¡pÃ­ po zatopenÃ­, poÅ¾adujeme okamÅ¾itou pomoc.'},
-  {en:'Sailing boat Rubin, 12m red hull, white sails, 2 persons on board, left Klintholm on July 16th at 0600 local time, bound for Visby, ship has not yet arrived, shipping are requested to keep sharp look-out and report to Lyngby Radio.',cs:'Plachetnice Rubin, 12m ÄervenÃ½ trup, bÃ­lÃ© plachty, 2 osoby na palubÄ, odplula z Klintholmu 16. Äervence v 0600 mÃ­stnÃ­ho Äasu, mÃ­ÅÃ­ do Visby, loÄ dosud nedorazila, lodÄ jsou poÅ¾Ã¡dÃ¡ny, aby ostÅe sledovaly okolÃ­ a hlÃ¡sily Lyngby RÃ¡dio.'},
-  {en:'Mayday, Perseus, this is Alfa Lifeboat. For direction finding purposes please hold your "press to transmit" switch closed for two periods of ten seconds each, followed by your vessel name repeated four times on this frequency. Over',cs:'Mayday, Perseus, tady zÃ¡chrannÃ½ Älun Alfa. Pro ÃºÄely urÄovÃ¡nÃ­ smÄru prosÃ­m stlaÄte a drÅ¾te tlaÄÃ­tko âstisknout pro vysÃ­lÃ¡nÃ­" zavÅenÃ© po dobu dvou period po deseti sekundÃ¡ch, nÃ¡sledovanÃ© nÃ¡zvem vaÅ¡eho plavidla opakovanÃ½m ÄtyÅikrÃ¡t na tÃ©to frekvenci. PÅijÃ­mÃ¡te?'},
-  {en:'Small craft are required to call Dover Port Control on Ch 74 for permission to enter. Request permission to leave harbour as soon as clear of the marina. Call Dover Marina Ch 80, only when in marina.',cs:'MalÃ¡ plavidla jsou povinna volat DovreskÃ½ pÅÃ­stav na kanÃ¡lu 74 pro povolenÃ­ vstupu. PoÅ¾Ã¡dat o povolenÃ­ opustit pÅÃ­stav, jakmile je volnÃ¡ cesta z mariny. Volat Doverskou marinu na kanÃ¡lu 80, pouze pokud jste v marinÄ.'},
-  {en:'In position 55Â°12.4\'N 005Â°08.7\'E, a crew member 56 years old unconscious, suspect heart attack, require urgent medical help by helicopter.',cs:'Na pozici 55Â°12,4\' S 005Â°08,7\' V, Älen posÃ¡dky 56 let v bezvÄdomÃ­, podezÅenÃ­ na srdeÄnÃ­ zÃ¡chvat, poÅ¾adujeme nalÃ©havou lÃ©kaÅskou pomoc vrtulnÃ­kem.'},
-  {en:'In position 55Â°23.4\'N 006Â°18.1\'E, engine broken down, require immediate assistance. Motor yacht is not under command in very rough sea and extremely high waves.',cs:'Na pozici 55Â°23,4\' S 006Â°18,1\' V, porouchanÃ½ motor, poÅ¾adujeme okamÅ¾itou pomoc. MotorovÃ¡ jachta nenÃ­ ÅÃ­zena v velmi rozbouÅenÃ©m moÅi a extrÃ©mnÄ vysokÃ½ch vlnÃ¡ch.'},
-  {en:'Sailing yacht Relaxe, call sign SWLU, length 40 feet, white hull and brown sails, underway from Martinique to Bahamas unreported since January 16th, all ships please keep sharp lookout and report to US Coast Guard.',cs:'PlachetnÃ­ jachta Relaxe, volacÃ­ znaÄka SWLU, dÃ©lka 40 stop, bÃ­lÃ½ trup a hnÄdÃ© plachty, na cestÄ z Martiniku na Bahamy bez hlÃ¡Å¡enÃ­ od 16. ledna, vÅ¡echny lodÄ prosÃ­m ostÅe sledujte okolÃ­ a hlaste pobÅeÅ¾nÃ­ strÃ¡Å¾i USA.'},
-  {en:'All small crafts in the Solent are strongly advised to monitor VHF Ch 12 Southampton and/or Ch 11 Portsmouth for information on shipping movement and port operations.',cs:'VÅ¡echna malÃ¡ plavidla v Solentu jsou dÅ¯raznÄ vybÃ­zena ke sledovÃ¡nÃ­ VHF kanÃ¡lu 12 Southampton a/nebo kanÃ¡lu 11 Portsmouth pro informace o pohybu lodÃ­ a pÅÃ­stravnÃ­ch operacÃ­ch.'},
-  {en:'Require medical advice for man fallen from the mast, seriously injured with heavy loss of blood, position 54Â°48.1\'N 006Â°55.7\'E, ships with doctor please contact VHF Ch 16.',cs:'PoÅ¾adujeme zdravotnÃ­ radu pro muÅ¾e, kterÃ½ spadl ze stÄÅ¾nÄ, vÃ¡Å¾nÄ zranÄn s velkÃ½mi ztrÃ¡tami krve, pozice 54Â°48,1\' S 006Â°55,7\' V, lodÄ s lÃ©kaÅem prosÃ­m kontaktujte VHF kanÃ¡l 16.'},
-  {en:'Sailing yacht Tinker, DP2932, in position 37Â°43.3\'N 23Â°40.6\'E, broken mast, damaged rudder, vessel is not under command in rough sea, require immediate assistance.',cs:'PlachetnÃ­ jachta Tinker, DP2932, na pozici 37Â°43,3\' S 23Â°40,6\' V, zlomenÃ½ stÄÅ¾eÅ, poÅ¡kozenÃ© kormidlo, plavidlo nenÃ­ ÅÃ­zeno v rozbouÅenÃ©m moÅi, poÅ¾adujeme okamÅ¾itou pomoc.'},
-  {en:'Humber-Elbe-Route in position 53Â° 25.7\' N 005Â° 28.4\' E observed nearly submerged drifting yellow coloured buoy, dangerous to navigation.',cs:'Na trase Humber-Elbe na pozici 53Â° 25,7\' S 005Â° 28,4\' V pozorovÃ¡na tÃ©mÄÅ ponoÅenÃ¡ driftujÃ­cÃ­ Å¾lutÃ¡ bÃ³je, nebezpeÄnÃ¡ pro plavbu.'},
-  {en:'Gale warning issued at 0935 UTC for Sea area Dogger Bank to Isle of Wight: strong westerly winds increasing to gale force 8 to 9, veering later, drizzle at times, visibility moderate, occasionally poor.',cs:'VarovnÃ© hlÃ¡Å¡enÃ­ o bouÅi vydÃ¡no v 0935 UTC pro nÃ¡moÅnÃ­ oblast Dogger Bank aÅ¾ Isle of Wight: silnÃ© zÃ¡padnÃ­ vÄtry zesilujÃ­cÃ­ na bouÅlivou sÃ­lu 8 aÅ¾ 9, otÃ¡ÄenÃ­ vÄtru, obÄas mrholenÃ­, viditelnost stÅednÃ­, obÄas Å¡patnÃ¡.'},
-  {en:'On approach to Dunkerque, dangerous wreck located in position 51Â°04.6\'N 001Â°52.2\'E, vessels are requested to keep a wide berth.',cs:'PÅi pÅiblÃ­Å¾enÃ­ k Dunkirku je na pozici 51Â°04,6\' S 001Â°52,2\' V nebezpeÄnÃ½ vrak, plavidla jsou poÅ¾Ã¡dÃ¡na, aby se mu obloukem vyhnula.'},
-  {en:'Navigational warning number 0418, Central Adriatic, Å½irje island - works on navigation mark in position 43Â°39.75\' N 015Â°33.16\' E, marked with lighted buoy, characteristic: flashing yellow 2 seconds, visibility 2 miles. Navigation, stopping, fishing and underwater works in radius 100 meters prohibited.',cs:'NavigaÄnÃ­ varovÃ¡nÃ­ ÄÃ­slo 0418, StÅednÃ­ Jadran, ostrov Å½irje â prÃ¡ce na navigaÄnÃ­ znaÄce na pozici 43Â°39,75\' S 015Â°33,16\' V, oznaÄeno svÄtelnou bÃ³jÃ­, charakteristika: zÃ¡blesk Å¾lutÃ½ 2 sekundy, viditelnost 2 mÃ­le. Plavba, zastavenÃ­, rybolov a podvodnÃ­ prÃ¡ce v okruhu 100 metrÅ¯ zakÃ¡zÃ¡ny.'},
-  {en:'Ice warning. Icebergs are reported in area around Belle Isle and Cape Freels. Ice situation is not expected to change in the next 24 hours.',cs:'LedovÃ© varovÃ¡nÃ­. Ledovce jsou hlÃ¡Å¡eny v oblasti kolem Belle Isle a Cape Freels. LedovÃ¡ situace se v pÅÃ­Å¡tÃ­ch 24 hodinÃ¡ch neoÄekÃ¡vÃ¡ zmÄna.'},
-  {en:'In Position 4 nm Northwest of Cape Finisterre sighted several drifting containers, red coloured, one container marked with TEXASCON, ships in area are requested to navigate carefully.',cs:'Na pozici 4 NM severozÃ¡padnÄ od mysu Finisterre spatÅeno nÄkolik driftujÃ­cÃ­ch kontejnerÅ¯, ÄervenÃ© barvy, jeden kontejner oznaÄen TEXASCON, lodÄ v oblasti jsou poÅ¾Ã¡dÃ¡ny, aby se plavily opatrnÄ.'},
-  {en:'Dangerous uncharted underwater obstruction reported in position 53Â° 48.3\' N 007Â° 41.7\' E marked by yellow buoy with west top mark. Vessels requested to keep a wide berth.',cs:'NebezpeÄnÃ¡ nezakreslenÃ¡ podvodnÃ­ pÅekÃ¡Å¾ka hlÃ¡Å¡ena na pozici 53Â° 48,3\' S 007Â° 41,7\' V, oznaÄena Å¾lutou bÃ³jÃ­ se zÃ¡padnÃ­m vrchnÃ­m znakem. Plavidla jsou poÅ¾Ã¡dÃ¡na, aby se obloukem vyhnula.'},
-  {en:'Motor vessel Xanthippe lost anchor and chain in position 51Â° 25.8\' N 002Â° 40.5\' E, shipping in this area is requested to use neither an anchor nor fishing gear.',cs:'MotorovÃ¡ loÄ Xanthippe ztratila kotvu a ÅetÄz na pozici 51Â° 25,8\' S 002Â° 40,5\' V, lodnÃ­ provoz v tÃ©to oblasti je poÅ¾Ã¡dÃ¡n, aby nepouÅ¾Ã­val ani kotvu ani rybÃ¡ÅskÃ© nÃ¡ÄinÃ­.'},
-  {en:'Area Humber, Thames, Dover, Isle of Wight and Belgian Coast NE\'ly gentle to moderate breeze force 3 to 4, moderate or poor visibility, mainly fair.',cs:'Oblast Humber, TemÅ¾e, Dover, Isle of Wight a belgickÃ© pobÅeÅ¾Ã­: severovÃ½chodnÃ­ slabÃ½ aÅ¾ mÃ­rnÃ½ vÃ­tr sÃ­ly 3 aÅ¾ 4, stÅednÃ­ nebo Å¡patnÃ¡ viditelnost, pÅevÃ¡Å¾nÄ pÄknÄ.'},
-  {en:'Fairway between Den Helder and Den Oever light buoy MG18 is reported unlit, shipping in this area is requested to navigate with caution.',cs:'PlavebnÃ­ drÃ¡ha mezi Den Helderem a svÄtelnou bÃ³jÃ­ Den Oever MG18 je hlÃ¡Å¡ena jako neosvÄtlenÃ¡, lodnÃ­ provoz v tÃ©to oblasti je poÅ¾Ã¡dÃ¡n, aby se plavil opatrnÄ.'},
-  {en:'Weather forecast for the area North of Portugal, rain or showers, at times SW 6, temporarily increasing W 8 veering to NW 5 later.',cs:'PÅedpovÄÄ poÄasÃ­ pro oblast severnÄ od Portugalska: dÃ©Å¡Å¥ nebo pÅehÃ¡Åky, obÄas jihozÃ¡pad 6, doÄasnÄ zesilujÃ­cÃ­ zÃ¡pad 8, otÃ¡ÄenÃ­ na severozÃ¡pad 5 pozdÄji.'},
-  {en:'Military operations between Aigina, Salamina and Flevopoula in progress until February 16th, all ships are requested to navigate with caution and maintain listening watch on Ch16.',cs:'VojenskÃ© operace mezi Aeginou, SalaminÃ­ a Flevopoula probÃ­hajÃ­ do 16. Ãºnora, vÅ¡echny lodÄ jsou poÅ¾Ã¡dÃ¡ny, aby se plavily opatrnÄ a udrÅ¾ovaly poslechovou hlÃ­dku na kanÃ¡lu 16.'},
-  {en:'Navigational warning number twenty one, issued on 12 March 0600 UTC: construction works in Split harbour, near eastern breakwater and southern side of ferry port. Ships approaching and leaving Split harbour are advised to proceed with caution.',cs:'NavigaÄnÃ­ varovÃ¡nÃ­ ÄÃ­slo dvacet jedna, vydÃ¡no 12. bÅezna 0600 UTC: stavebnÃ­ prÃ¡ce v pÅÃ­stavu Split, v blÃ­zkosti vÃ½chodnÃ­ho vlnolamu a jiÅ¾nÃ­ strany trajektovÃ©ho pÅÃ­stavu. LodÄ pÅibliÅ¾ujÃ­cÃ­ se k pÅÃ­stavu Split a opouÅ¡tÄjÃ­cÃ­ jej jsou doporuÄeny postupovat opatrnÄ.'},
-  {en:'Western approaches to English Channel. Underwater operations in progress, vicinity of line joining 48Â° 00\' N 007Â° 15\' W and 48Â° 51\' N 007Â° 12\' W. Ships are requested to keep a wide berth.',cs:'ZÃ¡padnÃ­ pÅÃ­stupy do LamanÅ¡skÃ©ho prÅ¯livu. ProbÃ­hajÃ­ podvodnÃ­ operace v blÃ­zkosti linie spojujÃ­cÃ­ 48Â° 00\' S 007Â° 15\' Z a 48Â° 51\' S 007Â° 12\' Z. LodÄ jsou poÅ¾Ã¡dÃ¡ny, aby se obloukem vyhnuly.'},
-  {en:'Safety and rescue services: The SAR co-ordinating centre is in Piraeus. Olympia Radio monitor DSC, VHF, MF and HF frequencies including 2182kHz and VHF Ch 16. All safety and security radio traffic should call Olympia Radio.',cs:'BezpeÄnostnÃ­ a zÃ¡chrannÃ© sluÅ¾by: KoordinaÄnÃ­ centrum SAR je v Pireu. Olympia RÃ¡dio sleduje DSC, VHF, MF a HF frekvence vÄetnÄ 2182 kHz a VHF kanÃ¡lu 16. VeÅ¡kerÃ½ bezpeÄnostnÃ­ a zÃ¡chrannÃ½ rÃ¡diovÃ½ provoz by mÄl volat Olympia RÃ¡dio.'},
-  {en:'Warning: Gusts of south easterly winds 35-55 knots, in places up to 70 knots, and in the Velebit channel and in the northern part of the North Adriatic of nort easterly, in the evening of south easterly winds, 35-55 knots. Sea 5, locally up to 6, mainly in the open. Isolated thunderstorms.',cs:'VarovÃ¡nÃ­: NÃ¡razy jihovÄtrnÃ½ch vÄtrÅ¯ 35â55 uzlÅ¯, mÃ­sty aÅ¾ 70 uzlÅ¯, a v kanÃ¡lu Velebit a v severnÃ­ ÄÃ¡sti SevernÃ­ho Jadranu severovÃ½chodnÃ­, veÄer jihovÃ½ choznÃ­ vÄtry 35â55 uzlÅ¯. MoÅe 5, lokÃ¡lnÄ aÅ¾ 6, pÅevÃ¡Å¾nÄ na otevÅenÃ©m moÅi. OjedinÄlÃ© bouÅky.'},
-  {en:'Specific permission to enter/leave harbour via E or W entrance must be obtained from Port Control on Ch 74. Advise if you have no engine. Comply with any VHF instructions from Port Control or harbour patrol launch.',cs:'SpecifickÃ© povolenÃ­ ke vstupu/vÃ½jezdu z pÅÃ­stavu pÅes vÃ½chodnÃ­ nebo zÃ¡padnÃ­ vjezd musÃ­ bÃ½t zÃ­skÃ¡no od ÅÃ­zenÃ­ pÅÃ­stavu na kanÃ¡lu 74. UpozornÄte pokud nemÃ¡te motor. DodrÅ¾ujte jakÃ©koli VHF instrukce od ÅÃ­zenÃ­ pÅÃ­stavu nebo pÅÃ­stravnÃ­ hlÃ­dkovÃ© lodi.'},
-  {en:'Navigational warning issued by Olympia Radio on November 19 0500 UTC, valid until November 22 0500 UTC: major dredging operations and construction works north entrance of Lefkas channel on position 38Â°50\' N 20Â°43\' E. Vessels are requested to navigate with extreme caution.',cs:'NavigaÄnÃ­ varovÃ¡nÃ­ vydanÃ© Olympia RÃ¡dio 19. listopadu 0500 UTC, platnÃ© do 22. listopadu 0500 UTC: vÄtÅ¡Ã­ bagrovÃ¡nÃ­ a stavebnÃ­ prÃ¡ce severnÃ­ vjezd do kanÃ¡lu Lefkas na pozici 38Â°50\' S 20Â°43\' V. Plavidla jsou poÅ¾Ã¡dÃ¡na, aby se plavila s extrÃ©mnÃ­ opatrnostÃ­.'},
-  {en:'Miami Coast Guard has received a DSC distress alert from vessel Uranus. Reported position is 10Â°04\' N 077Â°14\' W. Shipping is requested to keep a sharp lookout and report to Miami Coast Guard.',cs:'PobÅeÅ¾nÃ­ strÃ¡Å¾ Miami obdrÅ¾ela DSC tÃ­sÅovÃ½ alert od plavidla Uranus. HlÃ¡Å¡enÃ¡ poloha je 10Â°04\' S 077Â°14\' Z. LodnÃ­ provoz je poÅ¾Ã¡dÃ¡n, aby ostÅe sledoval okolÃ­ a hlÃ¡sil pobÅeÅ¾nÃ­ strÃ¡Å¾i Miami.'},
-  {en:'Falmouth Coast Guard received following information from fishing vessel Parrain, FHEF. The message begins: "Mayday all crew members on board the vessel have now been airlifted and are proceeding to Stornoway on rescue helicopter 137. The vessel is still adrift in position 59Â° 05\' N 013Â° 55\' W". End of message.',cs:'PobÅeÅ¾nÃ­ strÃ¡Å¾ Falmouth obdrÅ¾ela nÃ¡sledujÃ­cÃ­ informaci od rybÃ¡ÅskÃ© lodi Parrain, FHEF. ZprÃ¡va zaÄÃ­nÃ¡: âMayday, vÅ¡ichni ÄlenovÃ© posÃ¡dky na palubÄ plavidla byli pÅepraveni vrtulnÃ­kem a postupujÃ­ do Stornoway na zÃ¡chrannÃ©m vrtulnÃ­ku 137. Plavidlo stÃ¡le driftuje na pozici 59Â° 05\' S 013Â° 55\' Z." Konec zprÃ¡vy.'},
-  {en:'Urgent broadcast. Belfast Coast Guard received report of a missing 38 feet sailing vessel "Windigo". She left Campbeltown with destination Stornoway on 20th January 0800 UT. The sailing vessel is red with white superstructure. Shipping is requested to keep a sharp lookout and report sightings to Belfast Coast Guard.',cs:'NalÃ©havÃ© hlÃ¡Å¡enÃ­. PobÅeÅ¾nÃ­ strÃ¡Å¾ Belfast obdrÅ¾ela zprÃ¡vu o chybÄjÃ­cÃ­ 38stopÃ© plachetnici âWindigo". Odplula z Campbeltownu s cÃ­lem Stornoway 20. ledna v 0800 UT. Plachetnice je ÄervenÃ¡ s bÃ­lou nÃ¡stavbou. LodnÃ­ provoz je poÅ¾Ã¡dÃ¡n, aby ostÅe sledoval okolÃ­ a hlÃ¡sil pozorovÃ¡nÃ­ pobÅeÅ¾nÃ­ strÃ¡Å¾i Belfast.'},
-  {en:'Eastern Channel, Dover Strait: large floating pontoon reported adrift from Le Havre to the Belgian coast. Drifting north into the south North Sea. Shipping is requested to keep a sharp look-out and report any sighting to Oostende Coast Guard.',cs:'VÃ½chodnÃ­ kanÃ¡l, DoverskÃ½ prÅ¯liv: hlÃ¡Å¡en velkÃ½ plovoucÃ­ ponrton driftujÃ­cÃ­ z Le Havre k belgickÃ©mu pobÅeÅ¾Ã­. Driftuje severnÄ do jiÅ¾nÃ­ho SevernÃ­ho moÅe. LodnÃ­ provoz je poÅ¾Ã¡dÃ¡n, aby ostÅe sledoval okolÃ­ a hlÃ¡sil jakÃ©koli pozorovÃ¡nÃ­ pobÅeÅ¾nÃ­ strÃ¡Å¾i Oostende.'},
-  {en:'Navigational warning No.64 from 13 February 0915 UTC: German Bight traffic separation scheme, large piece of wood drifting in position 53Â°47.4\' N 006Â°11.1\' E. Navigational warning cancelled 13 February at 1100 UTC.',cs:'NavigaÄnÃ­ varovÃ¡nÃ­ Ä. 64 ze 13. Ãºnora 0915 UTC: SchÃ©ma oddÄlenÃ­ dopravy NÄmeckÃ©ho zÃ¡livu, velkÃ½ kus dÅeva driftujÃ­cÃ­ na pozici 53Â°47,4\' S 006Â°11,1\' V. NavigaÄnÃ­ varovÃ¡nÃ­ zruÅ¡eno 13. Ãºnora v 1100 UTC.'}
+  {en:'Administrations shall ensure that the personnel of ship stations are adequately qualified to operate the stations efficiently mainly in cases of distress and safety communications in accordance with the relevant international agreements.',cs:'Správní orgány zajistí, aby personál lodních stanic byl dostatečně kvalifikován k efektivní obsluze stanic, zejména v případech tísňové a bezpečnostní komunikace v souladu s příslušnými mezinárodními dohodami.'},
+  {en:'No provisions of these Regulations prevent the use by a mobile station in distress of any means at its disposal to attract attention, make known its position, and obtain help.',cs:'Žádné ustanovení těchto předpisů nebrání pohyblivé stanici v tísni použít jakékoli dostupné prostředky k přilákání pozornosti, oznámení své polohy a získání pomoci.'},
+  {en:'All stations which receive a distress alert transmitted by digital selective calling shall immediately cease any transmission capable of interfering with distress traffic and shall continue watch until the call has been acknowledged.',cs:'Všechny stanice, které přijmou tísňový alert vysílaný digitálním selektivním voláním, okamžitě přeruší jakékoli vysílání, které by mohlo rušit tísňový provoz, a budou držet hlídku, dokud volání nebude potvrzeno.'},
+  {en:'In vicinity of buoy Humber 5, observed capsized lifeboat, no survivors are to be seen. Ships in area are requested to keep sharp lookout and report to Solent Coast Guard.',cs:'V blízkosti bóje Humber 5 pozorován převrácený záchranný člun, žádní přeživší nejsou vidět. Lodě v oblasti jsou požádány, aby ostře sledovaly okolí a hlásily zjištění pobřežní stráži Solent.'},
+  {en:'In position 61°10.6\' N 003°45.3 E after explosion fire in engine room, 2 persons are seriously injured, we have to abandon the vessel, require immediate assistance.',cs:'Na pozici 61°10,6\' N 003°45,3 V, po výbuchu požár ve strojovně, 2 osoby vážně zraněny, musíme opustit plavidlo, požadujeme okamžitou pomoc.'},
+  {en:'On motor vessel Freya person over board last seen at 0730 UTC in position 2 nm north of racon buoy Elbe. All ships in vicinity please keep sharp lookout and report to Bremen Rescue.',cs:'Na motorové lodi Freya přes palubu přes palubu spaen naposled v 0730 UTC na pozici 2 NM severně od rakonové bóje Elbe. Všechny lodě v okolí prosím ostře sledujte okolí a hlaste Bremen Rescue.'},
+  {en:'Mayday voice call reported in position west from Cabo San Vito lighthouse at zero five three two local time, no further communication heard. All ships in the area are requested to keep a sharp lookout and report any incident immediately to Palermo Coastguard.',cs:'Hlasové volání MAYDAY hlášeno na pozici západ od majáku Cabo San Vito v 0532 místního času, žádná další komunikace nebyla zachycena. Všechny lodě v oblasti jsou požádány, aby ostře sledovaly okolí a okamžitě hlásily jakýkoli incident pobřežní stráži Palermo.'},
+  {en:'In position 3 nm east off Aigina island, broken rudder, drifting ashore in rough sea. Require immediate assistance.',cs:'Na pozici 3 NM východně od ostrova Aegina, poškozený kormidlo, driftujeme ke břehu v rozbouřeném moři. Požadujeme okamžitou pomoc.'},
+  {en:'Person over board at 2110 LT in position 2 nm west of Unije, ships in vicinity please keep good lookout and assist with search and rescue and report to Rijeka Rescue.',cs:'Člověk přes palubu v 2110 místního času na pozici 2 NM západně od Unije, lodě v okolí prosím ostře sledujte okolí a pomozte při pátrání a záchraně a hlaste Rijeka Rescue.'},
+  {en:'Sécurité Sécurité Sécurité, All ships, All ships, All ships, This is motor yacht Andromeda. Our position is east from Splitska Vrata, one decimal five mile. We have broken engines, the boat is not under command, slowly drifting to the west. No assistance required.',cs:'Sécurité Sécurité Sécurité, Všechny lodě, Všechny lodě, Všechny lodě, Tady motorová jachta Andromeda. Naše pozice je východně od Splitských vrat, jedna celá pět míle. Máme porouchané motory, loď není řízena, pomalu driftujeme na západ. Pomoc není vyžadována.'},
+  {en:'Observed small unknown aircraft with two propellers in position 58° 55.8\' N 002° 24.3\' E, aircraft is still afloat, ships in vicinity please try to contact aircraft on VHF Ch 16 and report to Stavanger Rescue.',cs:'Pozorováno malé neznámé letadlo se dvěma vrtulemi na pozici 58° 55,8\' S 002° 24,3\' V, letadlo stále pluje na hladině, lodě v okolí se prosím pokuste kontaktovat letadlo na VHF kanálu 16 a hlaste Stavanger Rescue.'},
+  {en:'Our position 55° 16.9\' N 016° 23.1\' E. Observed red rockets in true bearing of about 045°, estimated distance 8 nm. All ships in area please keep sharp look-out and report to Gothenburg Coastguard.',cs:'Naše pozice 55° 16,9\' S 016° 23,1\' V. Pozorováno červené rakety v skutečném kurzu přibližně 045°, odhadovaná vzdálenost 8 NM. Všechny lodě v oblasti prosím ostře sledujte okolí a hlaste pobřežní stráži Gothenburg.'},
+  {en:'Gale warning for Skagerrak and Kattegat, W 8 to 9, decreasing to 7, rough sea, showers, good to moderate visibility.',cs:'Varovné hlášení o bouři pro Skagerrak a Kattegat, západ 8 až 9, slábne na 7, rozbouřené moře, přeháňky, dobrá až střední viditelnost.'},
+  {en:'New gale warning issued at one four three zero. South easterly severe gale force 9 expected soon in southern Adriatic. For latest weather forecast and navigational warnings listen to channel twenty three. Dubrovnik Radio out.',cs:'Nové varovné hlášení o bouři vydáno v 1430. Jihovýchodní silná bouře síly 9 se brzy očekává v jižním Jadranu. Pro nejnovější předpověď počasí a navigační varování poslouchejte kanál 23. Dubrovník Rádio konec.'},
+  {en:'At 0732 UTC on VHF channel 16 following received: "Mayday, Aida, call sign LGBX, in position 4 nm north-west of Heligoland, explosions in engine room, 6 persons are injured, require helicopter and medical assistance." End of message.',cs:'V 0732 UTC na VHF kanálu 16 přijato následující: „Mayday, Aida, volací značka LGBX, na pozici 4 NM severozápadně od Helgolandu, výbuchy ve strojovně, 6 osob zraněno, požadujeme vrtulník a zdravotní pomoc." Konec zprávy.'},
+  {en:'At 1525 UTC on VHF Ch 16 following received from motor vessel Blue Sky, 5KMO: "Person over board in position 12 nm north-west of Calais, vessels in vicinity please keep sharp lookout." End of message. Ships in area are requested to assist with search and rescue and report to Falmouth Coastguard.',cs:'V 1525 UTC na VHF kanálu 16 přijato od motorové lodi Blue Sky, 5KMO: „Člověk přes palubu na pozici 12 NM severozápadně od Calais, plavidla v okolí prosím ostře sledujte okolí." Konec zprávy. Lodě v oblasti jsou požádány o pomoc při pátrání a záchraně a o hlášení pobřežní stráži Falmouth.'},
+  {en:'Mayday Relay, Mayday Relay, Mayday Relay, All stations, All stations, All stations, This is Moby Dick, Moby Dick, Oscar Lima zero three eight nine. Mayday received from unknown sailing yacht aground on the rocks south from Palagruza island. Require immediate assistance. There seem to be two people on board. Using red hand flares. No radio communication established. Over.',cs:'Mayday Relay, Mayday Relay, Mayday Relay, Všechny stanice, Všechny stanice, Všechny stanice, Tady Moby Dick, Moby Dick, Oscar Lima nula tři osm devět. Přijato Mayday od neznámé plachetnice na skalách jižně od ostrova Palagruža. Požadujeme okamžitou pomoc. Zdá se, že na palubě jsou dvě osoby. Používají červené ruční světlice. Žádné rádiové spojení nebylo navázáno. Přijímáte?'},
+  {en:'Due to steering problems vessel is not under command in position 51°10.4\'N 003°45.6\'E, require assistance with towing.',cs:'Kvůli problémům s řízením není plavidlo řízeno na pozici 51°10,4\' S 003°45,6\' V, požadujeme pomoc s vlečením.'},
+  {en:'In position 12 nm south from Cape Spartivento, a crew member is fallen from the mast and seriously injured, course 275° speed 7 knots, require urgent medical assistance.',cs:'Na pozici 12 NM jižně od mysu Spartivento spadl člen posádky ze stěžně a je vážně zraněn, kurz 275°, rychlost 7 uzlů, požadujeme naléhavou zdravotní pomoc.'},
+  {en:'Sailing yacht Hadrian, call sign DD2663, in collision with fishing vessel Meyenburg, in position 7 nm W from Komiza, dangerous leak, vessel sinking after flooding, require immediate assistance.',cs:'Plachetní jachta Hadrian, volací značka DD2663, v kolizi s rybářskou lodí Meyenburg, na pozici 7 NM Z od Komiže, nebezpečný únik vody, plavidlo se potápí po zatopení, požadujeme okamžitou pomoc.'},
+  {en:'Sailing boat Rubin, 12m red hull, white sails, 2 persons on board, left Klintholm on July 16th at 0600 local time, bound for Visby, ship has not yet arrived, shipping are requested to keep sharp look-out and report to Lyngby Radio.',cs:'Plachetnice Rubin, 12m červený trup, bílé plachty, 2 osoby na palubě, odplula z Klintholmu 16. července v 0600 místního času, míří do Visby, loď dosud nedorazila, lodě jsou požádány, aby ostře sledovaly okolí a hlásily Lyngby Rádio.'},
+  {en:'Mayday, Perseus, this is Alfa Lifeboat. For direction finding purposes please hold your "press to transmit" switch closed for two periods of ten seconds each, followed by your vessel name repeated four times on this frequency. Over',cs:'Mayday, Perseus, tady záchranný člun Alfa. Pro účely určování směru prosím stlačte a držte tlačítko „stisknout pro vysílání" zavřené po dobu dvou period po deseti sekundách, následované názvem vašeho plavidla opakovaným čtyřikrát na této frekvenci. Přijímáte?'},
+  {en:'Small craft are required to call Dover Port Control on Ch 74 for permission to enter. Request permission to leave harbour as soon as clear of the marina. Call Dover Marina Ch 80, only when in marina.',cs:'Malá plavidla jsou povinna volat Dovreský přístav na kanálu 74 pro povolení vstupu. Požádat o povolení opustit přístav, jakmile je volná cesta z mariny. Volat Doverskou marinu na kanálu 80, pouze pokud jste v marině.'},
+  {en:'In position 55°12.4\'N 005°08.7\'E, a crew member 56 years old unconscious, suspect heart attack, require urgent medical help by helicopter.',cs:'Na pozici 55°12,4\' S 005°08,7\' V, člen posádky 56 let v bezvědomí, podezření na srdeční záchvat, požadujeme naléhavou lékařskou pomoc vrtulníkem.'},
+  {en:'In position 55°23.4\'N 006°18.1\'E, engine broken down, require immediate assistance. Motor yacht is not under command in very rough sea and extremely high waves.',cs:'Na pozici 55°23,4\' S 006°18,1\' V, porouchaný motor, požadujeme okamžitou pomoc. Motorová jachta není řízena v velmi rozbouřeném moři a extrémně vysokých vlnách.'},
+  {en:'Sailing yacht Relaxe, call sign SWLU, length 40 feet, white hull and brown sails, underway from Martinique to Bahamas unreported since January 16th, all ships please keep sharp lookout and report to US Coast Guard.',cs:'Plachetní jachta Relaxe, volací značka SWLU, délka 40 stop, bílý trup a hnědé plachty, na cestě z Martiniku na Bahamy bez hlášení od 16. ledna, všechny lodě prosím ostře sledujte okolí a hlaste pobřežní stráži USA.'},
+  {en:'All small crafts in the Solent are strongly advised to monitor VHF Ch 12 Southampton and/or Ch 11 Portsmouth for information on shipping movement and port operations.',cs:'Všechna malá plavidla v Solentu jsou důrazně vybízena ke sledování VHF kanálu 12 Southampton a/nebo kanálu 11 Portsmouth pro informace o pohybu lodí a přístravních operacích.'},
+  {en:'Require medical advice for man fallen from the mast, seriously injured with heavy loss of blood, position 54°48.1\'N 006°55.7\'E, ships with doctor please contact VHF Ch 16.',cs:'Požadujeme zdravotní radu pro muže, který spadl ze stěžně, vážně zraněn s velkými ztrátami krve, pozice 54°48,1\' S 006°55,7\' V, lodě s lékařem prosím kontaktujte VHF kanál 16.'},
+  {en:'Sailing yacht Tinker, DP2932, in position 37°43.3\'N 23°40.6\'E, broken mast, damaged rudder, vessel is not under command in rough sea, require immediate assistance.',cs:'Plachetní jachta Tinker, DP2932, na pozici 37°43,3\' S 23°40,6\' V, zlomený stěžeň, poškozené kormidlo, plavidlo není řízeno v rozbouřeném moři, požadujeme okamžitou pomoc.'},
+  {en:'Humber-Elbe-Route in position 53° 25.7\' N 005° 28.4\' E observed nearly submerged drifting yellow coloured buoy, dangerous to navigation.',cs:'Na trase Humber-Elbe na pozici 53° 25,7\' S 005° 28,4\' V pozorována téměř ponořená driftující žlutá bóje, nebezpečná pro plavbu.'},
+  {en:'Gale warning issued at 0935 UTC for Sea area Dogger Bank to Isle of Wight: strong westerly winds increasing to gale force 8 to 9, veering later, drizzle at times, visibility moderate, occasionally poor.',cs:'Varovné hlášení o bouři vydáno v 0935 UTC pro námořní oblast Dogger Bank až Isle of Wight: silné západní větry zesilující na bouřlivou sílu 8 až 9, otáčení větru, občas mrholení, viditelnost střední, občas špatná.'},
+  {en:'On approach to Dunkerque, dangerous wreck located in position 51°04.6\'N 001°52.2\'E, vessels are requested to keep a wide berth.',cs:'Při přiblížení k Dunkirku je na pozici 51°04,6\' S 001°52,2\' V nebezpečný vrak, plavidla jsou požádána, aby se mu obloukem vyhnula.'},
+  {en:'Navigational warning number 0418, Central Adriatic, Žirje island - works on navigation mark in position 43°39.75\' N 015°33.16\' E, marked with lighted buoy, characteristic: flashing yellow 2 seconds, visibility 2 miles. Navigation, stopping, fishing and underwater works in radius 100 meters prohibited.',cs:'Navigační varování číslo 0418, Střední Jadran, ostrov Žirje – práce na navigační značce na pozici 43°39,75\' S 015°33,16\' V, označeno světelnou bójí, charakteristika: záblesk žlutý 2 sekundy, viditelnost 2 míle. Plavba, zastavení, rybolov a podvodní práce v okruhu 100 metrů zakázány.'},
+  {en:'Ice warning. Icebergs are reported in area around Belle Isle and Cape Freels. Ice situation is not expected to change in the next 24 hours.',cs:'Ledové varování. Ledovce jsou hlášeny v oblasti kolem Belle Isle a Cape Freels. Ledová situace se v příštích 24 hodinách neočekává změna.'},
+  {en:'In Position 4 nm Northwest of Cape Finisterre sighted several drifting containers, red coloured, one container marked with TEXASCON, ships in area are requested to navigate carefully.',cs:'Na pozici 4 NM severozápadně od mysu Finisterre spatřeno několik driftujících kontejnerů, červené barvy, jeden kontejner označen TEXASCON, lodě v oblasti jsou požádány, aby se plavily opatrně.'},
+  {en:'Dangerous uncharted underwater obstruction reported in position 53° 48.3\' N 007° 41.7\' E marked by yellow buoy with west top mark. Vessels requested to keep a wide berth.',cs:'Nebezpečná nezakreslená podvodní překážka hlášena na pozici 53° 48,3\' S 007° 41,7\' V, označena žlutou bójí se západním vrchním znakem. Plavidla jsou požádána, aby se obloukem vyhnula.'},
+  {en:'Motor vessel Xanthippe lost anchor and chain in position 51° 25.8\' N 002° 40.5\' E, shipping in this area is requested to use neither an anchor nor fishing gear.',cs:'Motorová loď Xanthippe ztratila kotvu a řetěz na pozici 51° 25,8\' S 002° 40,5\' V, lodní provoz v této oblasti je požádán, aby nepoužíval ani kotvu ani rybářské náčiní.'},
+  {en:'Area Humber, Thames, Dover, Isle of Wight and Belgian Coast NE\'ly gentle to moderate breeze force 3 to 4, moderate or poor visibility, mainly fair.',cs:'Oblast Humber, Temže, Dover, Isle of Wight a belgické pobřeží: severovýchodní slabý až mírný vítr síly 3 až 4, střední nebo špatná viditelnost, převážně pěkně.'},
+  {en:'Fairway between Den Helder and Den Oever light buoy MG18 is reported unlit, shipping in this area is requested to navigate with caution.',cs:'Plavební dráha mezi Den Helderem a světelnou bójí Den Oever MG18 je hlášena jako neosvětlená, lodní provoz v této oblasti je požádán, aby se plavil opatrně.'},
+  {en:'Weather forecast for the area North of Portugal, rain or showers, at times SW 6, temporarily increasing W 8 veering to NW 5 later.',cs:'Předpověď počasí pro oblast severně od Portugalska: déšť nebo přeháňky, občas jihozápad 6, dočasně zesilující západ 8, otáčení na severozápad 5 později.'},
+  {en:'Military operations between Aigina, Salamina and Flevopoula in progress until February 16th, all ships are requested to navigate with caution and maintain listening watch on Ch16.',cs:'Vojenské operace mezi Aeginou, Salaminí a Flevopoula probíhají do 16. února, všechny lodě jsou požádány, aby se plavily opatrně a udržovaly poslechovou hlídku na kanálu 16.'},
+  {en:'Navigational warning number twenty one, issued on 12 March 0600 UTC: construction works in Split harbour, near eastern breakwater and southern side of ferry port. Ships approaching and leaving Split harbour are advised to proceed with caution.',cs:'Navigační varování číslo dvacet jedna, vydáno 12. března 0600 UTC: stavební práce v přístavu Split, v blízkosti východního vlnolamu a jižní strany trajektového přístavu. Lodě přibližující se k přístavu Split a opouštějící jej jsou doporučeny postupovat opatrně.'},
+  {en:'Western approaches to English Channel. Underwater operations in progress, vicinity of line joining 48° 00\' N 007° 15\' W and 48° 51\' N 007° 12\' W. Ships are requested to keep a wide berth.',cs:'Západní přístupy do Lamanšského průlivu. Probíhají podvodní operace v blízkosti linie spojující 48° 00\' S 007° 15\' Z a 48° 51\' S 007° 12\' Z. Lodě jsou požádány, aby se obloukem vyhnuly.'},
+  {en:'Safety and rescue services: The SAR co-ordinating centre is in Piraeus. Olympia Radio monitor DSC, VHF, MF and HF frequencies including 2182kHz and VHF Ch 16. All safety and security radio traffic should call Olympia Radio.',cs:'Bezpečnostní a záchranné služby: Koordinační centrum SAR je v Pireu. Olympia Rádio sleduje DSC, VHF, MF a HF frekvence včetně 2182 kHz a VHF kanálu 16. Veškerý bezpečnostní a záchranný rádiový provoz by měl volat Olympia Rádio.'},
+  {en:'Warning: Gusts of south easterly winds 35-55 knots, in places up to 70 knots, and in the Velebit channel and in the northern part of the North Adriatic of nort easterly, in the evening of south easterly winds, 35-55 knots. Sea 5, locally up to 6, mainly in the open. Isolated thunderstorms.',cs:'Varování: Nárazy jihovětrných větrů 35–55 uzlů, místy až 70 uzlů, a v kanálu Velebit a v severní části Severního Jadranu severovýchodní, večer jihový chozní větry 35–55 uzlů. Moře 5, lokálně až 6, převážně na otevřeném moři. Ojedinělé bouřky.'},
+  {en:'Specific permission to enter/leave harbour via E or W entrance must be obtained from Port Control on Ch 74. Advise if you have no engine. Comply with any VHF instructions from Port Control or harbour patrol launch.',cs:'Specifické povolení ke vstupu/výjezdu z přístavu přes východní nebo západní vjezd musí být získáno od Řízení přístavu na kanálu 74. Upozorněte pokud nemáte motor. Dodržujte jakékoli VHF instrukce od Řízení přístavu nebo přístravní hlídkové lodi.'},
+  {en:'Navigational warning issued by Olympia Radio on November 19 0500 UTC, valid until November 22 0500 UTC: major dredging operations and construction works north entrance of Lefkas channel on position 38°50\' N 20°43\' E. Vessels are requested to navigate with extreme caution.',cs:'Navigační varování vydané Olympia Rádio 19. listopadu 0500 UTC, platné do 22. listopadu 0500 UTC: větší bagrování a stavební práce severní vjezd do kanálu Lefkas na pozici 38°50\' S 20°43\' V. Plavidla jsou požádána, aby se plavila s extrémní opatrností.'},
+  {en:'Miami Coast Guard has received a DSC distress alert from vessel Uranus. Reported position is 10°04\' N 077°14\' W. Shipping is requested to keep a sharp lookout and report to Miami Coast Guard.',cs:'Pobřežní stráž Miami obdržela DSC tísňový alert od plavidla Uranus. Hlášená poloha je 10°04\' S 077°14\' Z. Lodní provoz je požádán, aby ostře sledoval okolí a hlásil pobřežní stráži Miami.'},
+  {en:'Falmouth Coast Guard received following information from fishing vessel Parrain, FHEF. The message begins: "Mayday all crew members on board the vessel have now been airlifted and are proceeding to Stornoway on rescue helicopter 137. The vessel is still adrift in position 59° 05\' N 013° 55\' W". End of message.',cs:'Pobřežní stráž Falmouth obdržela následující informaci od rybářské lodi Parrain, FHEF. Zpráva začíná: „Mayday, všichni členové posádky na palubě plavidla byli přepraveni vrtulníkem a postupují do Stornoway na záchranném vrtulníku 137. Plavidlo stále driftuje na pozici 59° 05\' S 013° 55\' Z." Konec zprávy.'},
+  {en:'Urgent broadcast. Belfast Coast Guard received report of a missing 38 feet sailing vessel "Windigo". She left Campbeltown with destination Stornoway on 20th January 0800 UT. The sailing vessel is red with white superstructure. Shipping is requested to keep a sharp lookout and report sightings to Belfast Coast Guard.',cs:'Naléhavé hlášení. Pobřežní stráž Belfast obdržela zprávu o chybějící 38stopé plachetnici „Windigo". Odplula z Campbeltownu s cílem Stornoway 20. ledna v 0800 UT. Plachetnice je červená s bílou nástavbou. Lodní provoz je požádán, aby ostře sledoval okolí a hlásil pozorování pobřežní stráži Belfast.'},
+  {en:'Eastern Channel, Dover Strait: large floating pontoon reported adrift from Le Havre to the Belgian coast. Drifting north into the south North Sea. Shipping is requested to keep a sharp look-out and report any sighting to Oostende Coast Guard.',cs:'Východní kanál, Doverský průliv: hlášen velký plovoucí ponrton driftující z Le Havre k belgickému pobřeží. Driftuje severně do jižního Severního moře. Lodní provoz je požádán, aby ostře sledoval okolí a hlásil jakékoli pozorování pobřežní stráži Oostende.'},
+  {en:'Navigational warning No.64 from 13 February 0915 UTC: German Bight traffic separation scheme, large piece of wood drifting in position 53°47.4\' N 006°11.1\' E. Navigational warning cancelled 13 February at 1100 UTC.',cs:'Navigační varování č. 64 ze 13. února 0915 UTC: Schéma oddělení dopravy Německého zálivu, velký kus dřeva driftující na pozici 53°47,4\' S 006°11,1\' V. Navigační varování zrušeno 13. února v 1100 UTC.'}
 ];
 
 var tState = {cur:0, results:[], correct:0, wrong:0};
@@ -1207,157 +1206,157 @@ function tInit(){
 function tRestart(){ tInit(); }
 
 var wordDict = {
-  "administrations":"sprÃ¡vnÃ­ orgÃ¡ny","shall":"musÃ­/jsou povinny","ensure":"zajistit","personnel":"personÃ¡l","adequately":"dostateÄnÄ","qualified":"kvalifikovanÃ½","operate":"obsluhovat","efficiently":"efektivnÄ","mainly":"zejmÃ©na","distress":"tÃ­seÅ","safety":"bezpeÄnost","communications":"komunikace","accordance":"soulad","relevant":"pÅÃ­sluÅ¡nÃ½","agreements":"dohody","provisions":"ustanovenÃ­","regulations":"pÅedpisy","prevent":"brÃ¡nit","mobile":"pohyblivÃ¡","station":"stanice","disposal":"k dispozici","attract":"pÅilÃ¡kat","attention":"pozornost","position":"poloha","obtain":"zÃ­skat","help":"pomoc","receive":"pÅijmout","alert":"vÃ½straha","transmitted":"vysÃ­lanÃ½","digital":"digitÃ¡lnÃ­","selective":"selektivnÃ­","calling":"volÃ¡nÃ­","immediately":"okamÅ¾itÄ","cease":"pÅeruÅ¡it","transmission":"vysÃ­lÃ¡nÃ­","capable":"schopnÃ½","interfering":"ruÅ¡it","traffic":"provoz","continue":"pokraÄovat","watch":"hlÃ­dka","acknowledged":"potvrzeno","vicinity":"blÃ­zkost","buoy":"bÃ³je","observed":"pozorovÃ¡no","capsized":"pÅevrÃ¡cenÃ½","lifeboat":"zÃ¡chrannÃ½ Älun","survivors":"pÅeÅ¾ivÅ¡Ã­","area":"oblast","requested":"poÅ¾Ã¡dÃ¡n","keep":"udrÅ¾ovat","sharp":"ostÅe","lookout":"hlÃ­dka/pozorovÃ¡nÃ­","report":"hlÃ¡sit","explosion":"vÃ½buch","fire":"poÅ¾Ã¡r","engine":"motor","room":"mÃ­stnost","persons":"osoby","seriously":"vÃ¡Å¾nÄ","injured":"zranÄn","abandon":"opustit","vessel":"plavidlo","require":"poÅ¾adovat","immediate":"okamÅ¾itÃ¡","assistance":"pomoc","person":"osoba","board":"palubu","last":"naposled","seen":"vidÄn","north":"sever","racon":"rakonovÃ½","please":"prosÃ­m","contact":"kontaktovat","reported":"hlÃ¡Å¡eno","west":"zÃ¡pad","lighthouse":"majÃ¡k","local":"mÃ­stnÃ­","time":"Äas","further":"dalÅ¡Ã­","communication":"komunikace","heard":"zachycena","broken":"poÅ¡kozenÃ½","rudder":"kormidlo","drifting":"driftujÃ­cÃ­","ashore":"ke bÅehu","rough":"rozbouÅenÃ½","sea":"moÅe","all":"vÅ¡echny","ships":"lodÄ","rescue":"zÃ¡chrana","position":"poloha","east":"vÃ½chod","island":"ostrov","motor":"motorovÃ¡","yacht":"jachta","engines":"motory","command":"ÅÃ­zenÃ­","slowly":"pomalu","aircraft":"letadlo","propellers":"vrtule","afloat":"na hladinÄ","try":"pokusit","rockets":"rakety","true":"skuteÄnÃ½","bearing":"kurz","estimated":"odhadovanÃ¡","distance":"vzdÃ¡lenost","gale":"bouÅe","warning":"varovÃ¡nÃ­","decreasing":"slÃ¡bne","showers":"pÅehÃ¡Åky","visibility":"viditelnost","moderate":"stÅednÃ­","good":"dobrÃ¡","issued":"vydÃ¡no","southeasterly":"jihozÃ¡padnÃ­","severe":"silnÃ¡","expected":"oÄekÃ¡vanÃ½","southern":"jiÅ¾nÃ­","forecast":"pÅedpovÄÄ","navigational":"navigaÄnÃ­","channel":"kanÃ¡l","relay":"pÅeposlÃ¡nÃ­","unknown":"neznÃ¡mÃ½","sailing":"plachetnÃ­","aground":"na mÄlÄinÄ","rocks":"skÃ¡ly","south":"jiÅ¾nÄ","seem":"zdÃ¡ se","people":"lidÃ©","using":"pouÅ¾Ã­vajÃ­","flares":"svÄtlice","radio":"rÃ¡dio","established":"navÃ¡zÃ¡no","steering":"ÅÃ­zenÃ­","problems":"problÃ©my","towing":"vleÄenÃ­","crew":"posÃ¡dka","member":"Älen","fallen":"spadl","mast":"stÄÅ¾eÅ","course":"kurz","speed":"rychlost","knots":"uzlÅ¯","urgent":"nalÃ©havÃ½","medical":"zdravotnÃ­","collision":"kolize","fishing":"rybÃ¡ÅskÃ½","dangerous":"nebezpeÄnÃ½","leak":"Ãºnik vody","sinking":"potÃ¡pÄnÃ­","flooding":"zatopenÃ­","hull":"trup","sails":"plachty","bound":"mÃ­ÅÃ­","arrived":"dorazila","shipping":"lodnÃ­ provoz","direction":"smÄr","finding":"urÄovÃ¡nÃ­","purposes":"ÃºÄely","transmit":"vysÃ­lat","periods":"periody","followed":"nÃ¡sledovÃ¡n","repeated":"opakovanÃ½","frequency":"frekvence","small":"malÃ¡","craft":"plavidla","permission":"povolenÃ­","enter":"vstup","leave":"opustit","harbour":"pÅÃ­stav","marina":"marina","unconscious":"v bezvÄdomÃ­","suspect":"podezÅenÃ­","heart":"srdce","attack":"zÃ¡chvat","helicopter":"vrtulnÃ­k","extremely":"extrÃ©mnÄ","waves":"vlny","length":"dÃ©lka","feet":"stop","white":"bÃ­lÃ½","brown":"hnÄdÃ½","underway":"na cestÄ","unreported":"bez hlÃ¡Å¡enÃ­","since":"od","monitor":"sledovat","information":"informace","movement":"pohyb","port":"pÅÃ­stav","operations":"operace","advice":"rada","blood":"krev","loss":"ztrÃ¡ty","doctor":"lÃ©kaÅ","submerged":"ponoÅenÃ¡","yellow":"Å¾lutÃ¡","coloured":"barevnÃ½","strong":"silnÃ½","westerly":"zÃ¡padnÃ­","winds":"vÄtry","increasing":"zesilujÃ­cÃ­","veering":"otÃ¡ÄenÃ­","drizzle":"mrholenÃ­","occasionally":"obÄas","poor":"Å¡patnÃ¡","approach":"pÅiblÃ­Å¾enÃ­","wreck":"vrak","berth":"vyhnout","works":"prÃ¡ce","mark":"znaÄka","lighted":"svÄtelnÃ¡","characteristic":"charakteristika","flashing":"zÃ¡blesk","radius":"okruh","prohibited":"zakÃ¡zÃ¡no","ice":"led","icebergs":"ledovce","situation":"situace","change":"zmÄna","hours":"hodin","sighted":"spatÅeno","containers":"kontejnery","navigate":"plavit","carefully":"opatrnÄ","uncharted":"nezakreslenÃ¡","underwater":"podvodnÃ­","obstruction":"pÅekÃ¡Å¾ka","anchor":"kotva","chain":"ÅetÄz","neither":"ani","gear":"nÃ¡ÄinÃ­","area":"oblast","gentle":"slabÃ½","breeze":"vÃ­tr","mainly":"pÅevÃ¡Å¾nÄ","fair":"pÄknÄ","fairway":"plavebnÃ­ drÃ¡ha","reported":"hlÃ¡Å¡en","unlit":"neosvÄtlenÃ¡","caution":"opatrnost","rain":"dÃ©Å¡Å¥","military":"vojenskÃ½","listening":"poslechovÃ¡","construction":"stavebnÃ­","approaching":"pÅibliÅ¾ujÃ­cÃ­","advised":"doporuÄeno","proceed":"postupovat","approaches":"pÅÃ­stupy","progress":"probÃ­hajÃ­","joining":"spojujÃ­cÃ­","dredging":"bagrovÃ¡nÃ­","entrance":"vjezd","extreme":"extrÃ©mnÃ­","received":"obdrÅ¾ela","sharp":"ostÅe","sightings":"pozorovÃ¡nÃ­","floating":"plovoucÃ­","pontoon":"ponrton","adrift":"driftujÃ­cÃ­","sighting":"pozorovÃ¡nÃ­","piece":"kus","wood":"dÅevo","cancelled":"zruÅ¡eno","coast":"pobÅeÅ¾Ã­","guard":"strÃ¡Å¾","missing":"chybÄjÃ­cÃ­","destination":"cÃ­l","superstructure":"nÃ¡stavba","airlifted":"pÅepraveni vrtulnÃ­kem","proceeding":"postupujÃ­","still":"stÃ¡le","gusts":"nÃ¡razy","knots":"uzlÅ¯","isolated":"ojedinÄlÃ©","thunderstorms":"bouÅky","specific":"specifickÃ©","comply":"dodrÅ¾ujte","instructions":"instrukce","launch":"loÄ","major":"vÄtÅ¡Ã­","valid":"platnÃ©","unsafe":"nebezpeÄnÃ½","safety":"bezpeÄnostnÃ­","security":"zÃ¡chrannÃ½","coordinate":"koordinaÄnÃ­","centre":"centrum","frequencies":"frekvence","including":"vÄetnÄ","traffic":"provoz"
+  "administrations":"správní orgány","shall":"musí/jsou povinny","ensure":"zajistit","personnel":"personál","adequately":"dostatečně","qualified":"kvalifikovaný","operate":"obsluhovat","efficiently":"efektivně","mainly":"zejména","distress":"tíseň","safety":"bezpečnost","communications":"komunikace","accordance":"soulad","relevant":"příslušný","agreements":"dohody","provisions":"ustanovení","regulations":"předpisy","prevent":"bránit","mobile":"pohyblivá","station":"stanice","disposal":"k dispozici","attract":"přilákat","attention":"pozornost","position":"poloha","obtain":"získat","help":"pomoc","receive":"přijmout","alert":"výstraha","transmitted":"vysílaný","digital":"digitální","selective":"selektivní","calling":"volání","immediately":"okamžitě","cease":"přerušit","transmission":"vysílání","capable":"schopný","interfering":"rušit","traffic":"provoz","continue":"pokračovat","watch":"hlídka","acknowledged":"potvrzeno","vicinity":"blízkost","buoy":"bóje","observed":"pozorováno","capsized":"převrácený","lifeboat":"záchranný člun","survivors":"přeživší","area":"oblast","requested":"požádán","keep":"udržovat","sharp":"ostře","lookout":"hlídka/pozorování","report":"hlásit","explosion":"výbuch","fire":"požár","engine":"motor","room":"místnost","persons":"osoby","seriously":"vážně","injured":"zraněn","abandon":"opustit","vessel":"plavidlo","require":"požadovat","immediate":"okamžitá","assistance":"pomoc","person":"osoba","board":"palubu","last":"naposled","seen":"viděn","north":"sever","racon":"rakonový","please":"prosím","contact":"kontaktovat","reported":"hlášeno","west":"západ","lighthouse":"maják","local":"místní","time":"čas","further":"další","communication":"komunikace","heard":"zachycena","broken":"poškozený","rudder":"kormidlo","drifting":"driftující","ashore":"ke břehu","rough":"rozbouřený","sea":"moře","all":"všechny","ships":"lodě","rescue":"záchrana","position":"poloha","east":"východ","island":"ostrov","motor":"motorová","yacht":"jachta","engines":"motory","command":"řízení","slowly":"pomalu","aircraft":"letadlo","propellers":"vrtule","afloat":"na hladině","try":"pokusit","rockets":"rakety","true":"skutečný","bearing":"kurz","estimated":"odhadovaná","distance":"vzdálenost","gale":"bouře","warning":"varování","decreasing":"slábne","showers":"přeháňky","visibility":"viditelnost","moderate":"střední","good":"dobrá","issued":"vydáno","southeasterly":"jihozápadní","severe":"silná","expected":"očekávaný","southern":"jižní","forecast":"předpověď","navigational":"navigační","channel":"kanál","relay":"přeposlání","unknown":"neznámý","sailing":"plachetní","aground":"na mělčině","rocks":"skály","south":"jižně","seem":"zdá se","people":"lidé","using":"používají","flares":"světlice","radio":"rádio","established":"navázáno","steering":"řízení","problems":"problémy","towing":"vlečení","crew":"posádka","member":"člen","fallen":"spadl","mast":"stěžeň","course":"kurz","speed":"rychlost","knots":"uzlů","urgent":"naléhavý","medical":"zdravotní","collision":"kolize","fishing":"rybářský","dangerous":"nebezpečný","leak":"únik vody","sinking":"potápění","flooding":"zatopení","hull":"trup","sails":"plachty","bound":"míří","arrived":"dorazila","shipping":"lodní provoz","direction":"směr","finding":"určování","purposes":"účely","transmit":"vysílat","periods":"periody","followed":"následován","repeated":"opakovaný","frequency":"frekvence","small":"malá","craft":"plavidla","permission":"povolení","enter":"vstup","leave":"opustit","harbour":"přístav","marina":"marina","unconscious":"v bezvědomí","suspect":"podezření","heart":"srdce","attack":"záchvat","helicopter":"vrtulník","extremely":"extrémně","waves":"vlny","length":"délka","feet":"stop","white":"bílý","brown":"hnědý","underway":"na cestě","unreported":"bez hlášení","since":"od","monitor":"sledovat","information":"informace","movement":"pohyb","port":"přístav","operations":"operace","advice":"rada","blood":"krev","loss":"ztráty","doctor":"lékař","submerged":"ponořená","yellow":"žlutá","coloured":"barevný","strong":"silný","westerly":"západní","winds":"větry","increasing":"zesilující","veering":"otáčení","drizzle":"mrholení","occasionally":"občas","poor":"špatná","approach":"přiblížení","wreck":"vrak","berth":"vyhnout","works":"práce","mark":"značka","lighted":"světelná","characteristic":"charakteristika","flashing":"záblesk","radius":"okruh","prohibited":"zakázáno","ice":"led","icebergs":"ledovce","situation":"situace","change":"změna","hours":"hodin","sighted":"spatřeno","containers":"kontejnery","navigate":"plavit","carefully":"opatrně","uncharted":"nezakreslená","underwater":"podvodní","obstruction":"překážka","anchor":"kotva","chain":"řetěz","neither":"ani","gear":"náčiní","area":"oblast","gentle":"slabý","breeze":"vítr","mainly":"převážně","fair":"pěkně","fairway":"plavební dráha","reported":"hlášen","unlit":"neosvětlená","caution":"opatrnost","rain":"déšť","military":"vojenský","listening":"poslechová","construction":"stavební","approaching":"přibližující","advised":"doporučeno","proceed":"postupovat","approaches":"přístupy","progress":"probíhají","joining":"spojující","dredging":"bagrování","entrance":"vjezd","extreme":"extrémní","received":"obdržela","sharp":"ostře","sightings":"pozorování","floating":"plovoucí","pontoon":"ponrton","adrift":"driftující","sighting":"pozorování","piece":"kus","wood":"dřevo","cancelled":"zrušeno","coast":"pobřeží","guard":"stráž","missing":"chybějící","destination":"cíl","superstructure":"nástavba","airlifted":"přepraveni vrtulníkem","proceeding":"postupují","still":"stále","gusts":"nárazy","knots":"uzlů","isolated":"ojedinělé","thunderstorms":"bouřky","specific":"specifické","comply":"dodržujte","instructions":"instrukce","launch":"loď","major":"větší","valid":"platné","unsafe":"nebezpečný","safety":"bezpečnostní","security":"záchranný","coordinate":"koordinační","centre":"centrum","frequencies":"frekvence","including":"včetně","traffic":"provoz"
 ,
-  "adriatic":"JadranskÃ© moÅe",
-  "advise":"upozornÄte/oznamte",
-  "after":"po/potÃ©",
+  "adriatic":"Jadranské moře",
+  "advise":"upozorněte/oznamte",
+  "after":"po/poté",
   "and":"a",
-  "any":"jakÃ½koli",
+  "any":"jakýkoli",
   "are":"jsou",
   "around":"okolo/kolem",
   "assist":"pomoci/asistovat",
-  "bank":"mÄlÄina/banka",
+  "bank":"mělčina/banka",
   "been":"byl/bylo",
-  "begins":"zaÄÃ­nÃ¡",
-  "belgian":"belgickÃ½",
+  "begins":"začíná",
+  "belgian":"belgický",
   "between":"mezi",
-  "bight":"zÃ¡liv",
-  "boat":"loÄ/Älun",
+  "bight":"záliv",
+  "boat":"loď/člun",
   "breakwater":"vlnolam",
-  "broadcast":"hlÃ¡Å¡enÃ­/vysÃ­lÃ¡nÃ­",
-  "call":"volÃ¡nÃ­/volat",
+  "broadcast":"hlášení/vysílání",
+  "call":"volání/volat",
   "cape":"mys",
-  "cases":"pÅÃ­pady",
-  "central":"stÅednÃ­/centrÃ¡lnÃ­",
-  "clear":"volnÃ½/ÄistÃ½",
-  "closed":"uzavÅenÃ½/stlaÄenÃ½",
-  "coastguard":"pobÅeÅ¾nÃ­ strÃ¡Å¾",
+  "cases":"případy",
+  "central":"střední/centrální",
+  "clear":"volný/čistý",
+  "closed":"uzavřený/stlačený",
+  "coastguard":"pobřežní stráž",
   "container":"kontejner",
-  "control":"ÅÃ­zenÃ­/kontrola",
+  "control":"řízení/kontrola",
   "crafts":"plavidla",
-  "decimal":"desetinnÃ¡ (ÄÃ¡rka)",
-  "dsc":"digitÃ¡lnÃ­ selektivnÃ­ volÃ¡nÃ­",
-  "due":"kvÅ¯li/z dÅ¯vodu",
-  "each":"kaÅ¾dÃ½",
-  "easterly":"vÃ½chodnÃ­",
-  "eastern":"vÃ½chodnÃ­",
+  "decimal":"desetinná (čárka)",
+  "dsc":"digitální selektivní volání",
+  "due":"kvůli/z důvodu",
+  "each":"každý",
+  "easterly":"východní",
+  "eastern":"východní",
   "eight":"osm",
   "end":"konec",
-  "english":"anglickÃ½",
-  "evening":"veÄer",
-  "explosions":"vÃ½buchy",
+  "english":"anglický",
+  "evening":"večer",
+  "explosions":"výbuchy",
   "ferry":"trajekt",
-  "following":"nÃ¡sledujÃ­cÃ­",
-  "for":"pro/kvÅ¯li",
-  "force":"sÃ­la (vÄtru)",
-  "four":"ÄtyÅi",
+  "following":"následující",
+  "for":"pro/kvůli",
+  "force":"síla (větru)",
+  "four":"čtyři",
   "from":"od/z",
-  "hand":"ruÄnÃ­",
-  "has":"mÃ¡/bylo",
-  "have":"mÃ­t/majÃ­",
-  "heavy":"silnÃ½/tÄÅ¾kÃ½",
-  "hold":"drÅ¾et",
-  "incident":"incident/udÃ¡lost",
-  "international":"mezinÃ¡rodnÃ­",
+  "hand":"ruční",
+  "has":"má/bylo",
+  "have":"mít/mají",
+  "heavy":"silný/těžký",
+  "hold":"držet",
+  "incident":"incident/událost",
+  "international":"mezinárodní",
   "into":"do",
-  "its":"jeho/jejÃ­",
+  "its":"jeho/její",
   "january":"leden",
-  "july":"Äervenec",
-  "large":"velkÃ½",
-  "later":"pozdÄji",
-  "latest":"nejnovÄjÅ¡Ã­",
-  "leaving":"opouÅ¡tÄjÃ­cÃ­",
-  "left":"odplula/levÃ½",
-  "light":"svÄtelnÃ½/svÄtlo",
+  "july":"červenec",
+  "large":"velký",
+  "later":"později",
+  "latest":"nejnovější",
+  "leaving":"opouštějící",
+  "left":"odplula/levý",
+  "light":"světelný/světlo",
   "line":"linie/trasa",
   "listen":"poslouchat",
-  "locally":"mÃ­stnÄ/lokÃ¡lnÄ",
-  "located":"umÃ­stÄnÃ½/nachÃ¡zejÃ­cÃ­ se",
-  "look":"sledovat/dÃ­vat",
+  "locally":"místně/lokálně",
+  "located":"umístěný/nacházející se",
+  "look":"sledovat/dívat",
   "lost":"ztratila",
-  "maintain":"udrÅ¾ovat",
-  "make":"oznÃ¡mit/udÄlat",
-  "man":"muÅ¾/ÄlovÄk",
-  "march":"bÅezen",
-  "marked":"oznaÄenÃ½",
-  "mayday":"tÃ­sÅovÃ© volÃ¡nÃ­ (MAYDAY)",
-  "means":"prostÅedky",
-  "members":"ÄlenovÃ©",
-  "message":"zprÃ¡va",
-  "mile":"mÃ­le (NM)",
-  "must":"musÃ­",
-  "name":"nÃ¡zev/jmÃ©no",
+  "maintain":"udržovat",
+  "make":"oznámit/udělat",
+  "man":"muž/člověk",
+  "march":"březen",
+  "marked":"označený",
+  "mayday":"tísňové volání (MAYDAY)",
+  "means":"prostředky",
+  "members":"členové",
+  "message":"zpráva",
+  "mile":"míle (NM)",
+  "must":"musí",
+  "name":"název/jméno",
   "navigation":"plavba/navigace",
-  "near":"v blÃ­zkosti",
-  "new":"novÃ©",
-  "next":"pÅÃ­Å¡tÃ­ch",
-  "nine":"devÄt",
-  "northern":"severnÃ­",
-  "northwest":"severozÃ¡pad",
-  "not":"ne/nenÃ­",
+  "near":"v blízkosti",
+  "new":"nové",
+  "next":"příštích",
+  "nine":"devět",
+  "northern":"severní",
+  "northwest":"severozápad",
+  "not":"ne/není",
   "november":"listopad",
-  "now":"nynÃ­/teÄ",
-  "number":"ÄÃ­slo",
-  "obtained":"zÃ­skÃ¡no",
-  "off":"od/poblÃ­Å¾",
+  "now":"nyní/teď",
+  "number":"číslo",
+  "obtained":"získáno",
+  "off":"od/poblíž",
   "one":"jeden",
   "only":"pouze/jen",
-  "open":"otevÅenÃ© (moÅe)",
-  "our":"naÅ¡e",
+  "open":"otevřené (moře)",
+  "our":"naše",
   "out":"konec/ven",
-  "over":"pÅijÃ­mÃ¡te? / konec (radio)",
-  "part":"ÄÃ¡st",
-  "patrol":"hlÃ­dkovÃ¡",
+  "over":"přijímáte? / konec (radio)",
+  "part":"část",
+  "patrol":"hlídková",
   "press":"stisknout",
-  "red":"ÄervenÃ½",
-  "request":"Å¾Ã¡dat/poÅ¾adovat",
-  "required":"vyÅ¾adovÃ¡no/povinnÃ©",
+  "red":"červený",
+  "request":"žádat/požadovat",
+  "required":"vyžadováno/povinné",
   "route":"trasa",
-  "sar":"pÃ¡trÃ¡nÃ­ a zÃ¡chrana (SAR)",
-  "scheme":"schÃ©ma/plÃ¡n",
-  "search":"pÃ¡trÃ¡nÃ­",
+  "sar":"pátrání a záchrana (SAR)",
+  "scheme":"schéma/plán",
+  "search":"pátrání",
   "seconds":"sekund",
-  "separation":"oddÄlenÃ­",
-  "services":"sluÅ¾by",
-  "several":"nÄkolik",
-  "she":"ona (loÄ)",
-  "ship":"loÄ",
-  "should":"mÄl by",
+  "separation":"oddělení",
+  "services":"služby",
+  "several":"několik",
+  "she":"ona (loď)",
+  "ship":"loď",
+  "should":"měl by",
   "side":"strana/bok",
-  "sign":"volacÃ­ znaÄka",
+  "sign":"volací značka",
   "soon":"brzy",
   "stations":"stanice",
-  "strongly":"dÅ¯raznÄ",
-  "switch":"pÅepÃ­naÄ/tlaÄÃ­tko",
-  "temporarily":"doÄasnÄ",
+  "strongly":"důrazně",
+  "switch":"přepínač/tlačítko",
+  "temporarily":"dočasně",
   "ten":"deset",
-  "that":"Å¾e/kterÃ½",
-  "the":"urÄitÃ½ Älen",
+  "that":"že/který",
+  "the":"určitý člen",
   "there":"tam/jsou",
   "these":"tato/tyto",
   "this":"toto/tato",
-  "three":"tÅi",
-  "times":"krÃ¡t/Äasy",
+  "three":"tři",
+  "times":"krát/časy",
   "twenty":"dvacet",
   "two":"dva",
   "under":"pod/bez",
   "until":"dokud/do",
-  "use":"pouÅ¾Ã­vat",
-  "utc":"koordinovanÃ½ svÄtovÃ½ Äas",
-  "vessels":"plavidla/lodÄ",
-  "vhf":"pÃ¡smo VHF (velmi krÃ¡tkÃ© vlny)",
-  "via":"pÅes",
-  "voice":"hlasovÃ©",
-  "warnings":"varovÃ¡nÃ­",
-  "weather":"poÄasÃ­",
-  "western":"zÃ¡padnÃ­",
-  "when":"kdyÅ¾/pokud",
-  "which":"kterÃ½",
+  "use":"používat",
+  "utc":"koordinovaný světový čas",
+  "vessels":"plavidla/lodě",
+  "vhf":"pásmo VHF (velmi krátké vlny)",
+  "via":"přes",
+  "voice":"hlasové",
+  "warnings":"varování",
+  "weather":"počasí",
+  "western":"západní",
+  "when":"když/pokud",
+  "which":"který",
   "with":"s/se",
-  "yet":"dosud/jeÅ¡tÄ",
+  "yet":"dosud/ještě",
   "you":"vy/ty",
-  "your":"vÃ¡Å¡/tvÅ¯j",
+  "your":"váš/tvůj",
   "zero":"nula"
 };
 
@@ -1380,36 +1379,36 @@ function tRender(){
   document.getElementById('tProgFill').style.width = pct + '%';
   document.getElementById('tProgCount').textContent = (tState.cur + 1) + ' / ' + translations.length;
   document.getElementById('tPrevBtn').disabled = tState.cur === 0;
-  document.getElementById('tNextBtn').textContent = tState.cur >= translations.length - 1 ? 'DokonÄit' : 'DalÅ¡Ã­ â';
+  document.getElementById('tNextBtn').textContent = tState.cur >= translations.length - 1 ? 'Dokončit' : 'Další →';
 
   var clickableText = makeClickable(t.en);
 
   var html = '<div class="q-card" style="animation:fadeUp 0.2s ease">' +
     '<div class="q-meta">' +
-      '<span class="q-tag">PÅeklad EN â CS</span>' +
+      '<span class="q-tag">Překlad EN → CS</span>' +
       '<span class="q-num">' + (tState.cur+1) + ' / ' + translations.length + '</span>' +
     '</div>' +
-    '<div style="font-size:11px;color:var(--text3);font-family:DM Mono,monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">NajeÄ myÅ¡Ã­ na podtrÅ¾enÃ© slovo pro pÅeklad</div>'+
+    '<div style="font-size:11px;color:var(--text3);font-family:DM Mono,monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Najeď myší na podtržené slovo pro překlad</div>'+
     '<div class="q-text" style="font-size:15px;line-height:1.85;font-style:italic">' + clickableText + '</div>' +
-    '<div style="margin-top:8px;text-align:right"><button class="btn btn-ghost" style="font-size:12px;padding:6px 12px" id="tFullBtn" onclick="tToggleFullTranslation()">ð CelÃ½ pÅeklad</button></div>' +
+    '<div style="margin-top:8px;text-align:right"><button class="btn btn-ghost" style="font-size:12px;padding:6px 12px" id="tFullBtn" onclick="tToggleFullTranslation()">🌐 Celý překlad</button></div>' +
     '<div id="fullTranslationBox" style="display:none;margin-top:6px;padding:12px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;font-size:13.5px;line-height:1.7;color:var(--text2)">' + t.cs + '</div>';
 
   if(!result){
-    html += '<div style="margin-top:16px"><textarea id="tInput" placeholder="NapiÅ¡te pÅeklad do ÄeÅ¡tinyâ¦" style="width:100%;min-height:100px;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:DM Sans,sans-serif;font-size:14px;line-height:1.6;resize:vertical;background:var(--surface2);color:var(--text);outline:none"></textarea></div>' +
+    html += '<div style="margin-top:16px"><textarea id="tInput" placeholder="Napište překlad do češtiny…" style="width:100%;min-height:100px;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:DM Sans,sans-serif;font-size:14px;line-height:1.6;resize:vertical;background:var(--surface2);color:var(--text);outline:none"></textarea></div>' +
       '<div class="actions" style="margin-top:10px">' +
-        '<button class="btn btn-primary" id="tCheckBtn" onclick="tCheck()">ð¤ Vyhodnotit pÅekladem AI</button>' +
+        '<button class="btn btn-primary" id="tCheckBtn" onclick="tCheck()">🤖 Vyhodnotit překladem AI</button>' +
       '</div>' +
-      '<div id="tLoading" style="display:none;margin-top:12px;text-align:center;color:var(--text3);font-size:13px">AI hodnotÃ­ pÅekladâ¦</div>';
+      '<div id="tLoading" style="display:none;margin-top:12px;text-align:center;color:var(--text3);font-size:13px">AI hodnotí překlad…</div>';
   } else {
     var borderColor = result.ok ? 'var(--green-border)' : 'var(--red-border)';
     var bgColor = result.ok ? 'var(--green-light)' : 'var(--red-light)';
-    var icon = result.ok ? 'â' : 'â';
-    html += '<div style="margin-top:14px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;font-size:13.5px;color:var(--text2);line-height:1.6"><strong>VÃ¡Å¡ pÅeklad:</strong><br>' + result.userText + '</div>' +
+    var icon = result.ok ? '✅' : '❌';
+    html += '<div style="margin-top:14px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;font-size:13.5px;color:var(--text2);line-height:1.6"><strong>Váš překlad:</strong><br>' + result.userText + '</div>' +
       '<div style="margin-top:10px;padding:14px 16px;background:' + bgColor + ';border:1.5px solid ' + borderColor + ';border-radius:8px;font-size:13.5px;line-height:1.65">' +
-        '<strong>' + icon + ' HodnocenÃ­ AI:</strong><br>' + result.feedback +
+        '<strong>' + icon + ' Hodnocení AI:</strong><br>' + result.feedback +
       '</div>' +
       '<div style="margin-top:10px;padding:14px 16px;background:var(--gold-light);border:1.5px solid #fde68a;border-radius:8px;font-size:13px;line-height:1.65">' +
-        '<strong>VzorovÃ½ pÅeklad:</strong><br>' + t.cs +
+        '<strong>Vzorový překlad:</strong><br>' + t.cs +
       '</div>';
   }
   html += '</div>';
@@ -1424,12 +1423,12 @@ function tToggleFullTranslation(){
   if(!box) return;
   var visible = box.style.display !== 'none';
   box.style.display = visible ? 'none' : 'block';
-  btn.textContent = visible ? 'ð CelÃ½ pÅeklad' : 'ð SkrÃ½t pÅeklad';
+  btn.textContent = visible ? '🌐 Celý překlad' : '🙈 Skrýt překlad';
 }
 
 async function tCheck(){
   var userText = (document.getElementById('tInput') || {}).value || '';
-  if(!userText.trim()){ alert('NapiÅ¡te prosÃ­m pÅeklad.'); return; }
+  if(!userText.trim()){ alert('Napište prosím překlad.'); return; }
   var t = translations[tState.cur];
   document.getElementById('tCheckBtn').disabled = true;
   document.getElementById('tLoading').style.display = 'block';
@@ -1441,8 +1440,8 @@ async function tCheck(){
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
-        system: 'Jsi hodnotitel pÅekladu pro kurz SRC nÃ¡moÅnÃ­ radiokomunikace. HodnotÃ­Å¡ pÅeklad z angliÄtiny do ÄeÅ¡tiny. OdpovÃ­dej POUZE ve formÃ¡tu JSON bez jakÃ©hokoliv dalÅ¡Ã­ho textu: {"ok": true/false, "feedback": "struÄnÃ© hodnocenÃ­ v ÄeÅ¡tinÄ max 3 vÄty â co bylo sprÃ¡vnÄ, kde jsou chyby a jak to opravit"}. ok=true pokud pÅeklad zachycuje vÄcnÃ½ obsah sprÃ¡vnÄ (drobnÃ© stylistickÃ© rozdÃ­ly jsou OK), ok=false pokud chybÃ­ dÅ¯leÅ¾itÃ© informace nebo je pÅeklad vÄcnÄ Å¡patnÃ½.',
-        messages: [{role:'user', content:'AnglickÃ½ originÃ¡l:\n' + t.en + '\n\nVzorovÃ½ pÅeklad:\n' + t.cs + '\n\nPÅeklad studenta:\n' + userText}]
+        system: 'Jsi hodnotitel překladu pro kurz SRC námořní radiokomunikace. Hodnotíš překlad z angličtiny do češtiny. Odpovídej POUZE ve formátu JSON bez jakéhokoliv dalšího textu: {"ok": true/false, "feedback": "stručné hodnocení v češtině max 3 věty – co bylo správně, kde jsou chyby a jak to opravit"}. ok=true pokud překlad zachycuje věcný obsah správně (drobné stylistické rozdíly jsou OK), ok=false pokud chybí důležité informace nebo je překlad věcně špatný.',
+        messages: [{role:'user', content:'Anglický originál:\n' + t.en + '\n\nVzorový překlad:\n' + t.cs + '\n\nPřeklad studenta:\n' + userText}]
       })
     });
     var data = await resp.json();
@@ -1451,14 +1450,14 @@ async function tCheck(){
     tState.results[tState.cur] = {ok: parsed.ok, feedback: parsed.feedback, userText: userText};
     if(parsed.ok) tState.correct++; else tState.wrong++;
   } catch(e) {
-    tState.results[tState.cur] = {ok: false, feedback: 'Chyba pÅi vyhodnocovÃ¡nÃ­. Zkuste znovu.', userText: userText};
+    tState.results[tState.cur] = {ok: false, feedback: 'Chyba při vyhodnocování. Zkuste znovu.', userText: userText};
   }
   tRender();
 }
 
 function tNext(){
   if(tState.cur >= translations.length - 1){
-    alert('PÅeklady dokonÄeny!\nâ SprÃ¡vnÄ: ' + tState.correct + '\nâ Å patnÄ: ' + tState.wrong);
+    alert('Překlady dokončeny!\n✅ Správně: ' + tState.correct + '\n❌ Špatně: ' + tState.wrong);
     return;
   }
   tState.cur++;
@@ -1471,7 +1470,7 @@ function tPrev(){
   tRender();
 }
 
-// ââ EXAM MODE âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── EXAM MODE ─────────────────────────────────────────────────────────────
 var exam = {
   questions: [], // [{q, ans, cat, userAns}]
   cur: 0,
@@ -1510,11 +1509,11 @@ function examStart(){
 
 function examRenderQ(){
   var total = exam.questions.length;
-  document.getElementById('examProgress').textContent = 'OtÃ¡zka ' + (exam.cur+1) + ' / ' + total;
+  document.getElementById('examProgress').textContent = 'Otázka ' + (exam.cur+1) + ' / ' + total;
   document.getElementById('examProgBar').style.width = (exam.cur/total*100)+'%';
 
   var q = exam.questions[exam.cur];
-  var cats = {predpisy:'PÅedpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
+  var cats = {predpisy:'Předpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
   var keys = ['A','B','C'];
   var optsHtml = q.opts.map(function(opt,i){
     var cls = 'opt exam-opt' + (q.userAns === i ? ' exam-selected' : '');
@@ -1556,7 +1555,7 @@ function examFinish(){
 
   // Tally results per section
   var sections = [
-    {label:'a) PÅedpisy', cat:'predpisy', required:20, pass:18},
+    {label:'a) Předpisy', cat:'predpisy', required:20, pass:18},
     {label:'b) Provoz',   cat:'provoz',   required:40, pass:36},
     {label:'c) Elektrotechnika', cat:'elektro', required:20, pass:18}
   ];
@@ -1574,13 +1573,13 @@ function examFinish(){
     var color = passed ? 'var(--green)' : 'var(--red)';
     var bg = passed ? 'var(--green-light)' : 'var(--red-light)';
     var border = passed ? 'var(--green-border)' : 'var(--red-border)';
-    var icon = passed ? 'â' : 'â';
+    var icon = passed ? '✅' : '❌';
     html += '<div style="margin-bottom:14px;padding:14px 16px;background:'+bg+';border:1.5px solid '+border+';border-radius:10px">'+
       '<div style="display:flex;justify-content:space-between;align-items:center">'+
         '<strong style="font-size:15px">'+icon+' '+sec.label+'</strong>'+
         '<span style="font-size:22px;font-weight:700;color:'+color+'">'+pct+' %</span>'+
       '</div>'+
-      '<div style="font-size:13px;color:var(--text2);margin-top:4px">'+correct+' / '+total+' sprÃ¡vnÄ Â· potÅeba min. '+sec.pass+' (90 %)</div>'+
+      '<div style="font-size:13px;color:var(--text2);margin-top:4px">'+correct+' / '+total+' správně · potřeba min. '+sec.pass+' (90 %)</div>'+
     '</div>';
   });
 
@@ -1589,13 +1588,13 @@ function examFinish(){
   var timeStr = (tm<10?'0':'')+tm+':'+(ts<10?'0':'')+ts;
 
   html += '<div style="text-align:center;padding:20px 0 8px">'+
-    '<div style="font-size:48px;margin-bottom:8px">'+(overallPass?'ð':'ðª')+'</div>'+
-    '<div style="font-size:22px;font-weight:700;color:'+(overallPass?'var(--green)':'var(--red)');+'">'+(overallPass?'USPÄL JSI!':'NEUSPÄL JSI')+'</div>'+
-    '<div style="color:var(--text2);font-size:13px;margin-top:6px">Äas: '+timeStr+' z 60:00</div>'+
+    '<div style="font-size:48px;margin-bottom:8px">'+(overallPass?'🎉':'💪')+'</div>'+
+    '<div style="font-size:22px;font-weight:700;color:'+(overallPass?'var(--green)':'var(--red)');+'">'+(overallPass?'USPĚL JSI!':'NEUSPĚL JSI')+'</div>'+
+    '<div style="color:var(--text2);font-size:13px;margin-top:6px">Čas: '+timeStr+' z 60:00</div>'+
   '</div>';
 
   html += '<div style="margin-top:16px;text-align:center">'+
-    '<button class="btn btn-primary" onclick="examReset()">âº Zkusit znovu</button>'+
+    '<button class="btn btn-primary" onclick="examReset()">↺ Zkusit znovu</button>'+
   '</div>';
   html += '</div>';
 
@@ -1607,19 +1606,10 @@ function examReset(){
   document.getElementById('examResults').style.display = 'none';
   document.getElementById('examLobby').style.display = 'block';
 }
-// ââ END EXAM âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── END EXAM ───────────────────────────────────────────────────────────────
 
 init();
 tInit();
 </script>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js')
-      .then(r => console.log('SW registered'))
-      .catch(e => console.log('SW error', e));
-  });
-}
-</script>
-</body>
+<script>if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js');})}</script></body>
 </html>
