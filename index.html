@@ -669,6 +669,25 @@ body {
 }
 .clickable-word:hover .word-tip { display: block; }
 .clickable-word.no-tip { border-bottom: none; }
+.theory-subnav{display:flex;gap:8px;margin-bottom:18px;}
+.theory-tab{padding:8px 18px;border:none;border-radius:20px;cursor:pointer;font-size:.85rem;font-weight:500;background:#f0f0f0;color:#555;transition:all .2s;}
+.theory-tab.active{background:#4f8ef7;color:#fff;}
+.dark .theory-tab{background:#2a2a3e;color:#aaa;}
+.dark .theory-tab.active{background:#4f8ef7;color:#fff;}
+.vocab-search{width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:.95rem;margin-bottom:16px;outline:none;box-sizing:border-box;}
+.dark .vocab-search{background:#1e1e30;border-color:#3a3a50;color:#e0e0e0;}
+.vocab-categories{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.vocab-cat-btn{padding:5px 12px;border:1.5px solid #4f8ef7;border-radius:14px;background:none;color:#4f8ef7;font-size:.8rem;cursor:pointer;transition:all .2s;}
+.vocab-cat-btn.active{background:#4f8ef7;color:#fff;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
+.vocab-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:3px solid #4f8ef7;}
+.dark .vocab-card{background:#1e1e30;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.vocab-en{font-weight:600;font-size:.95rem;color:#222;}
+.dark .vocab-en{color:#e0e0e0;}
+.vocab-cs{color:#555;font-size:.88rem;margin-top:3px;}
+.dark .vocab-cs{color:#aaa;}
+.vocab-cat-label{font-size:.72rem;color:#4f8ef7;font-weight:500;margin-top:4px;}
+.vocab-count{color:#888;font-size:.82rem;margin-bottom:12px;}
 </style>
 </head>
 <body>
@@ -754,7 +773,12 @@ body {
 
   <!-- THEORY -->
   <div class="section" id="theorySection">
-    <div id="theoryContent"></div>
+    <div class="theory-subnav">
+    <button class="theory-tab active" onclick="showTheoryTab('chapters',this)">📚 Teorie</button>
+    <button class="theory-tab" onclick="showTheoryTab('vocab',this)">📖 Slovíčka</button>
+  </div>
+  <div id="theoryContent"></div>
+  <div id="vocabContent" style="display:none"></div>
   </div>
 
   <!-- TRANSLATE -->
@@ -1610,6 +1634,149 @@ function examReset(){
 
 init();
 tInit();
+
+const vocabData = [
+  // Tísňová komunikace
+  {en:'MAYDAY',cs:'Mezinárodní tísňový signál (nouze)',cat:'Tíseň'},
+  {en:'PAN PAN',cs:'Urgentní volání (naléhavost)',cat:'Tíseň'},
+  {en:'SÉCURITÉ',cs:'Bezpečnostní hlášení (navigační varování)',cat:'Tíseň'},
+  {en:'DISTRESS',cs:'Tíseň, nouze',cat:'Tíseň'},
+  {en:'URGENCY',cs:'Naléhavost',cat:'Tíseň'},
+  {en:'SAFETY',cs:'Bezpečnost (navigační zpráva)',cat:'Tíseň'},
+  {en:'MAYDAY RELAY',cs:'Přenos tísňové zprávy jinou stanicí',cat:'Tíseň'},
+  {en:'DISTRESS TRAFFIC',cs:'Tísňový provoz',cat:'Tíseň'},
+  {en:'SEELONCE MAYDAY',cs:'Výzva k rádiovému tichu (od lodě v nouzi)',cat:'Tíseň'},
+  {en:'SEELONCE FEENEE',cs:'Konec rádiového ticha',cat:'Tíseň'},
+  {en:'PRUDONCE',cs:'Omezené rádiové ticho (jen nutná komunikace)',cat:'Tíseň'},
+  // Kanály a frekvence
+  {en:'Channel 16',cs:'Mezinárodní tísňový a volací kanál VHF',cat:'Kanály'},
+  {en:'Channel 70',cs:'DSC – digitální selektivní volání',cat:'Kanály'},
+  {en:'Channel 06',cs:'Primární mezilodní pracovní kanál',cat:'Kanály'},
+  {en:'Channel 13',cs:'Navigační bezpečnost (most-na-most)',cat:'Kanály'},
+  {en:'Working channel',cs:'Pracovní kanál',cat:'Kanály'},
+  {en:'Calling channel',cs:'Volací kanál',cat:'Kanály'},
+  {en:'156.8 MHz',cs:'Frekvence kanálu 16 VHF',cat:'Kanály'},
+  {en:'156.525 MHz',cs:'Frekvence kanálu 70 DSC',cat:'Kanály'},
+  // GMDSS
+  {en:'GMDSS',cs:'Globální námořní nouzový a bezpečnostní systém',cat:'GMDSS'},
+  {en:'DSC',cs:'Digitální selektivní volání',cat:'GMDSS'},
+  {en:'EPIRB',cs:'Nouzový polohový maják (Emergency Position Indicating Radio Beacon)',cat:'GMDSS'},
+  {en:'SART',cs:'Záchranný transpondér (Search and Rescue Transponder)',cat:'GMDSS'},
+  {en:'NAVTEX',cs:'Navigační telex – automatický příjem navigačních zpráv',cat:'GMDSS'},
+  {en:'MSI',cs:'Námořní bezpečnostní informace (Maritime Safety Information)',cat:'GMDSS'},
+  {en:'MMSI',cs:'Námořní identifikační číslo (Maritime Mobile Service Identity)',cat:'GMDSS'},
+  {en:'Sea area A1',cs:'Oblast GMDSS pokrytá VHF DSC (do ~30 nm od pobřeží)',cat:'GMDSS'},
+  {en:'Sea area A2',cs:'Oblast GMDSS pokrytá MF DSC (do ~150 nm)',cat:'GMDSS'},
+  {en:'AIS',cs:'Automatický identifikační systém',cat:'GMDSS'},
+  {en:'VHF',cs:'Velmi krátké vlny (Very High Frequency, 156–174 MHz)',cat:'GMDSS'},
+  {en:'MF',cs:'Střední vlny (Medium Frequency)',cat:'GMDSS'},
+  {en:'HF',cs:'Krátké vlny (High Frequency)',cat:'GMDSS'},
+  // Provozní výrazy
+  {en:'OVER',cs:'Přepínám, čekám na odpověď',cat:'Provoz'},
+  {en:'OUT',cs:'Konec spojení',cat:'Provoz'},
+  {en:'ROGER',cs:'Porozuměl jsem',cat:'Provoz'},
+  {en:'WILCO',cs:'Porozuměl jsem a splním',cat:'Provoz'},
+  {en:'SAY AGAIN',cs:'Opakujte',cat:'Provoz'},
+  {en:'CORRECTION',cs:'Opravuji předchozí sdělení',cat:'Provoz'},
+  {en:'STAND BY',cs:'Počkejte',cat:'Provoz'},
+  {en:'WAIT',cs:'Čekejte',cat:'Provoz'},
+  {en:'RADIO CHECK',cs:'Kontrola rádia – jak mě slyšíte?',cat:'Provoz'},
+  {en:'LOUD AND CLEAR',cs:'Silně a jasně (5/5)',cat:'Provoz'},
+  {en:'READING YOU FIVE',cs:'Slyším vás na plno (výborný příjem)',cat:'Provoz'},
+  {en:'FIGURES',cs:'Čísla (upozornění že následují čísla)',cat:'Provoz'},
+  {en:'WORDS TWICE',cs:'Opakujte každé slovo dvakrát',cat:'Provoz'},
+  {en:'AFFIRMATIVE',cs:'Ano, souhlasím',cat:'Provoz'},
+  {en:'NEGATIVE',cs:'Ne, nesouhlasím',cat:'Provoz'},
+  {en:'CONFIRM',cs:'Potvrďte',cat:'Provoz'},
+  {en:'ACKNOWLEDGE',cs:'Potvrďte příjem',cat:'Provoz'},
+  // Plavidlo a navigace
+  {en:'vessel',cs:'plavidlo, loď',cat:'Navigace'},
+  {en:'vessel in distress',cs:'loď v nouzi',cat:'Navigace'},
+  {en:'position',cs:'poloha',cat:'Navigace'},
+  {en:'latitude',cs:'zeměpisná šířka',cat:'Navigace'},
+  {en:'longitude',cs:'zeměpisná délka',cat:'Navigace'},
+  {en:'bearing',cs:'azimut, směrový úhel',cat:'Navigace'},
+  {en:'course',cs:'kurz',cat:'Navigace'},
+  {en:'speed',cs:'rychlost',cat:'Navigace'},
+  {en:'knots',cs:'uzly (námořní míle za hodinu)',cat:'Navigace'},
+  {en:'port',cs:'přístav / levý bok lodi',cat:'Navigace'},
+  {en:'starboard',cs:'pravý bok lodi',cat:'Navigace'},
+  {en:'bow',cs:'příď',cat:'Navigace'},
+  {en:'stern',cs:'záď',cat:'Navigace'},
+  {en:'anchor',cs:'kotva',cat:'Navigace'},
+  {en:'aground',cs:'na mělčině, sedí na dně',cat:'Navigace'},
+  {en:'alongside',cs:'bok po boku, k boku',cat:'Navigace'},
+  {en:'waypoint',cs:'trasový bod',cat:'Navigace'},
+  {en:'ETA',cs:'Předpokládaný čas příjezdu (Estimated Time of Arrival)',cat:'Navigace'},
+  {en:'ETD',cs:'Předpokládaný čas odjezdu (Estimated Time of Departure)',cat:'Navigace'},
+  {en:'nautical mile',cs:'námořní míle (1 852 m)',cat:'Navigace'},
+  // Záchrana
+  {en:'SAR',cs:'Pátrání a záchrana (Search and Rescue)',cat:'Záchrana'},
+  {en:'MRCC',cs:'Námořní záchranné koordinační centrum',cat:'Záchrana'},
+  {en:'lifeboat',cs:'záchranný člun',cat:'Záchrana'},
+  {en:'life raft',cs:'záchranný vor',cat:'Záchrana'},
+  {en:'life jacket',cs:'záchranná vesta',cat:'Záchrana'},
+  {en:'flare',cs:'světlice, signální raketa',cat:'Záchrana'},
+  {en:'abandon ship',cs:'opustit loď',cat:'Záchrana'},
+  {en:'man overboard',cs:'muž přes palubu',cat:'Záchrana'},
+  {en:'persons on board',cs:'počet osob na palubě (POB)',cat:'Záchrana'},
+  {en:'survivors',cs:'přeživší',cat:'Záchrana'},
+  {en:'casualties',cs:'oběti, zranění',cat:'Záchrana'},
+  {en:'medical assistance',cs:'zdravotní pomoc',cat:'Záchrana'},
+  {en:'towing',cs:'vlečení, vlečení na laně',cat:'Záchrana'},
+  {en:'helicopter',cs:'vrtulník',cat:'Záchrana'},
+  // Elektrotechnika
+  {en:'transceiver',cs:'vysílač-přijímač (kombinovaný)',cat:'Technika'},
+  {en:'antenna',cs:'anténa',cat:'Technika'},
+  {en:'frequency',cs:'frekvence',cat:'Technika'},
+  {en:'MHz',cs:'megahertz (jednotka frekvence)',cat:'Technika'},
+  {en:'squelch',cs:'tlumič šumu',cat:'Technika'},
+  {en:'duplex',cs:'duplexní provoz (odesílání i příjem naráz)',cat:'Technika'},
+  {en:'simplex',cs:'simplexní provoz (buď vysílání, nebo příjem)',cat:'Technika'},
+  {en:'watt',cs:'watt (jednotka výkonu)',cat:'Technika'},
+  {en:'power output',cs:'výstupní výkon',cat:'Technika'},
+  {en:'low power',cs:'nízký výkon (1 W pro místní komunikaci)',cat:'Technika'},
+  {en:'high power',cs:'vysoký výkon (25 W pro dosah)',cat:'Technika'},
+];
+
+let vocabFilter = 'all';
+let vocabSearch = '';
+
+function showTheoryTab(tab, btn) {
+  document.querySelectorAll('.theory-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('theoryContent').style.display = tab === 'chapters' ? '' : 'none';
+  document.getElementById('vocabContent').style.display = tab === 'vocab' ? '' : 'none';
+  if (tab === 'vocab') renderVocab();
+}
+
+function renderVocab() {
+  const cats = ['all', ...new Set(vocabData.map(v => v.cat))];
+  const filtered = vocabData.filter(v => {
+    const matchCat = vocabFilter === 'all' || v.cat === vocabFilter;
+    const q = vocabSearch.toLowerCase();
+    const matchSearch = !q || v.en.toLowerCase().includes(q) || v.cs.toLowerCase().includes(q);
+    return matchCat && matchSearch;
+  });
+
+  document.getElementById('vocabContent').innerHTML = `
+    <input class="vocab-search" type="text" placeholder="🔍 Hledat výraz..." oninput="vocabSearch=this.value;renderVocab()" value="${vocabSearch}">
+    <div class="vocab-categories">
+      ${cats.map(c => `<button class="vocab-cat-btn ${vocabFilter===c?'active':''}" onclick="vocabFilter='${c}';renderVocab()">${c==='all'?'Vše':c}</button>`).join('')}
+    </div>
+    <div class="vocab-count">${filtered.length} výrazů</div>
+    <div class="vocab-grid">
+      ${filtered.map(v => `
+        <div class="vocab-card">
+          <div class="vocab-en">${v.en}</div>
+          <div class="vocab-cs">${v.cs}</div>
+          <div class="vocab-cat-label">${v.cat}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
 </script>
 <script>if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js');})}</script></body>
 </html>
