@@ -2,10 +2,6 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1a1a2e">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SRC Průkaz</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -32,6 +28,41 @@
   --radius: 12px;
   --radius-sm: 8px;
 }
+
+
+.dark {
+  --bg: #0f0f0e;
+  --surface: #1a1917;
+  --surface2: #222220;
+  --border: #2e2d2a;
+  --text: #f0efe9;
+  --text2: #a09e98;
+  --text3: #6b6860;
+  --accent: #6b99ff;
+  --accent-light: #1a2240;
+  --accent-border: #2a3a6a;
+  --green: #4ade80;
+  --green-light: #0f2a1a;
+  --green-border: #166534;
+  --red: #f87171;
+  --red-light: #2a0f0f;
+  --red-border: #7f1d1d;
+  --gold: #fbbf24;
+  --gold-light: #2a1f00;
+}
+
+.dark-toggle {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+.dark-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -669,54 +700,29 @@ body {
 }
 .clickable-word:hover .word-tip { display: block; }
 .clickable-word.no-tip { border-bottom: none; }
-
-/* Dark mode */
-body.dark{background:#0f0f1a;color:#e0e0e0;}
-.dark .card,.dark .theory-card,.dark #tContainer>div,.dark .exam-lobby,.dark .exam-results{background:#1e1e30;box-shadow:0 2px 8px rgba(0,0,0,.4);}
-.dark .tab{background:#1e1e30;color:#aaa;}
-.dark .tab.active{background:#4f8ef7;color:#fff;}
-.dark .opt{background:#1e1e30;border-color:#3a3a50;color:#e0e0e0;}
-.dark .opt:hover{background:#2a2a3e;}
-.dark .cats .cat-btn{background:#1e1e30;color:#aaa;}
-.dark .cats .cat-btn.active{background:#4f8ef7;color:#fff;}
-.dark input,.dark textarea{background:#1e1e30;border-color:#3a3a50;color:#e0e0e0;}
-.dark .progress-track,.dark .prog-track{background:#2a2a3e;}
-/* Dark toggle */
-.dark-toggle{position:fixed;top:14px;right:16px;background:none;border:none;font-size:1.3rem;cursor:pointer;z-index:999;opacity:.7;}
-.dark-toggle:hover{opacity:1;}
-/* Bookmarks */
-.star-btn{position:absolute;top:10px;right:10px;background:none;border:none;font-size:1.2rem;cursor:pointer;opacity:.5;transition:opacity .2s;}
-.star-btn:hover,.star-btn.starred{opacity:1;}
-.card{position:relative;}
-/* Vocab */
-.theory-subnav{display:flex;gap:8px;margin-bottom:18px;}
-.theory-tab{padding:8px 18px;border:none;border-radius:20px;cursor:pointer;font-size:.85rem;font-weight:500;background:#f0f0f0;color:#555;transition:all .2s;}
-.theory-tab.active{background:#4f8ef7;color:#fff;}
-.dark .theory-tab{background:#2a2a3e;color:#aaa;}
-.dark .theory-tab.active{background:#4f8ef7;color:#fff;}
-.vocab-search{width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:.95rem;margin-bottom:16px;outline:none;box-sizing:border-box;}
-.dark .vocab-search{background:#1e1e30;border-color:#3a3a50;color:#e0e0e0;}
-.vocab-categories{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
-.vocab-cat-btn{padding:5px 12px;border:1.5px solid #4f8ef7;border-radius:14px;background:none;color:#4f8ef7;font-size:.8rem;cursor:pointer;transition:all .2s;}
-.vocab-cat-btn.active{background:#4f8ef7;color:#fff;}
-.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
-.vocab-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:3px solid #4f8ef7;}
-.dark .vocab-card{background:#1e1e30;}
-.vocab-en{font-weight:600;font-size:.95rem;color:#222;}
-.dark .vocab-en{color:#e0e0e0;}
-.vocab-cs{color:#555;font-size:.88rem;margin-top:3px;}
-.dark .vocab-cs{color:#aaa;}
-.vocab-cat-label{font-size:.72rem;color:#4f8ef7;font-weight:500;margin-top:4px;}
-.vocab-count{color:#888;font-size:.82rem;margin-bottom:12px;}
+.star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 2px 4px;
+  line-height: 1;
+  opacity: 0.35;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.star-btn:hover { opacity: 0.7; }
+.star-btn.starred { opacity: 1; transform: scale(1.15); }
 </style>
 </head>
 <body>
-<button class="dark-toggle" onclick="toggleDark()" id="darkBtn">🌙</button>
 <div class="app">
 
-  <div class="header">
-    <div class="header-eyebrow">ČTÚ · Oficiální otázky 2023</div>
-    <h1>SRC <em>Průkaz</em><br>Učební Aplikace</h1>
+  <div class="header" style="display:flex;justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="header-eyebrow">ČTÚ · Oficiální otázky 2023</div>
+      <h1>SRC <em>Průkaz</em><br>Učební Aplikace</h1>
+    </div>
+    <button class="dark-toggle" id="darkToggle" onclick="toggleDark()">🌙</button>
   </div>
 
   <div class="tabs">
@@ -733,7 +739,7 @@ body.dark{background:#0f0f1a;color:#e0e0e0;}
       <button class="cat-btn" onclick="setCategory('predpisy',this)">a) Předpisy</button>
       <button class="cat-btn" onclick="setCategory('provoz',this)">b) Provoz</button>
       <button class="cat-btn" onclick="setCategory('elektro',this)">c) Elektrotechnika</button>
-      <button class="cat-btn" onclick="setCategory('bookmarks',this)">⭐ Záložky</button>
+      <button class="cat-btn" id="starCatBtn" onclick="setCategory('starred',this)">⭐ Záložky</button>
     </div>
 
     <div class="mode-row">
@@ -790,17 +796,13 @@ body.dark{background:#0f0f1a;color:#e0e0e0;}
     <div class="actions">
       <button class="btn btn-primary" onclick="restartTest()">↺ Zkusit znovu</button>
       <button class="btn btn-ghost" onclick="showSection('theory')">Zopakovat teorii</button>
+      <button class="btn btn-ghost" id="retryWrongBtn" style="display:none;background:var(--red-light);border-color:var(--red-border);color:var(--red)" onclick="retryWrong()">🔁 Zopakovat špatné (<span id="wrongCount">0</span>)</button>
     </div>
   </div>
 
   <!-- THEORY -->
   <div class="section" id="theorySection">
-    <div class="theory-subnav">
-    <button class="theory-tab active" onclick="showTheoryTab('chapters',this)">📚 Teorie</button>
-    <button class="theory-tab" onclick="showTheoryTab('vocab',this)">📖 Slovíčka</button>
-  </div>
-  <div id="theoryContent"></div>
-  <div id="vocabContent" style="display:none"></div>
+    <div id="theoryContent"></div>
   </div>
 
   <!-- TRANSLATE -->
@@ -836,6 +838,7 @@ body.dark{background:#0f0f1a;color:#e0e0e0;}
           Výsledek uvidíš až na konci · Nutných <strong>90 %</strong> v každém okruhu
         </p>
         <button class="btn btn-primary" style="font-size:16px;padding:14px 32px" onclick="examStart()">▶ Spustit zkoušku</button>
+        <button class="btn btn-ghost" style="margin-top:10px;font-size:14px" onclick="examShowHistory()">📊 Historie pokusů</button>
       </div>
     </div>
     <div id="examRunning" style="display:none">
@@ -849,9 +852,22 @@ body.dark{background:#0f0f1a;color:#e0e0e0;}
       <div id="examQContainer"></div>
       <div class="nav" style="margin-top:16px">
         <button class="btn btn-ghost" onclick="examSkip()">Přeskočit →</button>
+        <button class="btn btn-ghost" style="color:var(--red);border-color:var(--red-border)" onclick="examConfirmEnd()">✕ Ukončit zkoušku a zobrazit výsledky</button>
+      <div id="examEndDialog" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:20px">
+        <div style="background:var(--surface);border-radius:14px;padding:24px;max-width:320px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.2)">
+          <div style="font-size:28px;margin-bottom:10px">⚠️</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:8px">Ukončit zkoušku?</div>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:20px">Uvidíš výsledky za dosud zodpovězené otázky.</div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-ghost" style="flex:1" onclick="examEndCancelled()">Zrušit</button>
+            <button class="btn btn-primary" style="flex:1;background:var(--red);border-color:var(--red)" onclick="examEndConfirmed()">Ukončit a zobrazit výsledky</button>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
     <div id="examResults" style="display:none"></div>
+    <div id="examHistory" style="display:none"></div>
   </div>
 
 
@@ -1036,7 +1052,7 @@ var theoryData = [
   {tag:'Elektro',title:'6. Elektrotechnika a radiotechnika',content:'<ul><li><strong>Ohm\u016fv z\u00e1kon:</strong> U = R \u00b7 I</li><li><strong>V\u00fdkon:</strong> P = U \u00b7 I</li><li><strong>Vlnov\u00e1 d\u00e9lka:</strong> \u03bb = c / f (c = 3\u00d710\u2078 m/s)</li><li>VHF p\u00e1smo \u2248 156\u2013162 MHz, vlnov\u00e1 d\u00e9lka \u2248 <strong>2 m</strong></li><li>VHF vlny se \u0161\u00ed\u0159\u00ed <strong>p\u0159\u00edmo\u010d\u0159e</strong> \u2013 dosah z\u00e1vis\u00ed na v\u00fd\u0161ce ant\u00e9ny</li><li>Dosah dvou ste\u017en\u016f v 16 m: cca <strong>16\u201324 NM</strong></li></ul><div class="info-grid"><div class="info-item"><div class="key">Oloven\u00fd akumul\u00e1tor</div><div class="val">2 V/\u010dl\u00e1nek</div></div><div class="info-item"><div class="key">Alkalick\u00fd akumul\u00e1tor</div><div class="val">1,2 V/\u010dl\u00e1nek</div></div><div class="info-item"><div class="key">Galvanick\u00fd \u010dl\u00e1nek</div><div class="val">1,5 V</div></div><div class="info-item"><div class="key">Max v\u00fdkon VHF</div><div class="val">25 W</div></div></div><ul><li>Paraleln\u00ed akumul\u00e1tory = v\u011bt\u0161\u00ed <strong>proud</strong></li><li>S\u00e9riov\u00e9 akumul\u00e1tory = vy\u0161\u0161\u00ed <strong>nap\u011bt\u00ed</strong></li><li>Such\u00e9 \u010dl\u00e1nky <strong>nelze dob\u00edjet</strong></li><li>Ampr\u00e9rmetr \u2013 do s\u00e9rie; voltmetr \u2013 paraleln\u011b</li><li>SQUELCH \u2013 \u0161umov\u00e1 br\u00e1na</li><li>DUAL WATCH \u2013 kan\u00e1l 16 + pracovn\u00ed kan\u00e1l</li><li>Bez ant\u00e9ny se <strong>nesm\u00ed vys\u00edlat</strong></li></ul>'}
 ];
 
-var state = {cat:'vse', queue:[], cur:0, answered:false, correct:0, wrong:0, skipped:0, studyMode:false};
+var state = {cat:'vse', queue:[], cur:0, answered:false, correct:0, wrong:0, skipped:0, studyMode:false, wrongQuestions:[]};
 
 function toggleStudyMode(on){
   state.studyMode = on;
@@ -1048,6 +1064,7 @@ function toggleStudyMode(on){
 function init(){
   buildTheory();
   setCategory('vse', document.querySelector('.cat-btn.active'));
+  updateStarBtn();
 }
 
 function setCategory(cat, btn){
@@ -1058,9 +1075,19 @@ function setCategory(cat, btn){
 }
 
 function restartTest(){
-  var pool = state.cat === 'vse' ? questions.slice() : questions.filter(function(q){ return q.cat === state.cat; });
+  var starred = loadStarred();
+  var pool;
+  if(state.cat === 'starred'){
+    pool = starred.length ? starred.map(function(i){ return questions[i]; }).filter(Boolean) : [];
+    if(pool.length === 0){
+      document.getElementById('qContainer').innerHTML = '<div class="q-card" style="text-align:center;padding:32px"><div style="font-size:36px">⭐</div><p style="color:var(--text2)">Zatím žádné záložky.<br>Klikni na ☆ u otázky pro přidání.</p></div>';
+      updateStats(); return;
+    }
+  } else {
+    pool = state.cat === 'vse' ? questions.slice() : questions.filter(function(q){ return q.cat === state.cat; });
+  }
   state.queue = pool.sort(function(){ return Math.random() - 0.5; });
-  state.cur = 0; state.correct = 0; state.wrong = 0; state.skipped = 0; state.answered = false;
+  state.cur = 0; state.correct = 0; state.wrong = 0; state.skipped = 0; state.answered = false; state.wrongQuestions = [];
   document.getElementById('resultsSection').classList.remove('active');
   document.getElementById('testSection').classList.add('active');
   updateStats(); renderQ();
@@ -1083,11 +1110,16 @@ function renderQ(){
   // In study mode, add class to opts container
   var optsClass = state.studyMode ? ' class="opts study-mode"' : ' class="opts"';
 
+  var qIdx = questions.indexOf(q);
+  var isStarred = loadStarred().indexOf(qIdx) !== -1;
   document.getElementById('qContainer').innerHTML =
     '<div class="q-card">'+
-      '<div class="q-meta">'+
-        '<span class="q-tag">'+(cats[q.cat]||q.cat)+'</span>'+
-        '<span class="q-num">'+(state.cur+1)+' / '+state.queue.length+'</span>'+
+      '<div class="q-meta" style="display:flex;justify-content:space-between;align-items:center">'+
+        '<div><span class="q-tag">'+(cats[q.cat]||q.cat)+'</span></div>'+
+        '<div style="display:flex;align-items:center;gap:8px">'+
+          '<span class="q-num">'+(state.cur+1)+' / '+state.queue.length+'</span>'+
+          '<button class="star-btn'+(isStarred?' starred':'')+'" onclick="toggleStar('+qIdx+')" title="Přidat do záložek">'+(isStarred?'⭐':'☆')+'</button>'+
+        '</div>'+
       '</div>'+
       '<div class="q-text">'+q.q+'</div>'+
       '<div'+optsClass+'>'+optsHtml+'</div>'+
@@ -1113,7 +1145,7 @@ function answer(idx){
   var opts = document.querySelectorAll('.opt');
   opts.forEach(function(b){ b.disabled = true; });
   opts[q.ans].classList.add('correct');
-  if(idx === q.ans){ state.correct++; } else { opts[idx].classList.add('wrong'); state.wrong++; }
+  if(idx === q.ans){ state.correct++; } else { opts[idx].classList.add('wrong'); state.wrong++; state.wrongQuestions.push(q); }
   document.getElementById('exp').classList.add('show');
   document.getElementById('nextBtn').textContent = 'Další otázka →';
   updateStats();
@@ -1157,6 +1189,20 @@ function showResults(){
   document.getElementById('rCorrect').textContent = state.correct;
   document.getElementById('rWrong').textContent = state.wrong;
   document.getElementById('rSkipped').textContent = state.skipped;
+  var wrongCount = state.wrongQuestions.length;
+  document.getElementById('wrongCount').textContent = wrongCount;
+  document.getElementById('retryWrongBtn').style.display = wrongCount > 0 ? 'inline-flex' : 'none';
+}
+
+
+function retryWrong(){
+  if(!state.wrongQuestions.length) return;
+  var pool = state.wrongQuestions.slice().sort(function(){ return Math.random()-0.5; });
+  state.queue = pool;
+  state.cur = 0; state.correct = 0; state.wrong = 0; state.skipped = 0; state.answered = false; state.wrongQuestions = [];
+  document.getElementById('resultsSection').classList.remove('active');
+  document.getElementById('testSection').classList.add('active');
+  updateStats(); renderQ();
 }
 
 function showSection(s){
@@ -1415,6 +1461,49 @@ function makeClickable(text){
   });
 }
 
+
+var speakTimer = null;
+function speakEN(){
+  var t = translations[tState.cur];
+  if(!t) return;
+  window.speechSynthesis.cancel();
+  clearInterval(speakTimer);
+
+  var btn = document.getElementById('speakBtn');
+  function resetBtn(){
+    clearInterval(speakTimer);
+    if(btn){ btn.textContent = '🔊 Přečíst'; btn.onclick = speakEN; }
+  }
+
+  if(btn){
+    btn.textContent = '⏹ Stop';
+    btn.onclick = function(){ window.speechSynthesis.cancel(); resetBtn(); };
+  }
+
+  var utt = new SpeechSynthesisUtterance(t.en);
+  utt.lang = 'en-GB';
+  utt.rate = 0.88;
+  utt.onend = resetBtn;
+  utt.onerror = resetBtn;
+
+  // Chrome bug: speechSynthesis se zasekne po ~15s, keepalive fix
+  var keepAlive = setInterval(function(){ window.speechSynthesis.pause(); window.speechSynthesis.resume(); }, 10000);
+
+  var started = false;
+  utt.onstart = function(){ started = true; };
+
+  window.speechSynthesis.speak(utt);
+
+  // Počkáme 1s než začneme pollovat (Chrome potřebuje čas na start)
+  setTimeout(function(){
+    speakTimer = setInterval(function(){
+      if(started && !window.speechSynthesis.speaking && !window.speechSynthesis.pending){
+        clearInterval(keepAlive);
+        resetBtn();
+      }
+    }, 300);
+  }, 1000);
+}
 function tRender(){
   var t = translations[tState.cur];
   var result = tState.results[tState.cur];
@@ -1434,7 +1523,10 @@ function tRender(){
       '<span class="q-tag">Překlad EN → CS</span>' +
       '<span class="q-num">' + (tState.cur+1) + ' / ' + translations.length + '</span>' +
     '</div>' +
-    '<div style="font-size:11px;color:var(--text3);font-family:DM Mono,monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Najeď myší na podtržené slovo pro překlad</div>'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'+
+      '<span style="font-size:11px;color:var(--text3);font-family:DM Mono,monospace;text-transform:uppercase;letter-spacing:.08em">Najeď myší na slovo pro překlad</span>'+
+      '<button onclick="speakEN()" title="Přečíst nahlas" style="background:none;border:1.5px solid var(--border);border-radius:20px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--text2);font-family:DM Sans,sans-serif" id="speakBtn">🔊 Přečíst</button>'+
+    '</div>'+
     '<div class="q-text" style="font-size:15px;line-height:1.85;font-style:italic">' + clickableText + '</div>' +
     '<div style="margin-top:8px;text-align:right"><button class="btn btn-ghost" style="font-size:12px;padding:6px 12px" id="tFullBtn" onclick="tToggleFullTranslation()">🌐 Celý překlad</button></div>' +
     '<div id="fullTranslationBox" style="display:none;margin-top:6px;padding:12px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;font-size:13.5px;line-height:1.7;color:var(--text2)">' + t.cs + '</div>';
@@ -1589,6 +1681,13 @@ function examAnswer(i){
   }, 400);
 }
 
+
+function examConfirmEnd(){
+  var d = document.getElementById('examEndDialog');
+  d.style.display = d.style.display === 'flex' ? 'none' : 'flex';
+}
+function examEndConfirmed(){ examFinish(); }
+function examEndCancelled(){ document.getElementById('examEndDialog').style.display = 'none'; }
 function examSkip(){
   exam.cur++;
   if(exam.cur >= exam.questions.length) examFinish();
@@ -1639,224 +1738,221 @@ function examFinish(){
     '<div style="color:var(--text2);font-size:13px;margin-top:6px">Čas: '+timeStr+' z 60:00</div>'+
   '</div>';
 
-  html += '<div style="margin-top:16px;text-align:center">'+
+  // Wrong questions review
+  var wrongQs = exam.questions.filter(function(q){ return q.userAns !== -1 && q.userAns !== q.ans; });
+  var skippedQs = exam.questions.filter(function(q){ return q.userAns === -1; });
+  var keys = ['A','B','C'];
+
+  html += '<div style="margin-top:16px;text-align:center;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'+
     '<button class="btn btn-primary" onclick="examReset()">↺ Zkusit znovu</button>'+
+    (wrongQs.length > 0 ? '<button class="btn btn-ghost" style="background:var(--red-light);border-color:var(--red-border);color:var(--red)" onclick="examToggleErrors()">📋 Přehled chyb ('+wrongQs.length+')</button>' : '')+
   '</div>';
+
+  if(wrongQs.length > 0){
+    var cats = {predpisy:'Předpisy', provoz:'Provoz', elektro:'Elektrotechnika'};
+    html += '<div id="examErrorList" style="display:none;margin-top:16px">';
+    html += '<div style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Špatně zodpovězené otázky</div>';
+    wrongQs.forEach(function(q, i){
+      html += '<div style="margin-bottom:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;font-size:13.5px">'+
+        '<div style="font-size:11px;color:var(--text3);font-family:DM Mono,monospace;text-transform:uppercase;margin-bottom:6px">'+cats[q.cat]+' · otázka '+(i+1)+'</div>'+
+        '<div style="font-weight:500;margin-bottom:10px;line-height:1.5">'+q.q+'</div>'+
+        (q.userAns !== -1 ?
+          '<div style="padding:7px 10px;background:var(--red-light);border:1px solid var(--red-border);border-radius:6px;margin-bottom:6px;color:var(--red)">'+
+            '❌ Tvoje odpověď: <strong>'+keys[q.userAns]+') '+q.opts[q.userAns]+'</strong>'+
+          '</div>' :
+          '<div style="padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:6px;color:var(--text3)">'+
+            '— Přeskočeno</div>'
+        )+
+        '<div style="padding:7px 10px;background:var(--green-light);border:1px solid var(--green-border);border-radius:6px;color:var(--green)">'+
+          '✅ Správná odpověď: <strong>'+keys[q.ans]+') '+q.opts[q.ans]+'</strong>'+
+        '</div>'+
+      '</div>';
+    });
+    html += '</div>';
+  }
+
   html += '</div>';
 
   document.getElementById('examResults').innerHTML = html;
   document.getElementById('examResults').style.display = 'block';
+
+  // Save to history
+  var sections2 = [
+    {cat:'predpisy', pass:18},
+    {cat:'provoz',   pass:36},
+    {cat:'elektro',  pass:18}
+  ];
+  var record = {
+    date: new Date().toLocaleDateString('cs-CZ'),
+    time: (3600 - exam.secondsLeft),
+    passed: overallPass,
+    scores: sections2.map(function(sec){
+      var qs = exam.questions.filter(function(q){ return q.cat === sec.cat; });
+      var correct = qs.filter(function(q){ return q.userAns === q.ans; }).length;
+      return {cat: sec.cat, correct: correct, total: qs.length, pct: Math.round(correct/qs.length*100)};
+    })
+  };
+  var history = examLoadHistory();
+  history.unshift(record);
+  if(history.length > 20) history = history.slice(0,20);
+  try { localStorage.setItem('src_exam_history', JSON.stringify(history)); } catch(e){}
 }
 
+
+function examToggleErrors(){
+  var el = document.getElementById('examErrorList');
+  if(!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
 function examReset(){
   document.getElementById('examResults').style.display = 'none';
+  document.getElementById('examEndDialog').style.display = 'none';
+  document.getElementById('examHistory').style.display = 'none';
   document.getElementById('examLobby').style.display = 'block';
 }
+
+function examLoadHistory(){
+  try { return JSON.parse(localStorage.getItem('src_exam_history') || '[]'); } catch(e){ return []; }
+}
+
+function examShowHistory(){
+  var history = examLoadHistory();
+  document.getElementById('examLobby').style.display = 'none';
+  var el = document.getElementById('examHistory');
+  el.style.display = 'block';
+
+  if(history.length === 0){
+    el.innerHTML = '<div class="q-card" style="text-align:center;padding:32px"><div style="font-size:36px">📊</div><p style="color:var(--text2)">Zatím žádná zkouška.<br>Dokonči první pokus a výsledky se zobrazí zde.</p><button class="btn btn-ghost" style="margin-top:8px" onclick="examHistoryBack()">← Zpět</button></div>';
+    return;
+  }
+
+  // Draw SVG chart – overall % across attempts (average of 3 sections)
+  var chartW = 320, chartH = 120, pad = 28;
+  var pts = history.slice().reverse(); // oldest first
+  var avgPcts = pts.map(function(r){ return Math.round(r.scores.reduce(function(a,s){ return a+s.pct; },0)/3); });
+  var maxPts = pts.length;
+  var xStep = maxPts > 1 ? (chartW - pad*2) / (maxPts-1) : 0;
+
+  function xPos(i){ return pad + i * xStep; }
+  function yPos(v){ return chartH - pad - (v/100)*(chartH - pad*2); }
+
+  // polyline points
+  var polyPts = avgPcts.map(function(v,i){ return xPos(i)+','+yPos(v); }).join(' ');
+  // area fill
+  var areaPath = 'M'+xPos(0)+','+yPos(avgPcts[0])+' '+avgPcts.map(function(v,i){ return 'L'+xPos(i)+','+yPos(v); }).join(' ')+' L'+xPos(maxPts-1)+','+(chartH-pad)+' L'+xPos(0)+','+(chartH-pad)+' Z';
+
+  var dotsSvg = avgPcts.map(function(v,i){
+    var col = v >= 90 ? '#22c55e' : '#ef4444';
+    return '<circle cx="'+xPos(i)+'" cy="'+yPos(v)+'" r="4" fill="'+col+'" />';
+  }).join('');
+
+  // 90% line
+  var y90 = yPos(90);
+  var svgChart = '<svg width="100%" viewBox="0 0 '+chartW+' '+chartH+'" style="display:block;margin:0 auto">'+
+    '<defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--accent)" stop-opacity="0.3"/><stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>'+
+    '<line x1="'+pad+'" y1="'+y90+'" x2="'+(chartW-pad)+'" y2="'+y90+'" stroke="#22c55e" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>'+
+    '<text x="'+(chartW-pad+2)+'" y="'+(y90+4)+'" font-size="9" fill="#22c55e" opacity="0.8">90%</text>'+
+    '<path d="'+areaPath+'" fill="url(#chartGrad)"/>'+
+    '<polyline points="'+polyPts+'" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
+    dotsSvg+
+  '</svg>';
+
+  // Table of attempts
+  var tableRows = history.map(function(r, i){
+    var avg = Math.round(r.scores.reduce(function(a,s){ return a+s.pct; },0)/3);
+    var tm = Math.floor(r.time/60), ts = r.time%60;
+    var timeStr = (tm<10?'0':'')+tm+':'+(ts<10?'0':'')+ts;
+    var icon = r.passed ? '✅' : '❌';
+    return '<tr style="border-bottom:1px solid var(--border)">'+
+      '<td style="padding:8px 6px;color:var(--text2);font-size:12px">'+(i===0?'<strong>Poslední</strong>':('#'+(history.length-i)))+'</td>'+
+      '<td style="padding:8px 6px;font-size:12px">'+r.date+'</td>'+
+      '<td style="padding:8px 6px;text-align:center">'+icon+'</td>'+
+      '<td style="padding:8px 6px;text-align:right;font-weight:700;color:'+(r.passed?'var(--green)':'var(--red)')+'">'+avg+' %</td>'+
+      '<td style="padding:8px 6px;text-align:right;font-size:12px;color:var(--text2)">'+timeStr+'</td>'+
+    '</tr>';
+  }).join('');
+
+  var clearBtn = '<button class="btn btn-ghost" style="font-size:12px;color:var(--red);border-color:var(--red-border);margin-top:12px" onclick="examClearHistory()">🗑 Smazat historii</button>';
+
+  el.innerHTML = '<div class="q-card" style="padding:20px">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">'+
+      '<h3 style="margin:0;font-size:17px">📊 Historie zkoušek</h3>'+
+      '<button class="btn btn-ghost" style="padding:6px 12px;font-size:13px" onclick="examHistoryBack()">← Zpět</button>'+
+    '</div>'+
+    '<div style="margin-bottom:16px">'+svgChart+'</div>'+
+    '<table style="width:100%;border-collapse:collapse">'+
+      '<thead><tr style="border-bottom:2px solid var(--border)">'+
+        '<th style="text-align:left;padding:6px;font-size:11px;color:var(--text3);text-transform:uppercase">#</th>'+
+        '<th style="text-align:left;padding:6px;font-size:11px;color:var(--text3);text-transform:uppercase">Datum</th>'+
+        '<th style="padding:6px;font-size:11px;color:var(--text3);text-transform:uppercase">Výsledek</th>'+
+        '<th style="text-align:right;padding:6px;font-size:11px;color:var(--text3);text-transform:uppercase">Průměr</th>'+
+        '<th style="text-align:right;padding:6px;font-size:11px;color:var(--text3);text-transform:uppercase">Čas</th>'+
+      '</tr></thead>'+
+      '<tbody>'+tableRows+'</tbody>'+
+    '</table>'+
+    '<div style="text-align:center">'+clearBtn+'</div>'+
+  '</div>';
+}
+
+function examHistoryBack(){
+  document.getElementById('examHistory').style.display = 'none';
+  document.getElementById('examLobby').style.display = 'block';
+}
+
+function examClearHistory(){
+  try { localStorage.removeItem('src_exam_history'); } catch(e){}
+  examShowHistory();
+}
+
+
 // ── END EXAM ───────────────────────────────────────────────────────────────
 
-init();
-tInit();
-
-// === DARK MODE ===
-function toggleDark() {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('dark', document.body.classList.contains('dark'));
-  document.getElementById('darkBtn').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+function loadStarred(){
+  try { return JSON.parse(localStorage.getItem('src_starred') || '[]'); } catch(e){ return []; }
 }
-(function(){
-  if (localStorage.getItem('dark') === 'true') {
-    document.body.classList.add('dark');
-    document.addEventListener('DOMContentLoaded', () => {
-      const b = document.getElementById('darkBtn');
-      if (b) b.textContent = '☀️';
-    });
+function saveStarred(arr){
+  try { localStorage.setItem('src_starred', JSON.stringify(arr)); } catch(e){}
+}
+function toggleStar(idx){
+  var arr = loadStarred();
+  var pos = arr.indexOf(idx);
+  if(pos === -1) arr.push(idx); else arr.splice(pos,1);
+  saveStarred(arr);
+  // Update star button without full re-render
+  var btn = document.querySelector('.star-btn');
+  if(btn){
+    var nowStarred = arr.indexOf(idx) !== -1;
+    btn.textContent = nowStarred ? '⭐' : '☆';
+    btn.classList.toggle('starred', nowStarred);
   }
-})();
-
-// === BOOKMARKS ===
-let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-function saveBookmarks() { localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); }
-function toggleBookmark(idx) {
-  const i = bookmarks.indexOf(idx);
-  if (i === -1) bookmarks.push(idx); else bookmarks.splice(i, 1);
-  saveBookmarks();
-  renderQuestion();
+  // Update starred count on category button
+  updateStarBtn();
+}
+function updateStarBtn(){
+  var n = loadStarred().length;
+  var btn = document.getElementById('starCatBtn');
+  if(btn) btn.textContent = '⭐ Záložky' + (n > 0 ? ' ('+n+')' : '');
 }
 
-// === HISTORY ===
-let examHistory = JSON.parse(localStorage.getItem('examHistory') || '[]');
-function saveHistory(result) {
-  examHistory.push(result);
-  if (examHistory.length > 20) examHistory = examHistory.slice(-20);
-  localStorage.setItem('examHistory', JSON.stringify(examHistory));
+function toggleDark(){
+  var isDark = document.documentElement.classList.toggle('dark');
+  document.getElementById('darkToggle').textContent = isDark ? '☀️' : '🌙';
+  try { localStorage.setItem('src_dark', isDark ? '1' : '0'); } catch(e){}
 }
 
-// === VOCAB ===
-let vocabFilter = 'all', vocabSearch = '';
-const vocabData = [
-  {en:'all after...',cs:'vše za...',cat:'Fráze'},
-  {en:'...and stand by',cs:'... a čekejte',cat:'Fráze'},
-  {en:'I am confirming',cs:'potvrzuji výraz',cat:'Fráze'},
-  {en:'I say again',cs:'opakuji',cat:'Fráze'},
-  {en:'I spell',cs:'hláskuji',cat:'Fráze'},
-  {en:'all before',cs:'vše před',cat:'Fráze'},
-  {en:'all between x and y',cs:'vše mezi x a y',cat:'Fráze'},
-  {en:'altitude',cs:'výška (nadmořská)',cat:'Fráze'},
-  {en:'are you ready?',cs:'jste připraven?',cat:'Fráze'},
-  {en:'break / space',cs:'mezera mezi slovy',cat:'Fráze'},
-  {en:'change to channel...',cs:'přejděte na kanál...',cat:'Fráze'},
-  {en:'confirm',cs:'potvrďte (výraz ve zprávě)',cat:'Fráze'},
-  {en:'contact',cs:'navažte spojení s ...',cat:'Fráze'},
-  {en:'correct',cs:'správně',cat:'Fráze'},
-  {en:'correction',cs:'oprava',cat:'Fráze'},
-  {en:'decimal / point',cs:'(desetinná) čárka',cat:'Fráze'},
-  {en:'degree',cs:'stupeň',cat:'Fráze'},
-  {en:'dot',cs:'tečka',cat:'Fráze'},
-  {en:'go ahead',cs:'vysílejte / pokračujte',cat:'Fráze'},
-  {en:'go to channel...',cs:'přejděte na kanál...',cat:'Fráze'},
-  {en:'how do you read me?',cs:'jak mě slyšíte?',cat:'Fráze'},
-  {en:'in figures / in letters',cs:'jako číslice / jako písmena',cat:'Fráze'},
-  {en:'latitude',cs:'šířka (zeměpisná)',cat:'Fráze'},
-  {en:'longitude',cs:'délka (zeměpisná)',cat:'Fráze'},
-  {en:'minute',cs:'minuty',cat:'Fráze'},
-  {en:'oblique stroke',cs:'lomítko',cat:'Fráze'},
-  {en:'out',cs:'konec',cat:'Fráze'},
-  {en:'over',cs:'příjem',cat:'Fráze'},
-  {en:'radio check',cs:'kontrola rádia',cat:'Fráze'},
-  {en:'read back',cs:'čtu zpět (opakuji)',cat:'Fráze'},
-  {en:'read back for check',cs:'přečtěte zpět pro kontrolu',cat:'Fráze'},
-  {en:'received',cs:'potvrzuji',cat:'Fráze'},
-  {en:'repeat',cs:'opakujte',cat:'Fráze'},
-  {en:'roger',cs:'rozumím',cat:'Fráze'},
-  {en:'romeo',cs:'přijato',cat:'Fráze'},
-  {en:'say again all after a',cs:'opakujte vše za a',cat:'Fráze'},
-  {en:'second',cs:'vteřiny',cat:'Fráze'},
-  {en:'space',cs:'mezera',cat:'Fráze'},
-  {en:'speak slower',cs:'mluv pomaleji',cat:'Fráze'},
-  {en:'speak slowly',cs:'mluvte pomalu',cat:'Fráze'},
-  {en:'stand by',cs:'čekejte',cat:'Fráze'},
-  {en:'station calling',cs:'stanice, která volá',cat:'Fráze'},
-  {en:'stop',cs:'konec věty',cat:'Fráze'},
-  {en:'this is',cs:'zde',cat:'Fráze'},
-  {en:'who is calling me?',cs:'kdo mě volá?',cat:'Fráze'},
-  {en:'word after / word before',cs:'slovo po / slovo před',cat:'Fráze'},
-  {en:'urgency signal',cs:'pilnostní zpráva',cat:'Terminologie'},
-  {en:'calling all stations',cs:'volání všem stanicím',cat:'Terminologie'},
-  {en:'MAYDAY RELAY',cs:'přeposlané nouzové volání',cat:'Terminologie'},
-  {en:'misuse of distress signal',cs:'zneužití tísňového signálu',cat:'Terminologie'},
-  {en:'calling a coast station',cs:'volání pobřežní stanice',cat:'Terminologie'},
-  {en:'traffic',cs:'provoz',cat:'Terminologie'},
-  {en:'ETA (Estimated Time of Arrival)',cs:'předpokládaný čas doplutí',cat:'Terminologie'},
-  {en:'IMO (International Maritime Organisation)',cs:'Mezinárodní námořní organizace',cat:'Terminologie'},
-  {en:'VHF Channels',cs:'kanály velmi krátkých vln',cat:'Terminologie'},
-  {en:'radio log',cs:'zápis rádiové komunikace',cat:'Terminologie'},
-  {en:'WAIT and STANDBY',cs:'čekej a zůstaň na příjmu',cat:'Terminologie'},
-  {en:'marina',cs:'marina (jachtařský přístav)',cat:'Terminologie'},
-  {en:'INMARSAT',cs:'Inmarsat satelitní síť',cat:'Terminologie'},
-  {en:'HF',cs:'vysoké frekvence',cat:'Terminologie'},
-  {en:'radio logbook',cs:'staničíní deník',cat:'Terminologie'},
-  {en:'READ BACK ALL AFTER...',cs:'zopakovat vše po...',cat:'Terminologie'},
-  {en:'REPEAT and SAY AGAIN',cs:'Zopakovat (žádost) a Říkám znovu (návěstí)',cat:'Terminologie'},
-  {en:'LF, MF, HF, VHF, UHF, SHF',cs:'nízké až super vysoké frekvence',cat:'Terminologie'},
-  {en:'DISTRESS, URGENCY, SAFETY and ROUTINE CALL',cs:'tísňové, pilnostní, bezpečnostní a rutinní volání',cat:'Terminologie'},
-  {en:'NAVTEX (NAVigation TELeX)',cs:'Systém rádiové distribuce meteo a bezpečnostních zpráv',cat:'Terminologie'},
-  {en:'meteorological forecast',cs:'meteorologická předpověď',cat:'Terminologie'},
-  {en:'call all ships in the Bay of Biscay',cs:'zavolejte všem lodím v Biskajském zálivu',cat:'Terminologie'},
-  {en:'repeat your call',cs:'opakujte vaše volání',cat:'Terminologie'},
-  {en:'Your Turn Is Number Five',cs:'jste pátý v pořadí',cat:'Terminologie'},
-  {en:'EPIRB and PLB',cs:'EPIRB a PLB rádiové bóje',cat:'Terminologie'},
-  {en:'AIS (Automatic Identification System)',cs:'automatický identifikační systém',cat:'Terminologie'},
-  {en:'distress call',cs:'tísňová zpráva',cat:'Terminologie'},
-  {en:'SART',cs:'nouzový odpovídač pro vyhledávání a záchranu',cat:'Terminologie'},
-  {en:'lifeboat radio',cs:'radiostanice záchranného člunu',cat:'Terminologie'},
-  {en:'gale warning',cs:'varování před vichřicí',cat:'Terminologie'},
-  {en:'bearing (BRG)',cs:'náměr',cat:'Terminologie'},
-  {en:'EPIRB (Emergency Position-Indicating Radio Beacon)',cs:'nouzový rádiový maják označující polohu',cat:'Terminologie'},
-  {en:'bridge',cs:'můstek',cat:'Terminologie'},
-  {en:'dangerous obstruction',cs:'nebezpečná překážka',cat:'Terminologie'},
-  {en:'collision of ship',cs:'srážka (lodí)',cat:'Terminologie'},
-  {en:'vessel',cs:'plavidlo',cat:'Terminologie'},
-  {en:'COSPAS / SARSAT system',cs:'satelitní systém COSPAS/SARSAT',cat:'Terminologie'},
-  {en:'MMSI (Maritime Mobile Service Identity)',cs:'mezinárodní námořní identifikační číslo',cat:'Terminologie'},
-  {en:'storm warning',cs:'varování před bouřkou',cat:'Terminologie'},
-  {en:'heaving up anchor',cs:'vytažení kotvy',cat:'Terminologie'},
-  {en:'GMDSS',cs:'globální námořní tísňový a bezpečnostní systém',cat:'Terminologie'},
-  {en:'mast',cs:'stěžeň',cat:'Terminologie'},
-  {en:'ETD (estimated time of departure)',cs:'předpokládaný čas odplutí',cat:'Terminologie'},
-  {en:'medical advice',cs:'lékařská rada',cat:'Terminologie'},
-  {en:'radio medical service',cs:'rádiová lékařská služba',cat:'Terminologie'},
-  {en:'number of people on board',cs:'počet lidí na palubě',cat:'Terminologie'},
-  {en:'continuous channel 70 (DSC) monitoring',cs:'nepřetržité sledování kanálu 70 (DSC)',cat:'Terminologie'},
-  {en:'traffic list',cs:'seznam lodních stanic pro pobřežní zprávy',cat:'Terminologie'},
-  {en:'pilot ladder',cs:'lodní žebřík pro nalodění lodivoda',cat:'Terminologie'},
-  {en:'coast station',cs:'pobřežní stanice',cat:'Terminologie'},
-  {en:'dangerous wreck',cs:'nebezpečný vrak',cat:'Terminologie'},
-  {en:'search and rescue',cs:'vyhledávání a záchrana',cat:'Terminologie'},
-  {en:'distress calling',cs:'radiotelefonní tísňové volání',cat:'Terminologie'},
-  {en:'working channel',cs:'pracovní kanál',cat:'Terminologie'},
-  {en:'duplex operation',cs:'duplexní provoz',cat:'Terminologie'},
-  {en:'simplex operation',cs:'simplexní provoz',cat:'Terminologie'},
-  {en:'pilot station',cs:'stanice/stanoviště lodivoda',cat:'Terminologie'},
-  {en:'maritime mobile station',cs:'lodní stanice v námořní pohyblivé službě',cat:'Terminologie'},
-  {en:'reduce speed',cs:'snižte rychlost',cat:'Terminologie'},
-  {en:'tide',cs:'příliv',cat:'Terminologie'},
-  {en:'coastguard station',cs:'stanice pobřežní stráže',cat:'Terminologie'},
-  {en:'position of the ship',cs:'poloha lodě',cat:'Terminologie'},
-  {en:'VHF DSC (Digital Selective Calling)',cs:'digitální DSC volání na velmi krátkých vlnách',cat:'Terminologie'},
-  {en:'call sign',cs:'volací znak/značka',cat:'Terminologie'},
-  {en:'atmospheric pressure',cs:'atmosférický tlak',cat:'Terminologie'},
-  {en:'way point',cs:'navigační bod',cat:'Terminologie'},
-  {en:'reduced visibility',cs:'snížená viditelnost',cat:'Terminologie'},
-  {en:'fishing prohibited',cs:'zákaz rybolovu',cat:'Terminologie'},
-  {en:'maritime mobile service',cs:'námořní pohyblivá služba',cat:'Terminologie'},
-  {en:'distress, safety and calling channel',cs:'tísňový, bezpečnostní a volací kanál',cat:'Terminologie'},
-  {en:'MSI (Maritime Safety Information)',cs:'námořní bezpečnostní informace',cat:'Terminologie'},
-  {en:'weather forecast',cs:'předpověď počasí',cat:'Terminologie'},
-  {en:'man overboard',cs:'muž (osoba) přes palubu',cat:'Terminologie'},
-  {en:'pass the lighthouse',cs:'minout maják',cat:'Terminologie'},
-  {en:'approaching the harbor',cs:'přibližovat se k přístavu',cat:'Terminologie'},
-  {en:'on-board radiocommunication station',cs:'palubní radiokomunikační stanice',cat:'Terminologie'},
-  {en:'water depth',cs:'hloubka vody',cat:'Terminologie'},
-  {en:'false distress call',cs:'falešné / omylem vyslané tísňové volání',cat:'Terminologie'},
-  {en:'navigational warning',cs:'plavební varování',cat:'Terminologie'},
-  {en:'signal interference',cs:'rušení (signálu)',cat:'Terminologie'},
-  {en:'dangerous cargo',cs:'nebezpečný náklad',cat:'Terminologie'},
-  {en:'burning ship',cs:'hořící loď',cat:'Terminologie'},
-  {en:'knot',cs:'uzel',cat:'Terminologie'},
-  {en:'starboard (side)',cs:'pravá strana (lodi), pravobok',cat:'Terminologie'},
-  {en:'port side',cs:'levá strana (lodi), levobok',cat:'Terminologie'},
-  {en:'GNSS (Global Navigation Satellite System)',cs:'Globální navigační satelitní systém',cat:'Terminologie'},
-  {en:'GPS (Global Position System)',cs:'Globální poziční systém',cat:'Terminologie'},
-  {en:'board, deck',cs:'paluba',cat:'Terminologie'},
-];
-
-function showTheoryTab(tab, btn) {
-  document.querySelectorAll('.theory-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('theoryContent').style.display = tab === 'chapters' ? '' : 'none';
-  document.getElementById('vocabContent').style.display = tab === 'vocab' ? '' : 'none';
-  if (tab === 'vocab') renderVocab();
+function initDark(){
+  var saved = '';
+  try { saved = localStorage.getItem('src_dark'); } catch(e){}
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if(saved === '1' || (saved === null && prefersDark)){
+    document.documentElement.classList.add('dark');
+    document.getElementById('darkToggle').textContent = '☀️';
+  }
 }
 
-function renderVocab() {
-  const cats = ['all', ...new Set(vocabData.map(v => v.cat))];
-  const filtered = vocabData.filter(v => {
-    const matchCat = vocabFilter === 'all' || v.cat === vocabFilter;
-    const q = vocabSearch.toLowerCase();
-    return matchCat && (!q || v.en.toLowerCase().includes(q) || v.cs.toLowerCase().includes(q));
-  });
-  document.getElementById('vocabContent').innerHTML =
-    '<input class="vocab-search" type="text" placeholder="Hledat výraz..." oninput="vocabSearch=this.value;renderVocab()" value="' + vocabSearch + '">' +
-    '<div class="vocab-categories">' + cats.map(c => '<button class="vocab-cat-btn ' + (vocabFilter===c?'active':'') + '" onclick="vocabFilter='' + c + '';renderVocab()">' + (c==='all'?'Vše':c) + '</button>').join('') + '</div>' +
-    '<div class="vocab-count">' + filtered.length + ' výrazů</div>' +
-    '<div class="vocab-grid">' + filtered.map(v => '<div class="vocab-card"><div class="vocab-en">' + v.en + '</div><div class="vocab-cs">' + v.cs + '</div><div class="vocab-cat-label">' + v.cat + '</div></div>').join('') + '</div>';
-}
-
-// === SW registration ===
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); });
-}
-
+init();
+initDark();
+tInit();
 </script>
 </body>
 </html>
