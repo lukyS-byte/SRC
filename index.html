@@ -681,7 +681,7 @@ body {
 .vocab-cat-btn.active{background:#4f8ef7;color:#fff;}
 .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
 .vocab-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:3px solid #4f8ef7;}
-.dark .vocab-card{background:#1e1e30;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.dark .vocab-card{background:#1e1e30;}
 .vocab-en{font-weight:600;font-size:.95rem;color:#222;}
 .dark .vocab-en{color:#e0e0e0;}
 .vocab-cs{color:#555;font-size:.88rem;margin-top:3px;}
@@ -1636,7 +1636,6 @@ init();
 tInit();
 
 const vocabData = [
-  // 20.4 Anglické komunikační fráze
   {en:'all after...',cs:'vše za...',cat:'Fráze'},
   {en:'...and stand by',cs:'... a čekejte',cat:'Fráze'},
   {en:'I am confirming',cs:'potvrzuji výraz',cat:'Fráze'},
@@ -1646,9 +1645,8 @@ const vocabData = [
   {en:'all between x and y',cs:'vše mezi x a y',cat:'Fráze'},
   {en:'altitude',cs:'výška (nadmořská)',cat:'Fráze'},
   {en:'are you ready?',cs:'jste připraven?',cat:'Fráze'},
-  {en:'at',cs:'@ (zavináč)',cat:'Fráze'},
   {en:'break / space',cs:'mezera mezi slovy',cat:'Fráze'},
-  {en:'change to channel... / I go to channel...',cs:'přejděte na kanál... / přecházím na kanál...',cat:'Fráze'},
+  {en:'change to channel...',cs:'přejděte na kanál...',cat:'Fráze'},
   {en:'confirm',cs:'potvrďte (výraz ve zprávě)',cat:'Fráze'},
   {en:'contact',cs:'navažte spojení s ...',cat:'Fráze'},
   {en:'correct',cs:'správně',cat:'Fráze'},
@@ -1656,7 +1654,7 @@ const vocabData = [
   {en:'decimal / point',cs:'(desetinná) čárka',cat:'Fráze'},
   {en:'degree',cs:'stupeň',cat:'Fráze'},
   {en:'dot',cs:'tečka',cat:'Fráze'},
-  {en:'go ahead',cs:'vysílejte',cat:'Fráze'},
+  {en:'go ahead',cs:'vysílejte / pokračujte',cat:'Fráze'},
   {en:'go to channel...',cs:'přejděte na kanál...',cat:'Fráze'},
   {en:'how do you read me?',cs:'jak mě slyšíte?',cat:'Fráze'},
   {en:'in figures / in letters',cs:'jako číslice / jako písmena',cat:'Fráze'},
@@ -1666,7 +1664,6 @@ const vocabData = [
   {en:'oblique stroke',cs:'lomítko',cat:'Fráze'},
   {en:'out',cs:'konec',cat:'Fráze'},
   {en:'over',cs:'příjem',cat:'Fráze'},
-  {en:'point',cs:'tečka (desetinná)',cat:'Fráze'},
   {en:'radio check',cs:'kontrola rádia',cat:'Fráze'},
   {en:'read back',cs:'čtu zpět (opakuji)',cat:'Fráze'},
   {en:'read back for check',cs:'přečtěte zpět pro kontrolu',cat:'Fráze'},
@@ -1685,7 +1682,6 @@ const vocabData = [
   {en:'this is',cs:'zde',cat:'Fráze'},
   {en:'who is calling me?',cs:'kdo mě volá?',cat:'Fráze'},
   {en:'word after / word before',cs:'slovo po / slovo před',cat:'Fráze'},
-  // 20.5 Námořní terminologie
   {en:'urgency signal',cs:'pilnostní zpráva',cat:'Terminologie'},
   {en:'calling all stations',cs:'volání všem stanicím',cat:'Terminologie'},
   {en:'MAYDAY RELAY',cs:'přeposlané nouzové volání',cat:'Terminologie'},
@@ -1699,23 +1695,19 @@ const vocabData = [
   {en:'read back',cs:'čtu (čti) zpět',cat:'Terminologie'},
   {en:'WAIT and STANDBY',cs:'čekej a zůstaň na příjmu',cat:'Terminologie'},
   {en:'marina',cs:'marina (jachtařský přístav)',cat:'Terminologie'},
-  {en:'I read you good or .... with signal strength 4',cs:'rozumím dobře nebo .... se silou signálu 4',cat:'Terminologie'},
   {en:'INMARSAT',cs:'Inmarsat satelitní síť',cat:'Terminologie'},
   {en:'HF',cs:'vysoké frekvence',cat:'Terminologie'},
   {en:'Areas 1, 2, 3 a 4',cs:'Oblast 1, 2, 3 a 4',cat:'Terminologie'},
   {en:'radio logbook',cs:'staničíní deník',cat:'Terminologie'},
   {en:'READ BACK ALL AFTER...',cs:'zopakovat vše po...',cat:'Terminologie'},
   {en:'REPEAT and SAY AGAIN',cs:'Zopakovat (žádost) a Říkám znovu (návěstí)',cat:'Terminologie'},
-  {en:'LF, MF, HF, VHF, UHF, SHF',cs:'nízké, střední, vysoké, velmi vysoké, ultra vysoké a super vysoké frekvence',cat:'Terminologie'},
-  {en:'word after...',cs:'slovo po...',cat:'Terminologie'},
+  {en:'LF, MF, HF, VHF, UHF, SHF',cs:'nízké až super vysoké frekvence',cat:'Terminologie'},
   {en:'DISTRESS, URGENCY, SAFETY and ROUTINE CALL',cs:'tísňové, pilnostní, bezpečnostní a rutinní volání',cat:'Terminologie'},
   {en:'NAVTEX (NAVigation TELeX)',cs:'Systém rádiové distribuce meteo a bezpečnostních zpráv',cat:'Terminologie'},
-  {en:'in letters',cs:'písmeny',cat:'Terminologie'},
   {en:'meteorological forecast',cs:'meteorologická předpověď',cat:'Terminologie'},
   {en:'call all ships in the Bay of Biscay',cs:'zavolejte všem lodím v Biskajském zálivu',cat:'Terminologie'},
   {en:'repeat your call',cs:'opakujte vaše volání',cat:'Terminologie'},
   {en:'Your Turn Is Number Five',cs:'jste pátý v pořadí',cat:'Terminologie'},
-  {en:'in figures',cs:'pomocí čísel',cat:'Terminologie'},
   {en:'EPIRB and PLB',cs:'EPIRB a PLB rádiové bóje',cat:'Terminologie'},
   {en:'AIS (Automatic Identification System)',cs:'automatický identifikační systém',cat:'Terminologie'},
   {en:'distress call',cs:'tísňová zpráva',cat:'Terminologie'},
@@ -1732,23 +1724,22 @@ const vocabData = [
   {en:'MMSI (Maritime Mobile Service Identity)',cs:'mezinárodní námořní identifikační číslo',cat:'Terminologie'},
   {en:'storm warning',cs:'varování před bouřkou',cat:'Terminologie'},
   {en:'heaving up anchor',cs:'vytažení kotvy',cat:'Terminologie'},
-  {en:'GMDSS, Global Maritime Distress and Safety System',cs:'globální námořní tísňový a bezpečnostní systém',cat:'Terminologie'},
+  {en:'GMDSS',cs:'globální námořní tísňový a bezpečnostní systém',cat:'Terminologie'},
   {en:'mast',cs:'stěžeň',cat:'Terminologie'},
   {en:'ETD (estimated time of departure)',cs:'předpokládaný čas odplutí',cat:'Terminologie'},
   {en:'medical advice',cs:'lékařská rada',cat:'Terminologie'},
   {en:'radio medical service',cs:'rádiová lékařská služba',cat:'Terminologie'},
   {en:'number of people on board',cs:'počet lidí na palubě',cat:'Terminologie'},
-  {en:'AAIC CS01',cs:'kód mezinárodní odúčtovny telekomunikačních poplatků pro ČR',cat:'Terminologie'},
   {en:'continuous channel 70 (DSC) monitoring',cs:'nepřetržité sledování kanálu 70 (DSC)',cat:'Terminologie'},
-  {en:'traffic list',cs:'seznam lodních stanic (pro které má pobřežní stanice zprávy)',cat:'Terminologie'},
+  {en:'traffic list',cs:'seznam lodních stanic pro pobřežní zprávy',cat:'Terminologie'},
   {en:'pilot ladder',cs:'lodní žebřík pro nalodění lodivoda',cat:'Terminologie'},
   {en:'coast station',cs:'pobřežní stanice',cat:'Terminologie'},
   {en:'dangerous wreck',cs:'nebezpečný vrak',cat:'Terminologie'},
-  {en:'search and rescue work',cs:'záchranné a vyhledávací práce',cat:'Terminologie'},
   {en:'search and rescue',cs:'vyhledávání a záchrana',cat:'Terminologie'},
   {en:'distress calling',cs:'radiotelefonní tísňové volání',cat:'Terminologie'},
   {en:'working channel',cs:'pracovní kanál',cat:'Terminologie'},
-  {en:'duplex operation/traffic',cs:'duplexní provoz',cat:'Terminologie'},
+  {en:'duplex operation',cs:'duplexní provoz',cat:'Terminologie'},
+  {en:'simplex operation',cs:'simplexní provoz',cat:'Terminologie'},
   {en:'pilot station',cs:'stanice/stanoviště lodivoda',cat:'Terminologie'},
   {en:'maritime mobile station',cs:'lodní stanice v námořní pohyblivé službě',cat:'Terminologie'},
   {en:'reduce speed',cs:'snižte rychlost',cat:'Terminologie'},
@@ -1757,7 +1748,6 @@ const vocabData = [
   {en:'position of the ship',cs:'poloha lodě',cat:'Terminologie'},
   {en:'VHF DSC (Digital Selective Calling)',cs:'digitální DSC volání na velmi krátkých vlnách',cat:'Terminologie'},
   {en:'call sign',cs:'volací znak/značka',cat:'Terminologie'},
-  {en:'simplex operation/traffic',cs:'simplexní provoz',cat:'Terminologie'},
   {en:'atmospheric pressure',cs:'atmosférický tlak',cat:'Terminologie'},
   {en:'way point',cs:'navigační bod',cat:'Terminologie'},
   {en:'reduced visibility',cs:'snížená viditelnost',cat:'Terminologie'},
@@ -1768,13 +1758,12 @@ const vocabData = [
   {en:'weather forecast',cs:'předpověď počasí',cat:'Terminologie'},
   {en:'man overboard',cs:'muž (osoba) přes palubu',cat:'Terminologie'},
   {en:'pass the lighthouse',cs:'minout maják',cat:'Terminologie'},
-  {en:'going eastern',cs:'jít/plout na východ',cat:'Terminologie'},
   {en:'approaching the harbor',cs:'přibližovat se k přístavu',cat:'Terminologie'},
   {en:'on-board radiocommunication station',cs:'palubní radiokomunikační stanice',cat:'Terminologie'},
   {en:'water depth',cs:'hloubka vody',cat:'Terminologie'},
   {en:'false distress call',cs:'falešné / omylem vyslané tísňové volání',cat:'Terminologie'},
   {en:'navigational warning',cs:'plavební varování',cat:'Terminologie'},
-  {en:'(signal) interference',cs:'rušení (signálu)',cat:'Terminologie'},
+  {en:'signal interference',cs:'rušení (signálu)',cat:'Terminologie'},
   {en:'dangerous cargo',cs:'nebezpečný náklad',cat:'Terminologie'},
   {en:'burning ship',cs:'hořící loď',cat:'Terminologie'},
   {en:'knot',cs:'uzel',cat:'Terminologie'},
@@ -1801,26 +1790,13 @@ function renderVocab() {
   const filtered = vocabData.filter(v => {
     const matchCat = vocabFilter === 'all' || v.cat === vocabFilter;
     const q = vocabSearch.toLowerCase();
-    const matchSearch = !q || v.en.toLowerCase().includes(q) || v.cs.toLowerCase().includes(q);
-    return matchCat && matchSearch;
+    return matchCat && (!q || v.en.toLowerCase().includes(q) || v.cs.toLowerCase().includes(q));
   });
-
-  document.getElementById('vocabContent').innerHTML = `
-    <input class="vocab-search" type="text" placeholder="🔍 Hledat výraz..." oninput="vocabSearch=this.value;renderVocab()" value="${vocabSearch}">
-    <div class="vocab-categories">
-      ${cats.map(c => `<button class="vocab-cat-btn ${vocabFilter===c?'active':''}" onclick="vocabFilter='${c}';renderVocab()">${c==='all'?'Vše':c}</button>`).join('')}
-    </div>
-    <div class="vocab-count">${filtered.length} výrazů</div>
-    <div class="vocab-grid">
-      ${filtered.map(v => `
-        <div class="vocab-card">
-          <div class="vocab-en">${v.en}</div>
-          <div class="vocab-cs">${v.cs}</div>
-          <div class="vocab-cat-label">${v.cat}</div>
-        </div>
-      `).join('')}
-    </div>
-  `;
+  document.getElementById('vocabContent').innerHTML =
+    '<input class="vocab-search" type="text" placeholder="Hledat výraz..." oninput="vocabSearch=this.value;renderVocab()" value="' + vocabSearch + '">' +
+    '<div class="vocab-categories">' + cats.map(c => '<button class="vocab-cat-btn ' + (vocabFilter===c?'active':'') + '" onclick="vocabFilter='' + c + '';renderVocab()">' + (c==='all'?'Vše':c) + '</button>').join('') + '</div>' +
+    '<div class="vocab-count">' + filtered.length + ' výrazů</div>' +
+    '<div class="vocab-grid">' + filtered.map(v => '<div class="vocab-card"><div class="vocab-en">' + v.en + '</div><div class="vocab-cs">' + v.cs + '</div><div class="vocab-cat-label">' + v.cat + '</div></div>').join('') + '</div>';
 }
 
 </script>
