@@ -669,6 +669,26 @@ body {
 }
 .clickable-word:hover .word-tip { display: block; }
 .clickable-word.no-tip { border-bottom: none; }
+
+/* Dark mode */
+body.dark{background:#0f0f1a;color:#e0e0e0;}
+.dark .card,.dark .theory-card,.dark #tContainer>div,.dark .exam-lobby,.dark .exam-results{background:#1e1e30;box-shadow:0 2px 8px rgba(0,0,0,.4);}
+.dark .tab{background:#1e1e30;color:#aaa;}
+.dark .tab.active{background:#4f8ef7;color:#fff;}
+.dark .opt{background:#1e1e30;border-color:#3a3a50;color:#e0e0e0;}
+.dark .opt:hover{background:#2a2a3e;}
+.dark .cats .cat-btn{background:#1e1e30;color:#aaa;}
+.dark .cats .cat-btn.active{background:#4f8ef7;color:#fff;}
+.dark input,.dark textarea{background:#1e1e30;border-color:#3a3a50;color:#e0e0e0;}
+.dark .progress-track,.dark .prog-track{background:#2a2a3e;}
+/* Dark toggle */
+.dark-toggle{position:fixed;top:14px;right:16px;background:none;border:none;font-size:1.3rem;cursor:pointer;z-index:999;opacity:.7;}
+.dark-toggle:hover{opacity:1;}
+/* Bookmarks */
+.star-btn{position:absolute;top:10px;right:10px;background:none;border:none;font-size:1.2rem;cursor:pointer;opacity:.5;transition:opacity .2s;}
+.star-btn:hover,.star-btn.starred{opacity:1;}
+.card{position:relative;}
+/* Vocab */
 .theory-subnav{display:flex;gap:8px;margin-bottom:18px;}
 .theory-tab{padding:8px 18px;border:none;border-radius:20px;cursor:pointer;font-size:.85rem;font-weight:500;background:#f0f0f0;color:#555;transition:all .2s;}
 .theory-tab.active{background:#4f8ef7;color:#fff;}
@@ -679,7 +699,7 @@ body {
 .vocab-categories{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
 .vocab-cat-btn{padding:5px 12px;border:1.5px solid #4f8ef7;border-radius:14px;background:none;color:#4f8ef7;font-size:.8rem;cursor:pointer;transition:all .2s;}
 .vocab-cat-btn.active{background:#4f8ef7;color:#fff;}
-.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
 .vocab-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:3px solid #4f8ef7;}
 .dark .vocab-card{background:#1e1e30;}
 .vocab-en{font-weight:600;font-size:.95rem;color:#222;}
@@ -691,6 +711,7 @@ body {
 </style>
 </head>
 <body>
+<button class="dark-toggle" onclick="toggleDark()" id="darkBtn">🌙</button>
 <div class="app">
 
   <div class="header">
@@ -712,6 +733,7 @@ body {
       <button class="cat-btn" onclick="setCategory('predpisy',this)">a) Předpisy</button>
       <button class="cat-btn" onclick="setCategory('provoz',this)">b) Provoz</button>
       <button class="cat-btn" onclick="setCategory('elektro',this)">c) Elektrotechnika</button>
+      <button class="cat-btn" onclick="setCategory('bookmarks',this)">⭐ Záložky</button>
     </div>
 
     <div class="mode-row">
@@ -1635,6 +1657,42 @@ function examReset(){
 init();
 tInit();
 
+// === DARK MODE ===
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('dark', document.body.classList.contains('dark'));
+  document.getElementById('darkBtn').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
+(function(){
+  if (localStorage.getItem('dark') === 'true') {
+    document.body.classList.add('dark');
+    document.addEventListener('DOMContentLoaded', () => {
+      const b = document.getElementById('darkBtn');
+      if (b) b.textContent = '☀️';
+    });
+  }
+})();
+
+// === BOOKMARKS ===
+let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+function saveBookmarks() { localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); }
+function toggleBookmark(idx) {
+  const i = bookmarks.indexOf(idx);
+  if (i === -1) bookmarks.push(idx); else bookmarks.splice(i, 1);
+  saveBookmarks();
+  renderQuestion();
+}
+
+// === HISTORY ===
+let examHistory = JSON.parse(localStorage.getItem('examHistory') || '[]');
+function saveHistory(result) {
+  examHistory.push(result);
+  if (examHistory.length > 20) examHistory = examHistory.slice(-20);
+  localStorage.setItem('examHistory', JSON.stringify(examHistory));
+}
+
+// === VOCAB ===
+let vocabFilter = 'all', vocabSearch = '';
 const vocabData = [
   {en:'all after...',cs:'vše za...',cat:'Fráze'},
   {en:'...and stand by',cs:'... a čekejte',cat:'Fráze'},
@@ -1688,16 +1746,14 @@ const vocabData = [
   {en:'misuse of distress signal',cs:'zneužití tísňového signálu',cat:'Terminologie'},
   {en:'calling a coast station',cs:'volání pobřežní stanice',cat:'Terminologie'},
   {en:'traffic',cs:'provoz',cat:'Terminologie'},
-  {en:'ETA (Estimated Time of Arrival)',cs:'předpokládaný čas dopluTí',cat:'Terminologie'},
+  {en:'ETA (Estimated Time of Arrival)',cs:'předpokládaný čas doplutí',cat:'Terminologie'},
   {en:'IMO (International Maritime Organisation)',cs:'Mezinárodní námořní organizace',cat:'Terminologie'},
   {en:'VHF Channels',cs:'kanály velmi krátkých vln',cat:'Terminologie'},
   {en:'radio log',cs:'zápis rádiové komunikace',cat:'Terminologie'},
-  {en:'read back',cs:'čtu (čti) zpět',cat:'Terminologie'},
   {en:'WAIT and STANDBY',cs:'čekej a zůstaň na příjmu',cat:'Terminologie'},
   {en:'marina',cs:'marina (jachtařský přístav)',cat:'Terminologie'},
   {en:'INMARSAT',cs:'Inmarsat satelitní síť',cat:'Terminologie'},
   {en:'HF',cs:'vysoké frekvence',cat:'Terminologie'},
-  {en:'Areas 1, 2, 3 a 4',cs:'Oblast 1, 2, 3 a 4',cat:'Terminologie'},
   {en:'radio logbook',cs:'staničíní deník',cat:'Terminologie'},
   {en:'READ BACK ALL AFTER...',cs:'zopakovat vše po...',cat:'Terminologie'},
   {en:'REPEAT and SAY AGAIN',cs:'Zopakovat (žádost) a Říkám znovu (návěstí)',cat:'Terminologie'},
@@ -1774,9 +1830,6 @@ const vocabData = [
   {en:'board, deck',cs:'paluba',cat:'Terminologie'},
 ];
 
-let vocabFilter = 'all';
-let vocabSearch = '';
-
 function showTheoryTab(tab, btn) {
   document.querySelectorAll('.theory-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -1799,6 +1852,11 @@ function renderVocab() {
     '<div class="vocab-grid">' + filtered.map(v => '<div class="vocab-card"><div class="vocab-en">' + v.en + '</div><div class="vocab-cs">' + v.cs + '</div><div class="vocab-cat-label">' + v.cat + '</div></div>').join('') + '</div>';
 }
 
+// === SW registration ===
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); });
+}
+
 </script>
-<script>if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js');})}</script></body>
+</body>
 </html>
